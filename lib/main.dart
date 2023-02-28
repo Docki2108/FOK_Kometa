@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {
   runApp(const MyApp());
-  MaterialApp(debugShowCheckedModeBanner: false);
+  const MaterialApp(debugShowCheckedModeBanner: false);
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: const login_page(),
+      // initialRoute: "/",
+      // routes: {
+      //   "/login_page": (final context) => const login_page(),
+      //   //"/second": (final context) => const MainScreen3(),
+      // },
     );
   }
 }

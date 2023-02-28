@@ -1,19 +1,58 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage1 extends StatelessWidget {
-  const LoginPage1({super.key});
+import '../constant.dart';
+
+class login_page extends StatelessWidget {
+  const login_page({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //themeMode: ThemeMode.system,
       theme: FlexThemeData.light(
-        // scheme: FlexScheme.shark,
-        background: Colors.amberAccent,
+        colors: const FlexSchemeColor(
+          primary: Color(0xff004881),
+          primaryContainer: Color(0xffd0e4ff),
+          secondary: Color(0xffac3306),
+          secondaryContainer: Color(0xffffdbcf),
+          tertiary: Color(0xff006875),
+          tertiaryContainer: Color(0xff95f0ff),
+          appBarColor: Color(0xffffdbcf),
+          error: Color(0xffb00020),
+        ),
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 9,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 10,
+          blendOnColors: false,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
+        swapLegacyOnMaterial3: true,
+        fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.shark),
+      darkTheme: FlexThemeData.dark(
+        colors: const FlexSchemeColor(
+          primary: Color(0xff9fc9ff),
+          primaryContainer: Color(0xff00325b),
+          secondary: Color(0xffffb59d),
+          secondaryContainer: Color(0xff872100),
+          tertiary: Color(0xff86d2e1),
+          tertiaryContainer: Color(0xff004e59),
+          appBarColor: Color(0xff872100),
+          error: Color(0xffcf6679),
+        ),
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 15,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 20,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        useMaterial3: true,
+        swapLegacyOnMaterial3: true,
+        fontFamily: GoogleFonts.notoSans().fontFamily,
+      ),
       home: const LoginPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -67,9 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: const EdgeInsets.all(20.0),
                   padding: const EdgeInsets.all(5.0),
-                  // decoration: BoxDecoration(
-                  //   border: Border.all(color: Colors.black),
-                  // ),
+                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -87,28 +124,54 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 25),
                       Container(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-                        child: TextField(
-                          controller: loginController,
-                          onEditingComplete: () => passwordNode.nextFocus(),
-                          focusNode: loginNode,
+                        alignment: Alignment.centerLeft,
+                        height: 60,
+                        child: TextFormField(
                           decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Логин',
+                            border: InputBorder.none,
+                            prefixIcon: Icon(Icons.account_circle_outlined,
+                                color: Colors.black),
+                            hintText: 'Логин',
                           ),
                         ),
                       ),
+                      // Container(
+                      //   padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
+                      //   child: TextField(
+                      //     controller: loginController,
+                      //     onEditingComplete: () => passwordNode.nextFocus(),
+                      //     focusNode: loginNode,
+                      //     decoration: const InputDecoration(
+                      //       border: OutlineInputBorder(),
+                      //       labelText: 'Логин',
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(height: 10),
+                      // Container(
+                      //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                      //   child: TextField(
+                      //     controller: passwordController,
+                      //     onEditingComplete: () => btn_contNode.nextFocus(),
+                      //     focusNode: passwordNode,
+                      //     obscureText: true,
+                      //     decoration: const InputDecoration(
+                      //       border: OutlineInputBorder(),
+                      //       hintText: 'Введите пароль',
+                      //       labelText: 'Парddоль',
+                      //     ),
+                      //   ),
+                      // ),
                       Container(
-                        padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                        child: TextField(
-                          controller: passwordController,
-                          onEditingComplete: () => btn_contNode.nextFocus(),
-                          focusNode: passwordNode,
+                        alignment: Alignment.centerLeft,
+                        height: 60,
+                        child: TextFormField(
                           obscureText: true,
                           decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Пароль',
+                            border: InputBorder.none,
+                            prefixIcon:
+                                Icon(Icons.lock_outline, color: Colors.black),
+                            hintText: 'Пароль',
                           ),
                         ),
                       ),
@@ -117,16 +180,22 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                ButtonTheme(
-                  minWidth: 200.0,
-                  height: 100.0,
-                  shape: const CircleBorder(),
-                  child: OutlinedButton(
-                    focusNode: btn_contNode,
-                    onPressed: () {},
-                    style: const ButtonStyle(),
-                    child: const Text('Войти'),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: ButtonTheme(
+                        shape: const CircleBorder(),
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          focusNode: btn_contNode,
+                          style: const ButtonStyle(),
+                          child: const Text('Войти'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 50),
                 Padding(
@@ -175,8 +244,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(width: 4),
-                    TextButton(
-                      onPressed: () {},
+                    GestureDetector(
+                      onTap: () {},
                       child: const Text('Зарегистрироваться'),
                     ),
                   ],
@@ -189,17 +258,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-// Padding(
-//   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-//   child: Row(
-//     mainAxisAlignment: MainAxisAlignment.end,
-//     children: [
-//       TextButton(
-//         child: const Text('Забыл пароль'),
-//         onPressed: () {},
-//       ),
-//     ],
-//   ),
-// ),
