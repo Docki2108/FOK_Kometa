@@ -20,8 +20,10 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flex_color_scheme: ^6.1.2
-  persistent_bottom_nav_bar: ^5.0.2
+  persistent_bottom_nav_bar: any
   google_fonts: ^4.0.3
+  go_router: ^6.2.0
+  flex_seed_scheme: ^1.2.2
 
 dev_dependencies:
 

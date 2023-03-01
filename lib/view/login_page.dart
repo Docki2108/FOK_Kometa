@@ -1,10 +1,13 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constant.dart';
 
 class login_page extends StatelessWidget {
+  /// Constructs a [login_page]
   const login_page({super.key});
 
   @override
@@ -53,6 +56,11 @@ class login_page extends StatelessWidget {
         swapLegacyOnMaterial3: true,
         fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
+      // theme: ThemeData(
+      //   brightness: Brightness.light,
+      //   colorSchemeSeed: Colors.blue,
+      //   useMaterial3: true,
+      // ),
       home: const LoginPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -106,7 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: const EdgeInsets.all(20.0),
                   padding: const EdgeInsets.all(5.0),
-                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -118,59 +125,34 @@ class _LoginPageState extends State<LoginPage> {
                       const Text(
                         'ФОК Комета',
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: 36,
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      const SizedBox(height: 70),
                       Container(
                         alignment: Alignment.centerLeft,
                         height: 60,
                         child: TextFormField(
                           decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Icon(Icons.account_circle_outlined,
-                                color: Colors.black),
+                            // border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.account_circle_outlined,
+                            ),
                             hintText: 'Логин',
                           ),
                         ),
                       ),
-                      // Container(
-                      //   padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-                      //   child: TextField(
-                      //     controller: loginController,
-                      //     onEditingComplete: () => passwordNode.nextFocus(),
-                      //     focusNode: loginNode,
-                      //     decoration: const InputDecoration(
-                      //       border: OutlineInputBorder(),
-                      //       labelText: 'Логин',
-                      //     ),
-                      //   ),
-                      // ),
                       const SizedBox(height: 10),
-                      // Container(
-                      //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                      //   child: TextField(
-                      //     controller: passwordController,
-                      //     onEditingComplete: () => btn_contNode.nextFocus(),
-                      //     focusNode: passwordNode,
-                      //     obscureText: true,
-                      //     decoration: const InputDecoration(
-                      //       border: OutlineInputBorder(),
-                      //       hintText: 'Введите пароль',
-                      //       labelText: 'Парddоль',
-                      //     ),
-                      //   ),
-                      // ),
                       Container(
                         alignment: Alignment.centerLeft,
                         height: 60,
                         child: TextFormField(
                           obscureText: true,
                           decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon:
-                                Icon(Icons.lock_outline, color: Colors.black),
+                            //border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                            ),
                             hintText: 'Пароль',
                           ),
                         ),
@@ -187,8 +169,11 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: ButtonTheme(
                         shape: const CircleBorder(),
-                        child: OutlinedButton(
-                          onPressed: () {},
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamed("/menu_page");
+                          },
                           focusNode: btn_contNode,
                           style: const ButtonStyle(),
                           child: const Text('Войти'),
@@ -198,34 +183,34 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Или войдите с',
-                          style: TextStyle(
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         child: Divider(
+                //           thickness: 0.5,
+                //           color: Colors.grey[400],
+                //         ),
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                //         child: Text(
+                //           'Или войдите с',
+                //           style: TextStyle(
+                //             color: Colors.grey[700],
+                //           ),
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: Divider(
+                //           thickness: 0.5,
+                //           color: Colors.grey[400],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

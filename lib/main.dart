@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/login_page.dart';
+import 'package:fok_kometa/view/menu_page.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
-  runApp(const MyApp());
-  const MaterialApp(debugShowCheckedModeBanner: false);
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
+  runApp(
+    MaterialApp(
+      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
-      home: const login_page(),
-      // initialRoute: "/",
-      // routes: {
-      //   "/login_page": (final context) => const login_page(),
-      //   //"/second": (final context) => const MainScreen3(),
-      // },
-    );
-  }
+      initialRoute: '/login_page',
+      routes: {
+        '/login_page': (BuildContext context) => const login_page(),
+        '/menu_page': (BuildContext context) => const menu_page()
+      },
+    ),
+  );
 }
