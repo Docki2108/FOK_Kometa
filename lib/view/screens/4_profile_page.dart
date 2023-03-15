@@ -1,10 +1,12 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class four_page extends StatelessWidget {
-  const four_page({Key? key}) : super(key: key);
-
+  const four_page({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -57,7 +59,8 @@ class four_page extends StatelessWidget {
 }
 
 class FourPage extends StatefulWidget {
-  const FourPage({Key? key}) : super(key: key);
+  const FourPage({Key? key, this.parentNavigatorContext}) : super(key: key);
+  final BuildContext? parentNavigatorContext;
 
   @override
   State<FourPage> createState() => _FourPageState();
@@ -73,10 +76,10 @@ class _FourPageState extends State<FourPage> {
           child: Text('Профиль'),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(
+      body: Column(
+        children: [
+          Flexible(
+            child: Container(
               decoration: BoxDecoration(color: Colors.blueGrey.shade100),
               child: Column(
                 children: [
@@ -102,29 +105,89 @@ class _FourPageState extends State<FourPage> {
                 ],
               ),
             ),
-            Container(height: 20),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.settings),
-              label: Text('Настройки'),
-              style: ButtonStyle(),
+          ),
+          Flexible(
+            child: Container(
+              decoration: BoxDecoration(color: Colors.blueGrey.shade500),
+              child: Column(
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushNamedAndRemoveUntil("/login_page", (t) => false);
+                    },
+                    child: Text('Назад'),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushNamedAndRemoveUntil("/login_page", (t) => false);
+                    },
+                    child: Text('Выйти'),
+                  ),
+                ],
+              ),
             ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.three_p_outlined),
-              label: Text('хихихи'),
-              style: ButtonStyle(),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Navigator.pop(context, '/login_page');
-              },
-              icon: Icon(Icons.exit_to_app_sharp),
-              label: Text('Выход'),
-              style: ButtonStyle(),
-            )
-          ],
-        ),
+          ),
+
+          // InkWell(
+          //   onTap: () {},
+          //   child: Ink(
+          //     height: 70,
+          //     color: Colors.blue.shade400,
+          //     child: Row(
+          //       children: const [Icon(Icons.settings), Text('Настройки')],
+          //     ),
+          //   ),
+          // ),
+          // const Divider(
+          //   thickness: 1,
+          //   height: 1,
+          //   color: Colors.black,
+          // ),
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.of(context, rootNavigator: true)
+          //         .pushNamedAndRemoveUntil("/login_page", (t) => false);
+          //   },
+          //   child: Ink(
+          //     height: 70,
+          //     color: Colors.blue.shade400,
+          //     child: Row(
+          //       children: const [
+          //         Icon(Icons.exit_to_app_sharp),
+          //         Text('Выход')
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // const Divider(
+          //   thickness: 1,
+          //   height: 1,
+          //   color: Colors.black,
+          // ),
+          // ElevatedButton.icon(
+          //   onPressed: () {},
+          //   icon: Icon(Icons.settings),
+          //   label: Text('Настройки'),
+          //   style: ButtonStyle(),
+          // ),
+          // ElevatedButton.icon(
+          //   onPressed: () {},
+          //   icon: Icon(Icons.three_p_outlined),
+          //   label: Text('хихихи'),
+          //   style: ButtonStyle(),
+          // ),
+          // ElevatedButton.icon(
+          //   onPressed: () {
+          //     Navigator.of(context, rootNavigator: true)
+          //         .pushNamed("/login_page");
+          //   },
+          //   icon: Icon(Icons.exit_to_app_sharp),
+          //   label: Text('Выход'),
+          //   style: ButtonStyle(),
+          // ),
+        ],
       ),
     );
   }

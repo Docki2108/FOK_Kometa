@@ -74,7 +74,23 @@ class _FirstPageState extends State<FirstPage> {
       ),
       body: Center(
         child: Column(
-          children: [Text('1')],
+          children: [
+            Container(
+              decoration: const BoxDecoration(color: Colors.blueGrey),
+              child: Row(
+                children: const [
+                  Text(
+                    'loop',
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(),
+          ],
         ),
       ),
     );
