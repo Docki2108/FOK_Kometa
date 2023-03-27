@@ -30,6 +30,7 @@ dependencies:
   timeago: ^3.4.0
   supabase_flutter: ^1.5.0
   supabase: ^1.6.0
+  smooth_page_indicator: ^1.0.1
 
 dev_dependencies:
 
@@ -49,9 +50,10 @@ flutter:
 
   
   assets:
-    - lib/theme/images/noisable-gradient-1.jpg
-    - lib/theme/images/noisable-gradient-1-maxsize.jpg
-    - lib/theme/images/noisable-gradient-1-small.jpg
+    - lib/theme/images/background/noisable-gradient-1.jpg
+    - lib/theme/images/background/noisable-gradient-1-maxsize.jpg
+    - lib/theme/images/background/noisable-gradient-1-small.jpg
+    - lib\theme/images/background/icons-pic/dumbbell.png
 
  
   # fonts:

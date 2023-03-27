@@ -14,12 +14,11 @@ class splash_screen_page extends StatefulWidget {
 }
 
 class _splash_screen_pageState extends State<splash_screen_page> {
-  // @override
+// @override
   // void initState() {
   //   super.initState();
   //   _navigatetohome();
   // }
-
   // _navigatetohome() async {
   //   await Future.delayed(Duration(milliseconds: 1500), () {});
   //   Navigator.of(context, rootNavigator: true).pushNamed("/login_page");
@@ -34,16 +33,29 @@ class _splash_screen_pageState extends State<splash_screen_page> {
       showSemanticsDebugger: false,
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        animationDuration: const Duration(milliseconds: 1000),
-        duration: 3000,
-        splash: const Text(
-          'ФОК',
-          style: TextStyle(fontSize: 48),
-        ),
-        nextScreen: const LoginPage(),
-        splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: const Color.fromARGB(255, 223, 235, 245),
-      ),
+          animationDuration: const Duration(milliseconds: 1000),
+          duration: 3000,
+          splash: Column(
+            children: [
+              // const Text(
+              //   'ФОК',
+              //   style: TextStyle(fontSize: 48),
+              // ),
+              Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                          "lib/theme/images/background/icons-pic/dumbbell.png"),
+                      fit: BoxFit.fill),
+                ),
+              ),
+            ],
+          ),
+          nextScreen: const LoginPage(),
+          splashTransition: SplashTransition.fadeTransition,
+          backgroundColor: const Color.fromRGBO(226, 234, 240, 1)),
     );
   }
 }

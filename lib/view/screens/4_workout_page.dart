@@ -1,10 +1,10 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:glass_kit/glass_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
-class second_page extends StatelessWidget {
-  const second_page({Key? key}) : super(key: key);
+class workout_page extends StatelessWidget {
+  const workout_page({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,47 +52,31 @@ class second_page extends StatelessWidget {
         swapLegacyOnMaterial3: true,
         fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
-      home: const SecondPage(),
+      home: const WorkoutPage(),
     );
   }
 }
 
-class SecondPage extends StatefulWidget {
-  const SecondPage({Key? key}) : super(key: key);
+class WorkoutPage extends StatefulWidget {
+  const WorkoutPage({Key? key}) : super(key: key);
 
   @override
-  State<SecondPage> createState() => _SecondPageState();
+  State<WorkoutPage> createState() => _WorkoutPageState();
 }
 
-class _SecondPageState extends State<SecondPage> {
-  String textdate = '';
-
-  @override
-  void initState() {
-    textdate = DateFormat('d.M.y').format(todaydate);
-    super.initState();
-  }
-
-  var todaydate = DateTime.now();
-  var tomorrowdate = DateTime.now().add(new Duration(days: 1));
-  var aftertomorrowdate = DateTime.now().add(new Duration(days: 2));
-
+class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Column(
-            children: [
-              const Text('Расписание'),
-              Text(textdate),
-            ],
-          ),
+        elevation: 3,
+        title: const Center(
+          child: Text('Тренировки'),
         ),
       ),
       body: Center(
         child: Column(
-          children: [Text('2')],
+          children: [],
         ),
       ),
     );
