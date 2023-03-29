@@ -29,9 +29,9 @@ class AuthService {
       _subscribeToUserScheme(response.user!);
 
       var userMail = response.user!;
-      log("Sign successful: $userMail");
+      log("Регистрация прошла успешно: $userMail");
     } else {
-      log("Sign error!");
+      log("Ошибка регистрации!");
     }
   }
 
@@ -45,14 +45,14 @@ class AuthService {
         _subscribeToUserScheme(response.user!);
 
         var userMail = response.user!;
-        log("Sign successful: $userMail");
+        log("Авторизация прошла успешно: $userMail");
       } else {
-        log("Sign error!");
+        log("Ошибка авторизации!");
       }
 
       return response.user!;
     } catch (e) {
-      return "Ошипка";
+      return "Ошибка авторизации";
     }
   }
 }

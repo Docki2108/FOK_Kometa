@@ -31,6 +31,10 @@ dependencies:
   supabase_flutter: ^1.5.0
   supabase: ^1.6.0
   smooth_page_indicator: ^1.0.1
+  switcher_button: ^0.0.4
+  flutter_native_splash: ^2.2.19
+  shared_preferences: ^2.0.20
+  provider: ^6.0.5
 
 dev_dependencies:
 
@@ -53,7 +57,8 @@ flutter:
     - lib/theme/images/background/noisable-gradient-1.jpg
     - lib/theme/images/background/noisable-gradient-1-maxsize.jpg
     - lib/theme/images/background/noisable-gradient-1-small.jpg
-    - lib\theme/images/background/icons-pic/dumbbell.png
+    - lib/theme/images/background/icons-pic/dumbbell.png
+    - lib/theme/images/background/layered-waves-haikei.png
 
  
   # fonts:

@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../constant.dart';
+
 class schedule_page extends StatelessWidget {
   const schedule_page({Key? key}) : super(key: key);
 
@@ -83,24 +85,39 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
+        actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            tooltip: 'Open shopping cart',
+            icon: const Icon(Icons.info_outline),
+            tooltip: 'Информация',
             onPressed: () {
-              // handle the press
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Описание групповых занятий'),
+                  content: SingleChildScrollView(
+                    child: const Text(
+                      DESCRIPTION_OF_GROUP_TRAINING,
+                    ),
+                  ),
+                  actions: <Widget>[
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      child: const Text(
+                        'Ок',
+                      ),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],
         elevation: 3,
-        title: Center(
-          child: Column(
-            children: [
-              Text('Расписание на ' + textdate),
-              //Text(textdate),
-            ],
-          ),
-        ),
+        centerTitle: true,
+        title: Text('Расписание на ' + textdate),
+        //Text(textdate),
       ),
       body: Center(
         child: Column(

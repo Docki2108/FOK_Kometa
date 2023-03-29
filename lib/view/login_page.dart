@@ -1,10 +1,12 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/service/auth.service.dart';
+import 'package:fok_kometa/theme/theme.dart';
 import 'package:fok_kometa/view/menu_page.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../constant.dart';
@@ -15,95 +17,17 @@ class login_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // theme: FlexThemeData.light(
-      //   colors: const FlexSchemeColor(
-      //     primary: Color(0xff004881),
-      //     primaryContainer: Color(0xffd0e4ff),
-      //     secondary: Color(0xffac3306),
-      //     secondaryContainer: Color(0xffffdbcf),
-      //     tertiary: Color(0xff006875),
-      //     tertiaryContainer: Color(0xff95f0ff),
-      //     appBarColor: Color(0xffffdbcf),
-      //     error: Color(0xffb00020),
-      //   ),
-      //   surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-      //   blendLevel: 9,
-      //   subThemesData: const FlexSubThemesData(
-      //     blendOnLevel: 10,
-      //     blendOnColors: false,
-      //   ),
-      //   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-      //   useMaterial3: true,
-      //   swapLegacyOnMaterial3: true,
-      //   fontFamily: GoogleFonts.notoSans().fontFamily,
-      // ),
-      // darkTheme: FlexThemeData.dark(
-      //   colors: const FlexSchemeColor(
-      //     primary: Color(0xff9fc9ff),
-      //     primaryContainer: Color(0xff00325b ),
-      //     secondary: Color(0xffffb59d),
-      //     secondaryContainer: Color(0xff872100),
-      //     tertiary: Color(0xff86d2e1),
-      //     tertiaryContainer: Color(0xff004e59),
-      //     appBarColor: Color(0xff872100),
-      //     error: Color(0xffcf6679),
-      //   ),
-      //   surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-      //   blendLevel: 15,
-      //   subThemesData: const FlexSubThemesData(
-      //     blendOnLevel: 20,
-      //   ),
-      //   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-      //   useMaterial3: true,
-      //   swapLegacyOnMaterial3: true,
-      //   fontFamily: GoogleFonts.notoSans().fontFamily,
-      // ),
-      theme: FlexThemeData.light(
-        colors: const FlexSchemeColor(
-          primary: Color(0xff004881),
-          primaryContainer: Color(0xffd0e4ff),
-          secondary: Color(0xffac3306),
-          secondaryContainer: Color(0xffffdbcf),
-          tertiary: Color(0xff006875),
-          tertiaryContainer: Color(0xff95f0ff),
-          appBarColor: Color(0xffffdbcf),
-          error: Color(0xffb00020),
-        ),
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 9,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 10,
-          blendOnColors: false,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
-        fontFamily: GoogleFonts.notoSans().fontFamily,
+    return ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(),
+      child: Consumer<ThemeNotifier>(
+        builder: (context, ThemeNotifier notifier, child) {
+          return MaterialApp(
+            theme: notifier.darkTheme ? dark : light,
+            home: const LoginPage(),
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
-      darkTheme: FlexThemeData.dark(
-        colors: const FlexSchemeColor(
-          primary: Color(0xff9fc9ff),
-          primaryContainer: Color(0xff00325b),
-          secondary: Color(0xffffb59d),
-          secondaryContainer: Color(0xff872100),
-          tertiary: Color(0xff86d2e1),
-          tertiaryContainer: Color(0xff004e59),
-          appBarColor: Color(0xff872100),
-          error: Color(0xffcf6679),
-        ),
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 15,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 20,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
-        fontFamily: GoogleFonts.notoSans().fontFamily,
-      ),
-      home: const LoginPage(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -125,6 +49,8 @@ class _LoginPageState extends State<LoginPage> {
   final _loginformKey = GlobalKey<FormState>();
   final _passwordformKey = GlobalKey<FormState>();
   final _fokformKey = GlobalKey<FormState>();
+
+  bool light0 = true;
 
   @override
   void initState() {
@@ -153,15 +79,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromARGB(255, 166, 189, 208),
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                  "lib/theme/images/background/noisable-gradient-1-small.jpg"),
-              fit: BoxFit.fill),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //       image: AssetImage(
+        //           "lib/theme/images/background/noisable-gradient-1-small.jpg"),
+        //       fit: BoxFit.fill),
+        // ),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Center(
@@ -202,12 +127,14 @@ class _LoginPageState extends State<LoginPage> {
                             focusNode: loginNode,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8.0))),
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                              ),
                               filled: true,
-                              fillColor: Colors.white,
-                              focusColor: Colors.brown,
+                              // fillColor: Colors.white,
+                              // focusColor: Colors.brown,
                               prefixIcon: Icon(
                                 Icons.account_circle_outlined,
                               ),
@@ -229,11 +156,12 @@ class _LoginPageState extends State<LoginPage> {
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
+                                  Radius.circular(10.0),
                                 ),
                               ),
-                              //filled: true,
-                              // fillColor: Colors.white,
+                              filled: true,
+                              //fillColor: Colors.white,
+                              //focusColor: Colors.brown,
                               prefixIcon: Icon(
                                 Icons.lock_outline,
                               ),
@@ -241,11 +169,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -255,10 +181,11 @@ class _LoginPageState extends State<LoginPage> {
                           child: OutlinedButton(
                             onPressed: () {
                               Navigator.of(context, rootNavigator: true)
-                                  .pushNamed("/menu_page");
+                                  .pushNamedAndRemoveUntil(
+                                      "/menu_page", (_) => false);
                             },
                             focusNode: btn_contNode,
-                            child: const Text('пройти без авторизации'),
+                            child: const Text('Войти как гость'),
                           ),
                         ),
                       ),
@@ -267,10 +194,21 @@ class _LoginPageState extends State<LoginPage> {
                         child: ButtonTheme(
                           child: OutlinedButton(
                             onPressed: () {
-                              AuthService.signIn(
-                                email: loginController.text.trim(),
-                                password: passwordController.text.trim(),
-                              );
+                              if (passwordController.text.isEmpty ||
+                                  loginController.text.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => const AlertDialog(
+                                    content: Text('Заполните все поля!'),
+                                  ),
+                                );
+                              } else {
+                                // setState(() {});
+                                AuthService.signIn(
+                                  email: loginController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                );
+                              }
                             },
                             focusNode: btn_contNode,
                             child: const Text('Войти'),
@@ -280,38 +218,13 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  Text(
-                    'Впервые тут?',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(width: 4),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .pushNamed("/login_page/registration_page");
-                        },
-                        child: const Text('Зарегистрироваться'),
-                      ),
-                    ],
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushNamedAndRemoveUntil(
+                              "/login_page/registration_page", (_) => false);
+                    },
+                    child: const Text('Зарегистрироваться'),
                   )
                 ],
               ),
