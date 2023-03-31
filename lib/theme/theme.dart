@@ -45,6 +45,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //         swapLegacyOnMaterial3: true,
 //         fontFamily: GoogleFonts.notoSans().fontFamily,
 //       ),
+
 ThemeData light = ThemeData(
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: Colors.blueGrey,
@@ -54,7 +55,7 @@ ThemeData light = ThemeData(
     primaryColorDark: Colors.blueGrey,
   ),
   useMaterial3: true,
-  //brightness: Brightness.light,
+  brightness: Brightness.light,
   //primarySwatch: Colors.blueGrey,
   //accentColor: Colors.blueGrey,
   //scaffoldBackgroundColor: Color(0xfff1f1f1),
@@ -69,7 +70,7 @@ ThemeData dark = ThemeData(
     primaryColorDark: Colors.blueGrey,
   ),
   useMaterial3: true,
-  //brightness: Brightness.dark,
+  brightness: Brightness.dark,
   //primarySwatch: Colors.blueGrey,
   // accentColor: Colors.blueGrey,
   // scaffoldBackgroundColor: Color.fromARGB(255, 51, 51, 51),

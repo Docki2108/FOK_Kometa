@@ -68,7 +68,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     Supabase.instance.client.auth.onAuthStateChange.listen((event) {
       if (event.event == AuthChangeEvent.signedIn) {
-        Navigator.of(context).pushReplacementNamed(menu_page.route);
+        Navigator.of(context, rootNavigator: true)
+            .pushReplacementNamed(menu_page.route);
       }
     });
   }

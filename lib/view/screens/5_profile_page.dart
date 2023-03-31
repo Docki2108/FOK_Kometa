@@ -1,5 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/screens/screens_profile/options_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'screens_profile/feedback_page.dart';
 import 'screens_profile/personal_data_page.dart';
@@ -10,8 +13,8 @@ class profile_page extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const ProfilePage(),
+    return const MaterialApp(
+      home: ProfilePage(),
     );
   }
 }
@@ -25,6 +28,25 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late User supaUser;
+  Map? thisUser;
+  @override
+  initState() {
+    supaUser = Supabase.instance.client.auth.currentUser!;
+
+    Supabase.instance.client
+        .from("personal_data")
+        .select()
+        .eq("id_personal_data", supaUser.id)
+        .then((value) {
+      setState(() {
+        thisUser = value[0];
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,12 +77,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Имя',
+                        thisUser?['first_name'] ?? ' ',
                         style: TextStyle(fontSize: 16),
                       ),
                       Text(' '),
                       Text(
-                        'Фамилия',
+                        thisUser?['second_name'] ?? ' ',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
@@ -68,7 +90,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
-                      child: Text('почта@mail.ru'),
+                      child: Text(
+                        Supabase.instance.client.auth.currentUser!.email!,
+                      ),
                     ),
                   ),
                 ],
@@ -146,9 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           actions: <Widget>[
                             OutlinedButton(
                               onPressed: () async {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pushNamedAndRemoveUntil(
-                                        "/login_page", (t) => false);
+                                Supabase.instance.client.auth.signOut();
                               },
                               child: const Text(
                                 'ДА',
@@ -167,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Выйти',
                     ),
                   ),

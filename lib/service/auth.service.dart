@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:fok_kometa/supabase.credentials.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'supabase.credentials.dart';
 
 class AuthService {
   static void _subscribeToUserScheme(User user) {
@@ -38,7 +39,7 @@ class AuthService {
   static FutureOr<dynamic> signIn(
       {required String email, required String password}) async {
     try {
-      var response = await SupabaseCredentials.supabaseClient.auth
+      var response = await Supabase.instance.client.auth
           .signInWithPassword(email: email, password: password);
 
       if (response.user != null) {

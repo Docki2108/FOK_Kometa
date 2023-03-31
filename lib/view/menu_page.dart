@@ -11,6 +11,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../view/login_page.dart';
 
 import '../theme/theme.dart';
 import 'screens/4_workout_page.dart';
@@ -52,6 +54,17 @@ class _MenuState extends State<Menu> {
     const WorkoutPage(),
     const ProfilePage()
   ];
+
+  @override
+  void initState() {
+    Supabase.instance.client.auth.onAuthStateChange.listen((event) {
+      if (event.event == AuthChangeEvent.signedOut) {
+        Navigator.of(context, rootNavigator: true)
+            .pushReplacementNamed(login_page.route);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
