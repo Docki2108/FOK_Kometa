@@ -55,57 +55,60 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[index],
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          elevation: 0.2,
-          height: 80,
-          // indicatorColor: Colors.blue.shade100,
-          // shadowColor: Colors.grey.shade100,
-          labelTextStyle: MaterialStateProperty.all(
-            const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: screens[index],
+        bottomNavigationBar: NavigationBarTheme(
+          data: NavigationBarThemeData(
+            //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            elevation: 0.2,
+            height: 80,
+            // indicatorColor: Colors.blue.shade100,
+            // shadowColor: Colors.grey.shade100,
+            labelTextStyle: MaterialStateProperty.all(
+              const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            iconTheme: const MaterialStatePropertyAll(
+              IconThemeData(size: 30),
             ),
           ),
-          iconTheme: const MaterialStatePropertyAll(
-            IconThemeData(size: 30),
+          child: NavigationBar(
+            // animationDuration: const Duration(seconds: 1),
+            selectedIndex: index,
+            onDestinationSelected: (index) => setState(() {
+              this.index = index;
+            }),
+            destinations: [
+              const NavigationDestination(
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home),
+                label: 'Новости',
+              ),
+              const NavigationDestination(
+                icon: Icon(Icons.event_note_outlined),
+                selectedIcon: Icon(Icons.event_note),
+                label: 'Раписание',
+              ),
+              const NavigationDestination(
+                icon: Icon(Icons.table_rows_outlined),
+                selectedIcon: Icon(Icons.table_rows),
+                label: 'Услуги',
+              ),
+              const NavigationDestination(
+                icon: Icon(Icons.sports_outlined),
+                selectedIcon: Icon(Icons.sports),
+                label: 'Тренировки',
+              ),
+              const NavigationDestination(
+                  icon: Icon(Icons.account_box_outlined),
+                  selectedIcon: Icon(Icons.account_box),
+                  label: 'Профиль'),
+            ],
           ),
-        ),
-        child: NavigationBar(
-          // animationDuration: const Duration(seconds: 1),
-          selectedIndex: index,
-          onDestinationSelected: (index) => setState(() {
-            this.index = index;
-          }),
-          destinations: [
-            const NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Главная',
-            ),
-            const NavigationDestination(
-              icon: Icon(Icons.event_note_outlined),
-              selectedIcon: Icon(Icons.event_note),
-              label: 'Раписание',
-            ),
-            const NavigationDestination(
-              icon: Icon(Icons.table_rows_outlined),
-              selectedIcon: Icon(Icons.table_rows),
-              label: 'Услуги',
-            ),
-            const NavigationDestination(
-              icon: Icon(Icons.sports_outlined),
-              selectedIcon: Icon(Icons.sports),
-              label: 'Тренировки',
-            ),
-            const NavigationDestination(
-                icon: Icon(Icons.account_box_outlined),
-                selectedIcon: Icon(Icons.account_box),
-                label: 'Профиль'),
-          ],
         ),
       ),
     );

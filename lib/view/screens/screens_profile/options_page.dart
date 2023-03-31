@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
@@ -50,17 +52,19 @@ class _OptionsPageState extends State<OptionsPage> {
               Text('Изменить тему    '),
               Consumer<ThemeNotifier>(
                 builder: (context, notifier, child) => SwitcherButton(
-                  size: 60,
+                  size: 50,
                   offColor: Color.fromRGBO(145, 145, 145, 1),
                   onColor: Colors.black,
                   value: notifier.darkTheme,
                   onChange: (val) {
                     notifier.toggleTheme();
+                    log('Тема изменена');
                   },
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               Navigator.push(

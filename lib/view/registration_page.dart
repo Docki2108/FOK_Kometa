@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,6 +47,13 @@ class _RegistrationState extends State<Registration> {
   final _passwordformKey = GlobalKey<FormState>();
   final _fokformKey = GlobalKey<FormState>();
 
+  late String _password;
+  double _strength = 0;
+  RegExp numReg = RegExp(r".*[0-9].*");
+  RegExp letterReg = RegExp(r".*[A-Za-z].*");
+
+  String _displayText = 'Введите пароль';
+
   @override
   void initState() {
     loginNode = FocusNode();
@@ -54,6 +63,7 @@ class _RegistrationState extends State<Registration> {
     Supabase.instance.client.auth.onAuthStateChange.listen((event) {
       if (event.event == AuthChangeEvent.signedIn) {
         Navigator.of(context).pushReplacementNamed('/menu_page');
+        log('Регистрация прошла успешно');
       }
     });
   }
@@ -118,12 +128,12 @@ class _RegistrationState extends State<Registration> {
                               focusNode: loginNode,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8.0))),
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                ),
                                 filled: true,
-                                fillColor: Colors.white,
-                                focusColor: Colors.brown,
                                 prefixIcon: Icon(
                                   Icons.account_circle_outlined,
                                 ),
@@ -136,6 +146,7 @@ class _RegistrationState extends State<Registration> {
                             alignment: Alignment.centerLeft,
                             height: 60,
                             child: TextFormField(
+                              onChanged: (value) => _checkPassword(value),
                               key: _passwordformKey,
                               controller: passwordController,
                               obscureText: true,
@@ -149,7 +160,6 @@ class _RegistrationState extends State<Registration> {
                                   ),
                                 ),
                                 filled: true,
-                                fillColor: Colors.white,
                                 prefixIcon: Icon(
                                   Icons.lock_outline,
                                 ),
@@ -157,7 +167,25 @@ class _RegistrationState extends State<Registration> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10),
+                          Container(
+                            height: 20,
+                          ),
+                          LinearProgressIndicator(
+                            value: _strength,
+                            backgroundColor: Colors.grey[300],
+                            color: _strength <= 1 / 4
+                                ? Colors.red
+                                : _strength == 2 / 4
+                                    ? Colors.yellow
+                                    : _strength == 3 / 4
+                                        ? Colors.blue
+                                        : Colors.green,
+                            minHeight: 15,
+                          ),
+                          Text(
+                            _displayText,
+                            //style: const TextStyle(fontSize: 18),
+                          ),
                         ],
                       ),
                     ),
@@ -173,15 +201,32 @@ class _RegistrationState extends State<Registration> {
                   child: ButtonTheme(
                     shape: CircleBorder(),
                     child: ElevatedButton(
-                      onPressed: () {
-                        AuthService.signUp(
-                          email: loginController.text.trim(),
-                          password: passwordController.text.trim(),
-                        );
-                        Navigator.of(context, rootNavigator: true)
-                            .pushNamedAndRemoveUntil(
-                                "/menu_page", (_) => false);
-                      },
+                      onPressed: _strength < 1 / 2
+                          ? null
+                          : () {
+                              if (loginController.text.isEmpty ||
+                                  passwordController.text.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => const AlertDialog(
+                                    title: Text(
+                                      'Ошибка',
+                                      style: TextStyle(),
+                                    ),
+                                    content: Text('Заполните все поля!'),
+                                  ),
+                                );
+                                log('Ошибка регистрации');
+                              } else {
+                                AuthService.signUp(
+                                  email: loginController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                );
+                                Navigator.of(context, rootNavigator: true)
+                                    .pushNamedAndRemoveUntil(
+                                        "/menu_page", (_) => false);
+                              }
+                            },
                       focusNode: btn_contNode,
                       child: const Text('Зарегистрироваться'),
                     ),
@@ -200,5 +245,38 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
     );
+  }
+
+  void _checkPassword(String value) {
+    _password = value.trim();
+
+    if (_password.isEmpty) {
+      setState(() {
+        _strength = 0;
+        _displayText = 'Введите пароль';
+      });
+    } else if (_password.length < 8) {
+      setState(() {
+        _strength = 1 / 4;
+        _displayText = 'Пароль слишком короткий! Минимум 8 символов!';
+      });
+    } else if (_password.length < 10) {
+      setState(() {
+        _strength = 2 / 4;
+        _displayText = 'Пароль слишком слабый!';
+      });
+    } else {
+      if (!letterReg.hasMatch(_password) || !numReg.hasMatch(_password)) {
+        setState(() {
+          _strength = 3 / 4;
+          _displayText = 'Хороший пароль!';
+        });
+      } else {
+        setState(() {
+          _strength = 1;
+          _displayText = 'Просто замечательный пароль!';
+        });
+      }
+    }
   }
 }

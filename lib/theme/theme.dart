@@ -50,7 +50,7 @@ ThemeData light = ThemeData(
     primarySwatch: Colors.blueGrey,
     brightness: Brightness.light,
     accentColor: Colors.blueGrey,
-    backgroundColor: Color.fromARGB(255, 225, 236, 255),
+    backgroundColor: Color.fromARGB(255, 242, 247, 255),
     primaryColorDark: Colors.blueGrey,
   ),
   useMaterial3: true,
@@ -77,8 +77,8 @@ ThemeData dark = ThemeData(
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = "theme";
-  late SharedPreferences _prefs;
-  late bool _darkTheme;
+
+  bool _darkTheme = false;
 
   bool get darkTheme => _darkTheme;
 
@@ -94,17 +94,21 @@ class ThemeNotifier extends ChangeNotifier {
   }
 
   _initPrefs() async {
-    if (_prefs == null) _prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs == null) prefs = await SharedPreferences.getInstance();
   }
 
   _loadFromPrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await _initPrefs();
-    _darkTheme = _prefs.getBool(key) ?? true;
+    _darkTheme = prefs.getBool(key) ?? true;
     notifyListeners();
   }
 
   _saveToPrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await _initPrefs();
-    _prefs.setBool(key, _darkTheme);
+    prefs.setBool(key, _darkTheme);
   }
 }

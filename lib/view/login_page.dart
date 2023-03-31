@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/service/auth.service.dart';
@@ -49,6 +51,12 @@ class _LoginPageState extends State<LoginPage> {
   final _loginformKey = GlobalKey<FormState>();
   final _passwordformKey = GlobalKey<FormState>();
   final _fokformKey = GlobalKey<FormState>();
+
+  late String _email;
+  late String _password;
+  bool _isAllExist = false;
+  bool _isPasswordExist = false;
+  bool _isEmailExist = false;
 
   bool light0 = true;
 
@@ -121,6 +129,10 @@ class _LoginPageState extends State<LoginPage> {
                           alignment: Alignment.centerLeft,
                           height: 60,
                           child: TextFormField(
+                            onChanged: (value1) => {
+                              _checkEmail(value1),
+                              value1 = passwordController.text.trim()
+                            },
                             key: _loginformKey,
                             controller: loginController,
                             onEditingComplete: () => passwordNode.nextFocus(),
@@ -129,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
+                                  Radius.circular(16.0),
                                 ),
                               ),
                               filled: true,
@@ -147,6 +159,9 @@ class _LoginPageState extends State<LoginPage> {
                           alignment: Alignment.centerLeft,
                           height: 60,
                           child: TextFormField(
+                            onChanged: (valuePassword) => {
+                              _checkPassword(valuePassword),
+                            },
                             key: _passwordformKey,
                             controller: passwordController,
                             obscureText: true,
@@ -156,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
+                                  Radius.circular(16.0),
                                 ),
                               ),
                               filled: true,
@@ -183,6 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.of(context, rootNavigator: true)
                                   .pushNamedAndRemoveUntil(
                                       "/menu_page", (_) => false);
+                              log('Анонимный вход');
                             },
                             focusNode: btn_contNode,
                             child: const Text('Войти как гость'),
@@ -192,24 +208,27 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: ButtonTheme(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              if (passwordController.text.isEmpty ||
-                                  loginController.text.isEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => const AlertDialog(
-                                    content: Text('Заполните все поля!'),
-                                  ),
-                                );
-                              } else {
-                                // setState(() {});
-                                AuthService.signIn(
-                                  email: loginController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                );
-                              }
-                            },
+                          child: ElevatedButton(
+                            onPressed: (_isPasswordExist == false &&
+                                    _isEmailExist == false)
+                                ? null
+                                : () {
+                                    if (passwordController.text.isEmpty ||
+                                        loginController.text.isEmpty) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (_) => const AlertDialog(
+                                          content: Text('Заполните все поля!'),
+                                        ),
+                                      );
+                                    } else {
+                                      AuthService.signIn(
+                                        email: loginController.text.trim(),
+                                        password:
+                                            passwordController.text.trim(),
+                                      );
+                                    }
+                                  },
                             focusNode: btn_contNode,
                             child: const Text('Войти'),
                           ),
@@ -223,6 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.of(context, rootNavigator: true)
                           .pushNamedAndRemoveUntil(
                               "/login_page/registration_page", (_) => false);
+                      log('Вход пользователя');
                     },
                     child: const Text('Зарегистрироваться'),
                   )
@@ -233,5 +253,33 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void _checkPassword(String valuePassword) {
+    _password = valuePassword.trim();
+
+    if (_password.isEmpty) {
+      setState(() {
+        _isPasswordExist = false;
+      });
+    } else if (_password.isNotEmpty) {
+      setState(() {
+        _isPasswordExist = true;
+      });
+    }
+  }
+
+  void _checkEmail(String valueEmail) {
+    _email = valueEmail.trim();
+
+    if (_email.isEmpty) {
+      setState(() {
+        _isEmailExist = false;
+      });
+    } else if (_email.isNotEmpty) {
+      setState(() {
+        _isEmailExist = true;
+      });
+    }
   }
 }
