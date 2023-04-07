@@ -28,7 +28,7 @@ dependencies:
   animated_splash_screen: ^1.3.0
   intl: ^0.18.0
   timeago: ^3.4.0
-  supabase_flutter: ^1.5.0
+  supabase_flutter: ^1.6.2
   supabase: ^1.6.0
   smooth_page_indicator: ^1.0.1
   switcher_button: ^0.0.4
@@ -36,6 +36,10 @@ dependencies:
   shared_preferences: ^2.0.20
   provider: ^6.0.5
   url_launcher: ^6.1.10
+  graphql: ^5.1.2
+  graphql_flutter: ^5.1.2
+  hasura_connect: ^4.0.0+4
+  uuid: ^3.0.7
 
 dev_dependencies:
 

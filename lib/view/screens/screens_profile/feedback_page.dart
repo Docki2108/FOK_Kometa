@@ -1,14 +1,6 @@
-import 'dart:developer';
-
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:glass_kit/glass_kit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:switcher_button/switcher_button.dart';
-
 import '../../../theme/theme.dart';
-import 'screens_options/about_app_page.dart';
 
 class feedback_page extends StatelessWidget {
   const feedback_page({Key? key}) : super(key: key);
@@ -47,65 +39,114 @@ class _FeedbackPageState extends State<FeedbackPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Icon(
-              Icons.location_on_rounded,
-              size: 60,
-            ),
-            const Text(
-              'Адрес',
-              style: TextStyle(fontSize: 20),
-            ),
-            const Text('г. Москва'),
-            const Text('Велозаводская ул., стр. 55, д. 5'),
             Container(
-              height: 20,
+              height: 40,
             ),
-            const Icon(
-              Icons.phone,
-              size: 60,
-            ),
-            const Text(
-              'Телефон',
-              style: TextStyle(fontSize: 20),
-            ),
-            const Text('+7 (495) 674-08-67'),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-              margin: const EdgeInsets.fromLTRB(20, 36, 20, 30),
-              decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
+            Card(
+              margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+              elevation: 6,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Отправьте нам сообщение',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Если у вас есть какие-то вопросы - заполните форму ниже. Мы свяжемся с вами через ваш email или по номеру вашего телефона!',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 16),
+                    const TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Сообщение',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Отправить'),
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Отправьте нам сообщение',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+            ),
+            Card(
+              margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+              elevation: 6,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.location_on_rounded,
+                      size: 60,
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Если у вас есть какие-то вопросы - заполните форму ниже. Мы свяжемся с вами через ваш email или по номеру вашего телефона',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Сообщение',
+                    const Text(
+                      'Адрес',
+                      style: TextStyle(fontSize: 20),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Отправить'),
-                  ),
-                ],
+                    const Text('г. Москва'),
+                    const Text('Велозаводская ул., стр. 55, д. 5'),
+                    Container(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Card(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 0, 30),
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 30, 25, 20),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          size: 60,
+                        ),
+                        const Text(
+                          'Телефон',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        const Text('+7 (495) 674-08-67'),
+                      ],
+                    ),
+                  ),
+                ),
+                Card(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 20, 30),
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 30, 25, 20),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.tag_faces_rounded,
+                          size: 60,
+                        ),
+                        const Text(
+                          'Всегда рады ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        const Text(
+                          'помочь!',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

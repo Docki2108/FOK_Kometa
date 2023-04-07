@@ -1,7 +1,4 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:glass_kit/glass_kit.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class services_page extends StatelessWidget {
   const services_page({Key? key}) : super(key: key);

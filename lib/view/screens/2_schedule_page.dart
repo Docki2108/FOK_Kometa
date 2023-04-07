@@ -1,10 +1,7 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../constant.dart';
+import '../../stuffs/constant.dart';
 
 class schedule_page extends StatelessWidget {
   const schedule_page({Key? key}) : super(key: key);
@@ -43,32 +40,39 @@ class _SchedulePageState extends State<SchedulePage> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            tooltip: 'Информация',
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Описание групповых занятий'),
-                  content: SingleChildScrollView(
-                    child: const Text(
-                      DESCRIPTION_OF_GROUP_TRAINING,
-                    ),
-                  ),
-                  actions: <Widget>[
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
+          Card(
+            margin: EdgeInsets.all(10),
+            elevation: 3,
+            child: IconButton(
+              icon: const Icon(
+                Icons.info_outline,
+                size: 22,
+              ),
+              tooltip: 'Информация',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Описание групповых занятий'),
+                    content: SingleChildScrollView(
                       child: const Text(
-                        'Ок',
+                        DESCRIPTION_OF_GROUP_TRAINING,
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
+                    actions: <Widget>[
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        child: const Text(
+                          'Ок',
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
         elevation: 3,
@@ -92,73 +96,75 @@ class _SchedulePageState extends State<SchedulePage> {
 
   Widget test1() {
     return Column(children: [
-      InkWell(
-        onTap: () {},
-        child: Container(
-          padding: EdgeInsets.fromLTRB(15, 15, 15, 7.5),
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Color.fromRGBO(219, 226, 239, 1),
-          ),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                      child: Text(
-                        '11:00',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0,
-                      width: 0,
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                      child: Text(
-                        textAlign: TextAlign.left,
-                        '12:00',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 0,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Total Body',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7.5,
-                        width: 0,
-                      ),
-                      Container(
+      ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        child: Card(
+          elevation: 3,
+          margin: EdgeInsets.all(12),
+          child: InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
                           alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                          child: Text(
+                            '11:00',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 0,
+                          width: 0,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
                           child: Text(
                             textAlign: TextAlign.left,
-                            'И.И. Иванов',
-                            style: TextStyle(
-                                color: Colors.grey[700], fontSize: 16),
-                          )),
-                    ]),
+                            '12:00',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 0,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Total Body',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 7.5,
+                            width: 0,
+                          ),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                textAlign: TextAlign.left,
+                                'И.И. Иванов',
+                                style: TextStyle(
+                                    color: Colors.grey[700], fontSize: 16),
+                              )),
+                        ]),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

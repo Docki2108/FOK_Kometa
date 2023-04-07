@@ -1,9 +1,10 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
+import 'package:fok_kometa/view/login_page.dart';
 import 'package:fok_kometa/view/screens/screens_profile/options_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'screens_profile/calculators_page.dart';
+import 'screens_profile/diets_page.dart';
 import 'screens_profile/feedback_page.dart';
 import 'screens_profile/personal_data_page.dart';
 
@@ -58,15 +59,12 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: Container(
         height: double.infinity,
-        // decoration: const BoxDecoration(
-        //   image: DecorationImage(
-        //       image: AssetImage(
-        //           "lib/theme/images/background/layered-waves-haikei.png"),
-        //       fit: BoxFit.fill),
-        // ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
+            Card(
+              margin: EdgeInsets.all(16),
+              elevation: 3,
               child: Column(
                 children: [
                   const Icon(
@@ -99,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(66, 32, 66, 32),
+              margin: const EdgeInsets.fromLTRB(66, 16, 66, 32),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -118,13 +116,27 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DietsPage(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Диеты',
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CalculatorsPage(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Калькуляторы',
                     ),
@@ -142,7 +154,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Обратная связь',
                     ),
                   ),
-
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -171,6 +182,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             OutlinedButton(
                               onPressed: () async {
                                 Supabase.instance.client.auth.signOut();
+                                if (Supabase.instance.client.auth.currentUser ==
+                                    null) {
+                                  Navigator.pushReplacementNamed(
+                                      context, login_page.route);
+                                }
                               },
                               child: const Text(
                                 'ДА',

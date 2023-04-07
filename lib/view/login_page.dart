@@ -1,17 +1,12 @@
 import 'dart:developer';
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/service/auth.service.dart';
 import 'package:fok_kometa/theme/theme.dart';
 import 'package:fok_kometa/view/menu_page.dart';
-import 'package:go_router/go_router.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../constant.dart';
 
 class login_page extends StatelessWidget {
   const login_page({super.key});
@@ -198,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {
                               Navigator.of(context, rootNavigator: true)
                                   .pushNamedAndRemoveUntil(
-                                      "/menu_page", (_) => false);
+                                      "/menu_page", (_) => false, arguments: true);
                               log('Анонимный вход');
                             },
                             focusNode: btn_contNode,

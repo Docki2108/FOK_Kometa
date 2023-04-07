@@ -1,73 +1,102 @@
+import 'dart:async';
+
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:fok_kometa/view/login_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:graphql/client.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:hasura_connect/hasura_connect.dart';
+import '../../models/news/news_model.dart';
+import '../../stuffs/constant.dart';
+import '../../stuffs/graphql.dart';
+import '../../stuffs/widgets.dart';
 
 class first_page extends StatelessWidget {
-  const first_page({Key? key}) : super(key: key);
+  first_page({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: FlexThemeData.light(
-        colors: const FlexSchemeColor(
-          primary: Color(0xff004881),
-          primaryContainer: Color(0xffd0e4ff),
-          secondary: Color(0xffac3306),
-          secondaryContainer: Color(0xffffdbcf),
-          tertiary: Color(0xff006875),
-          tertiaryContainer: Color(0xff95f0ff),
-          appBarColor: Color(0xffffdbcf),
-          error: Color(0xffb00020),
-        ),
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 9,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 10,
-          blendOnColors: false,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
-        fontFamily: GoogleFonts.notoSans().fontFamily,
-      ),
-      darkTheme: FlexThemeData.dark(
-        colors: const FlexSchemeColor(
-          primary: Color(0xff9fc9ff),
-          primaryContainer: Color(0xff00325b),
-          secondary: Color(0xffffb59d),
-          secondaryContainer: Color(0xff872100),
-          tertiary: Color(0xff86d2e1),
-          tertiaryContainer: Color(0xff004e59),
-          appBarColor: Color(0xff872100),
-          error: Color(0xffcf6679),
-        ),
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 15,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 20,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
-        fontFamily: GoogleFonts.notoSans().fontFamily,
-      ),
-      home: const FirstPage(),
+      home: FirstPage(),
     );
   }
 }
 
 class FirstPage extends StatefulWidget {
-  const FirstPage({Key? key}) : super(key: key);
-
+  FirstPage({Key? key}) : super(key: key);
+  HasuraConnect hasuraConnect = HasuraConnect(GRAPHQL_LINK);
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FirstPage> {
+  late TextEditingController searchController;
+  late StreamController<String> searchStream;
+  late QueryOptions currentQuery;
+
+  List<NewsModel> news = [];
+  var newsUn;
+
+  @override
+  void initState() {
+    GRaphQLProvider.client
+        .query(
+      QueryOptions(
+        document: gql(allNews),
+      ),
+    )
+        .then((value) {
+      newsUn = value;
+      var newsList =
+          ((newsUn.data as Map<String, dynamic>)['news'] as List<dynamic>)
+              .cast<Map<String, dynamic>>();
+      news = newsList.map((e) => NewsModel.fromMap(e)).toList();
+    });
+
+    currentQuery = QueryOptions(
+      document: gql(newsView),
+    );
+
+    super.initState();
+  }
+
+  // @override
+  // void initState() {
+  //   currentQuery = QueryOptions(
+  //       document: gql(newsSearch),
+  //       fetchPolicy: FetchPolicy.networkOnly,
+  //       variables: {"_like": "%%"});
+  //   searchController = TextEditingController();
+  //   searchStream = StreamController<String>();
+  //   searchController.addListener(() {
+  //     searchStream.add(searchController.text);
+  //   });
+  //   searchStream.stream.debounceTime(Duration(seconds: 1)).listen((event) {
+  //     setState(() {
+  //       currentQuery = QueryOptions(
+  //           document: gql(newsSearch),
+  //           fetchPolicy: FetchPolicy.networkOnly,
+  //           variables: {"_like": "%$event%"});
+  //     });
+  //   });
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Supabase.instance.client.auth.currentUser == null
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                tooltip: 'Выйти',
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true)
+                      .pushReplacementNamed(login_page.route);
+                })
+            : null,
+        centerTitle: true,
         elevation: 3,
         title: const Center(
           child: Text('Главная'),
@@ -76,23 +105,52 @@ class _FirstPageState extends State<FirstPage> {
       body: Center(
         child: Column(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(239, 226, 240, 1),
-              ),
-              child: Row(
-                children: const [
-                  Text(
-                    'Новости',
-                    style: TextStyle(
-                      fontSize: 32,
-                      //color: Colors.black,
-                    ),
-                  ),
-                ],
+            Center(
+              child: Text(
+                'Новости',
+                style: TextStyle(
+                  fontSize: 32,
+                  //color: Colors.black,
+                ),
               ),
             ),
-            const Divider(),
+            Divider(),
+            Expanded(
+              child: FutureBuilder(
+                future: GRaphQLProvider.client.query(
+                  currentQuery,
+                ),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.data == null) {
+                    return Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          ]),
+                    );
+                  } else {
+                    //  log(snapshot.data.toString());
+                    var newsList = ((newsUn.data
+                            as Map<String, dynamic>)['news'] as List<dynamic>)
+                        .cast<Map<String, dynamic>>();
+                    return ListView.builder(
+                      itemCount: newsList.length,
+                      itemBuilder: (context, i) {
+                        return NewsPost(
+                            id_news: '${newsList[i]['id_news']}',
+                            content: '${newsList[i]['content']}',
+                            title: '${newsList[i]['title']}',
+                            create_date: '${newsList[i]['create_date']}',
+                            news_category: '${newsList[i]['news_category']}');
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),

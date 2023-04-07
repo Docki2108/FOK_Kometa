@@ -1,15 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/screens/5_profile_page.dart';
 import 'package:fok_kometa/view/screens/1_first_page.dart';
-
 import 'package:fok_kometa/view/screens/2_schedule_page.dart';
 import 'package:fok_kometa/view/screens/3_services_page.dart';
-import 'package:go_router/go_router.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../view/login_page.dart';
@@ -48,22 +45,35 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   int index = 0;
   final screens = [
-    const FirstPage(),
+    FirstPage(),
     const SchedulePage(),
     const ServicesPage(),
     const WorkoutPage(),
     const ProfilePage()
   ];
 
+  StreamSubscription? sub;
+
   @override
   void initState() {
-    Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-      if (event.event == AuthChangeEvent.signedOut) {
-        Navigator.of(context, rootNavigator: true)
-            .pushReplacementNamed(login_page.route);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (ModalRoute.of(context)?.settings.arguments != null) {
+        sub = Supabase.instance.client.auth.onAuthStateChange.listen((event) {
+          if (event.event == AuthChangeEvent.signedOut) {
+            Navigator.of(context, rootNavigator: true)
+                .pushReplacementNamed(login_page.route);
+          }
+        });
       }
     });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    sub?.cancel();
+    super.dispose();
   }
 
   @override
@@ -111,15 +121,17 @@ class _MenuState extends State<Menu> {
                 selectedIcon: Icon(Icons.table_rows),
                 label: 'Услуги',
               ),
-              const NavigationDestination(
-                icon: Icon(Icons.sports_outlined),
-                selectedIcon: Icon(Icons.sports),
-                label: 'Тренировки',
-              ),
-              const NavigationDestination(
-                  icon: Icon(Icons.account_box_outlined),
-                  selectedIcon: Icon(Icons.account_box),
-                  label: 'Профиль'),
+              if (Supabase.instance.client.auth.currentUser != null)
+                const NavigationDestination(
+                  icon: Icon(Icons.sports_outlined),
+                  selectedIcon: Icon(Icons.sports),
+                  label: 'Тренировки',
+                ),
+              if (Supabase.instance.client.auth.currentUser != null)
+                const NavigationDestination(
+                    icon: Icon(Icons.account_box_outlined),
+                    selectedIcon: Icon(Icons.account_box),
+                    label: 'Профиль'),
             ],
           ),
         ),
