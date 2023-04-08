@@ -4,5 +4,20 @@
     },
     "lib/models/diet": {
         "description": "Диеты"
+    },
+    "lib/models/news": {
+        "description": "Новости"
+    },
+    "lib/models/user_model.dart": {
+        "description": "Юзер"
+    },
+    "lib/main.dart": {
+        "description": "main"
+    },
+    "lib/models": {
+        "description": "Модели"
+    },
+    "lib/models/service": {
+        "description": "Услуги"
     }
 }

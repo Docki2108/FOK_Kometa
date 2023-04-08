@@ -43,36 +43,47 @@ class _OptionsPageState extends State<OptionsPage> {
       ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Изменить тему    '),
-              Consumer<ThemeNotifier>(
-                builder: (context, notifier, child) => SwitcherButton(
-                  size: 50,
-                  offColor: Color.fromRGBO(145, 145, 145, 1),
-                  onColor: Colors.black,
-                  value: notifier.darkTheme,
-                  onChange: (val) {
-                    notifier.toggleTheme();
-                    log('Тема изменена');
-                  },
-                ),
+          Card(
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
+            elevation: 6,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 40, 20, 30),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Изменить тему    '),
+                      Consumer<ThemeNotifier>(
+                        builder: (context, notifier, child) => SwitcherButton(
+                          size: 50,
+                          offColor: Color.fromRGBO(145, 145, 145, 1),
+                          onColor: Colors.black,
+                          value: notifier.darkTheme,
+                          onChange: (val) {
+                            notifier.toggleTheme();
+                            log('Тема изменена');
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutAppPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'О приложении',
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AboutAppPage(),
-                ),
-              );
-            },
-            child: const Text(
-              'О приложении',
             ),
           ),
         ]),

@@ -47,6 +47,13 @@ POWER BODY - силовая тренировка, направленная на 
 
 SUPER-SCULPT - силовая тренировка на все группы мышц, за короткие сроки помогает подтянуть всё тело, придать тонус и упругость мышцам, избавиться от живота. Проводится с дополнительным оборудованием: мини-штанги, бодибары, гантели, эспандеры, фитнес-резинки.''';
 
+String descriptionIMT = '''16 и менее — выраженный дефицит массы тела
+16—18,5 — недостаточная (дефицит) масса тела
+18,5—25 — норма
+25—30 — избыточная масса тела (предожирение)
+30—35 — ожирение первой степени
+35—40 — ожирение второй степени
+40 и более — ожирение третьей степени (морбидное)''';
 String cardView = r'''query cardView {
   card {
     card_category_id
@@ -364,3 +371,44 @@ String newsSearch = r'''query newsSearch($_like: String = "") {
     }
   }
 }''';
+
+String allGroupWorkout = r'''query group_workoutView {
+  group_workout {
+    id_group_workout
+    load_score
+    name
+    recommended_age
+    start_time
+    description
+    event_date
+    end_time
+    group_workout_category {
+      id_group_workout_category
+      name
+    }
+    coach {
+      id_coach
+      specialization
+      sporting_achievements
+      work_experience
+      coachs_second_name
+      coachs_patronymic
+      coachs_first_name
+    }
+  }
+}
+''';
+
+String allService = r'''query allService {
+  service {
+    id_service
+    name
+    cost
+    description
+    service_category {
+      id_service_category
+      name
+    }
+  }
+}
+''';

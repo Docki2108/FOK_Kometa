@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fok_kometa/models/group_workout/coach_model.dart';
+import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
 
+import '../../models/group_workout/group_workout_category_model.dart';
+import '../../models/group_workout/group_workout_model.dart';
 import '../../stuffs/constant.dart';
+import '../../stuffs/graphql.dart';
+import '../../stuffs/widgets.dart';
 
 class schedule_page extends StatelessWidget {
   const schedule_page({Key? key}) : super(key: key);
@@ -24,56 +30,83 @@ class SchedulePage extends StatefulWidget {
 class _SchedulePageState extends State<SchedulePage> {
   final _controller = PageController();
   String textdate = '';
+  List<GroupWorkoutModel> groupWorkouts = [];
+  var groupWorkoutsUn;
+  late QueryOptions currentQuery;
 
   @override
   void initState() {
     textdate = DateFormat('M.y').format(todaydate);
+
+    GRaphQLProvider.client
+        .query(
+      QueryOptions(
+        document: gql(allGroupWorkout),
+      ),
+    )
+        .then((value) {
+      groupWorkoutsUn = value;
+      var groupWorkoutList = ((groupWorkoutsUn.data
+              as Map<String, dynamic>)['group_workout'] as List<dynamic>)
+          .cast<Map<String, dynamic>>();
+      groupWorkouts =
+          groupWorkoutList.map((e) => GroupWorkoutModel.fromMap(e)).toList();
+
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    currentQuery = QueryOptions(
+      document: gql(allGroupWorkout),
+    );
     super.initState();
   }
 
   var todaydate = DateTime.now();
   var tomorrowdate = DateTime.now().add(new Duration(days: 1));
   var aftertomorrowdate = DateTime.now().add(new Duration(days: 2));
-
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          Card(
-            margin: EdgeInsets.all(10),
-            elevation: 3,
-            child: IconButton(
-              icon: const Icon(
-                Icons.info_outline,
-                size: 22,
-              ),
-              tooltip: 'Информация',
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Описание групповых занятий'),
-                    content: SingleChildScrollView(
+          //Card(
+          // margin: EdgeInsets.all(10),
+          // elevation: 1,
+          //child:
+          IconButton(
+            icon: const Icon(
+              Icons.info_outline,
+              size: 22,
+            ),
+            tooltip: 'Информация',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Описание групповых занятий'),
+                  content: SingleChildScrollView(
+                    child: const Text(
+                      DESCRIPTION_OF_GROUP_TRAINING,
+                    ),
+                  ),
+                  actions: <Widget>[
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
                       child: const Text(
-                        DESCRIPTION_OF_GROUP_TRAINING,
+                        'Ок',
                       ),
                     ),
-                    actions: <Widget>[
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        child: const Text(
-                          'Ок',
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                  ],
+                ),
+              );
+            },
           ),
+          //),
         ],
         elevation: 3,
         centerTitle: true,
@@ -83,92 +116,35 @@ class _SchedulePageState extends State<SchedulePage> {
       body: Center(
         child: Column(
           children: [
-            test1(),
-            test1(),
-            test1(),
-            test1(),
-            test1(),
+            if (isLoading)
+              Center(child: CircularProgressIndicator())
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemCount: groupWorkouts.length,
+                  itemBuilder: (context, i) {
+                    return GroupWorkoutPost(
+                        id_group_workout: '${groupWorkouts[i].id}',
+                        name: '${groupWorkouts[i].name}',
+                        description: '${groupWorkouts[i].description}',
+                        load_score: '${groupWorkouts[i].load_score}',
+                        event_date: '${groupWorkouts[i].event_date}',
+                        recommended_age: '${groupWorkouts[i].recommended_age}',
+                        start_time: '${groupWorkouts[i].start_time}',
+                        end_time: '${groupWorkouts[i].end_time}',
+                        group_workout_category:
+                            '${groupWorkouts[i].group_workout_category}',
+                        coach_name:
+                            '${groupWorkouts[i].coach.coachs_first_name}',
+                        coach_second_name:
+                            '${groupWorkouts[i].coach.coachs_second_name}');
+                  },
+                ),
+              ),
           ],
         ),
       ),
     );
-  }
-
-  Widget test1() {
-    return Column(children: [
-      ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        child: Card(
-          elevation: 3,
-          margin: EdgeInsets.all(12),
-          child: InkWell(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 0,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          child: Text(
-                            '11:00',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 0,
-                          width: 0,
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          child: Text(
-                            textAlign: TextAlign.left,
-                            '12:00',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 0,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Total Body',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 7.5,
-                            width: 0,
-                          ),
-                          Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                textAlign: TextAlign.left,
-                                'И.И. Иванов',
-                                style: TextStyle(
-                                    color: Colors.grey[700], fontSize: 16),
-                              )),
-                        ]),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    ]);
   }
 
   // Widget dotsview() {

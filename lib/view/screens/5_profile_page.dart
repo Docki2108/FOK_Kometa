@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Card(
               margin: EdgeInsets.all(16),
-              elevation: 3,
+              elevation: 6,
               child: Column(
                 children: [
                   const Icon(

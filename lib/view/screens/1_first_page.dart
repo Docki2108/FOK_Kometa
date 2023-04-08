@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/login_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql/client.dart';
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hasura_connect/hasura_connect.dart';
 import '../../models/news/news_model.dart';
@@ -31,12 +32,12 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  late TextEditingController searchController;
-  late StreamController<String> searchStream;
   late QueryOptions currentQuery;
 
   List<NewsModel> news = [];
   var newsUn;
+
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -52,6 +53,10 @@ class _FirstPageState extends State<FirstPage> {
           ((newsUn.data as Map<String, dynamic>)['news'] as List<dynamic>)
               .cast<Map<String, dynamic>>();
       news = newsList.map((e) => NewsModel.fromMap(e)).toList();
+
+      setState(() {
+        isLoading = false;
+      });
     });
 
     currentQuery = QueryOptions(
@@ -60,28 +65,6 @@ class _FirstPageState extends State<FirstPage> {
 
     super.initState();
   }
-
-  // @override
-  // void initState() {
-  //   currentQuery = QueryOptions(
-  //       document: gql(newsSearch),
-  //       fetchPolicy: FetchPolicy.networkOnly,
-  //       variables: {"_like": "%%"});
-  //   searchController = TextEditingController();
-  //   searchStream = StreamController<String>();
-  //   searchController.addListener(() {
-  //     searchStream.add(searchController.text);
-  //   });
-  //   searchStream.stream.debounceTime(Duration(seconds: 1)).listen((event) {
-  //     setState(() {
-  //       currentQuery = QueryOptions(
-  //           document: gql(newsSearch),
-  //           fetchPolicy: FetchPolicy.networkOnly,
-  //           variables: {"_like": "%$event%"});
-  //     });
-  //   });
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,42 +98,22 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ),
             Divider(),
-            Expanded(
-              child: FutureBuilder(
-                future: GRaphQLProvider.client.query(
-                  currentQuery,
+            if (isLoading)
+              CircularProgressIndicator()
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemCount: news.length,
+                  itemBuilder: (context, i) {
+                    return NewsPost(
+                        id_news: '${news[i].id}',
+                        content: '${news[i].content}',
+                        title: '${news[i].title}',
+                        create_date: '${news[i].create_date}',
+                        news_category: '${news[i].news_category.name}');
+                  },
                 ),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData || snapshot.data == null) {
-                    return Center(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          ]),
-                    );
-                  } else {
-                    //  log(snapshot.data.toString());
-                    var newsList = ((newsUn.data
-                            as Map<String, dynamic>)['news'] as List<dynamic>)
-                        .cast<Map<String, dynamic>>();
-                    return ListView.builder(
-                      itemCount: newsList.length,
-                      itemBuilder: (context, i) {
-                        return NewsPost(
-                            id_news: '${newsList[i]['id_news']}',
-                            content: '${newsList[i]['content']}',
-                            title: '${newsList[i]['title']}',
-                            create_date: '${newsList[i]['create_date']}',
-                            news_category: '${newsList[i]['news_category']}');
-                      },
-                    );
-                  }
-                },
               ),
-            ),
           ],
         ),
       ),
