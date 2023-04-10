@@ -48,7 +48,7 @@ class _MenuState extends State<Menu> {
     FirstPage(),
     const SchedulePage(),
     const ServicesPage(),
-    const WorkoutPage(),
+    WorkoutPage(),
     const ProfilePage()
   ];
 

@@ -412,3 +412,38 @@ String allService = r'''query allService {
   }
 }
 ''';
+
+String allPersonWorkout = r'''
+  query allPersonWorkout {
+  person_workout {
+    id_person_workout
+    name
+    description
+    client_id
+    person_workout_exercises {
+      id_person_workout_exercise
+      person_workout_id
+      exercise_id
+      exercise {
+        id_exercise
+        name
+        load_score
+        description
+        exercise_plan {
+          id_exercise_plan
+          name
+          number_of_approaches
+          number_of_repetitions
+          rest_time
+          description
+        }
+        exercise_category {
+          id_exercise_category
+          name
+        }
+      }
+    }
+  }
+  
+  }
+''';

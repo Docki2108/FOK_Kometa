@@ -1,6 +1,6 @@
 {
     "ios": {
-        "description": "фыв"
+        "description": "ios"
     },
     "lib/models/diet": {
         "description": "Диеты"
@@ -19,5 +19,11 @@
     },
     "lib/models/service": {
         "description": "Услуги"
+    },
+    "lib/models/person_workout": {
+        "description": "Тренировки"
+    },
+    "lib/models/group_workout": {
+        "description": "Групповые занятия"
     }
 }

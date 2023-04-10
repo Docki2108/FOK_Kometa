@@ -60,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Container(
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Card(
               margin: EdgeInsets.all(16),
@@ -102,19 +102,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PersonalDataPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Персональные данные',
-                    ),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => PersonalDataPage(),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const Text(
+                  //     'Персональные данные',
+                  //   ),
+                  // ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(

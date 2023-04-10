@@ -137,7 +137,9 @@ class _SchedulePageState extends State<SchedulePage> {
                         coach_name:
                             '${groupWorkouts[i].coach.coachs_first_name}',
                         coach_second_name:
-                            '${groupWorkouts[i].coach.coachs_second_name}');
+                            '${groupWorkouts[i].coach.coachs_second_name}',
+                        coach_patronymic:
+                            '${groupWorkouts[i].coach.coachs_patronymic}');
                   },
                 ),
               ),
