@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/service/auth.service.dart';
+import 'package:fok_kometa/services/auth.service.dart';
 import 'package:fok_kometa/theme/theme.dart';
 import 'package:fok_kometa/view/menu_page.dart';
 
@@ -193,7 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {
                               Navigator.of(context, rootNavigator: true)
                                   .pushNamedAndRemoveUntil(
-                                      "/menu_page", (_) => false, arguments: true);
+                                      "/menu_page", (_) => false,
+                                      arguments: true);
                               log('Анонимный вход');
                             },
                             focusNode: btn_contNode,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fok_kometa/models/person_workout/person_workout_model.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
 
@@ -253,56 +254,11 @@ class ServicePost extends StatelessWidget {
         ],
       ),
     );
-    // InkWell(
-    //   onTap: () {
-    //     showDialog(
-    //       context: context,
-    //       builder: (_) => AlertDialog(
-    //         content: Row(children: [
-    //           Flexible(
-    //             child: Text(
-    //               description,
-    //             ),
-    //           ),
-    //         ]),
-    //       ),
-    //     );
-    //   },
-    //   child: Card(
-    //     margin: EdgeInsets.all(12),
-    //     child: Padding(
-    //       padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-    //       child: Column(
-    //         children: [
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               Padding(
-    //                 padding: const EdgeInsets.all(8.0),
-    //                 child: Column(
-    //                   children: [
-    //                     Text(
-    //                       name,
-    //                       style: TextStyle(),
-    //                     ),
-    //                     Text(
-    //                       cost + ' руб.',
-    //                       style: TextStyle(),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
 
 class PersonWorkoutPost extends StatelessWidget {
+  //final PersonWorkoutModel personWorkout;
   final String id_person_workout;
   final String name;
   final String description;
@@ -321,6 +277,7 @@ class PersonWorkoutPost extends StatelessWidget {
 
   const PersonWorkoutPost({
     Key? key,
+    //required this.personWorkout,
     required this.id_person_workout,
     required this.name,
     required this.description,
@@ -343,71 +300,81 @@ class PersonWorkoutPost extends StatelessWidget {
     return Card(
       child: ExpansionTile(
         title: Text(name),
-        subtitle: Text(name),
+        subtitle: Text(description),
         children: [
           ListTile(
-            // leading: CircleAvatar(
-            //   child: Text(''),
-            //   backgroundColor: Colors.white,
-            // ),
-            title: Text(description),
+            title: Text(exercise_description
+                //personWorkout.name
+                ),
           ),
           ListTile(
-            // leading: CircleAvatar(
-            //   child: Text(''),
-            //   backgroundColor: Colors.white,
-            // ),
             title: Text(exercise_description),
           ),
         ],
       ),
     );
-    // InkWell(
-    //   onTap: () {
-    //     showDialog(
-    //       context: context,
-    //       builder: (_) => AlertDialog(
-    //         content: Row(children: [
-    //           Flexible(
-    //             child: Text(
-    //               description,
-    //             ),
-    //           ),
-    //         ]),
-    //       ),
-    //     );
-    //   },
-    //   child: Card(
-    //     margin: EdgeInsets.all(12),
-    //     child: Padding(
-    //       padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-    //       child: Column(
-    //         children: [
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               Padding(
-    //                 padding: const EdgeInsets.all(8.0),
-    //                 child: Column(
-    //                   children: [
-    //                     Text(
-    //                       name,
-    //                       style: TextStyle(),
-    //                     ),
-    //                     Text(
-    //                       cost + ' руб.',
-    //                       style: TextStyle(),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
+  }
+}
+
+class DietPost extends StatelessWidget {
+  final String id_diet;
+  final String name;
+  final String duration;
+
+  const DietPost({
+    Key? key,
+    required this.id_diet,
+    required this.name,
+    required this.duration,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      // onTap: () {
+      //   showDialog(
+      //     context: context,
+      //     builder: (_) => AlertDialog(
+      //       content: Row(children: [
+      //         Flexible(
+      //           child: Text(
+      //             title,
+      //           ),
+      //         ),
+      //       ]),
+      //     ),
+      //   );
+      // },
+      child: Card(
+        margin: EdgeInsets.all(12),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          name,
+                        ),
+                        Text(
+                          'Количество дней диеты: ' + duration,
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

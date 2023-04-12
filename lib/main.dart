@@ -5,7 +5,7 @@ import 'package:fok_kometa/view/menu_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'service/supabase.credentials.dart';
+import 'services/supabase.credentials.dart';
 import 'view/registration_page.dart';
 
 void main() async {

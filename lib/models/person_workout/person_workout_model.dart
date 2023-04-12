@@ -17,6 +17,8 @@ class PersonWorkoutModel {
     required this.exercise,
   });
 
+  get person => null;
+
   PersonWorkoutModel copyWith({
     int? id_person_workout,
     String? name,

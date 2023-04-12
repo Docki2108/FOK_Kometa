@@ -91,10 +91,10 @@ class _AboutAppPageState extends State<AboutAppPage> {
                 'Версия: ' + '0.0.1',
                 style: TextStyle(color: Colors.grey[700], fontSize: 16),
               ),
-              TextButton(
-                child: const Text('Описание'),
-                onPressed: () {},
-              ),
+              // TextButton(
+              //   child: const Text('Описание'),
+              //   onPressed: () {},
+              // ),
               Text(
                 'Ⓒ 2023 dumilin',
                 style: TextStyle(color: Colors.grey[700], fontSize: 16),

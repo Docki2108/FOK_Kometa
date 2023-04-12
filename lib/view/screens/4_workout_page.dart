@@ -35,6 +35,29 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   @override
   void initState() {
+    // GRaphQLProvider.client
+    //     .query(
+    //   QueryOptions(
+    //     document: gql(allPersonWorkout),
+    //   ),
+    // )
+    //     .then((value) {
+    //   personWorkoutUn = value;
+    //   var personWorkouts = ((personWorkoutUn.data
+    //           as Map<String, dynamic>)['person_workout'] as List<dynamic>)
+    //       .cast<Map<String, dynamic>>();
+    //   personWorkoutss =
+    //       personWorkouts.map((e) => PersonWorkoutModel.fromMap(e)).toList();
+
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // });
+
+    // currentQuery = QueryOptions(
+    //   document: gql(allPersonWorkout),
+    // );
+
     GRaphQLProvider.client
         .query(
       QueryOptions(

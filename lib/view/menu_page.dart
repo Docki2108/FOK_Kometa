@@ -48,7 +48,7 @@ class _MenuState extends State<Menu> {
     FirstPage(),
     const SchedulePage(),
     const ServicesPage(),
-    WorkoutPage(),
+    //WorkoutPage(),
     const ProfilePage()
   ];
 
@@ -121,12 +121,12 @@ class _MenuState extends State<Menu> {
                 selectedIcon: Icon(Icons.table_rows),
                 label: 'Услуги',
               ),
-              if (Supabase.instance.client.auth.currentUser != null)
-                const NavigationDestination(
-                  icon: Icon(Icons.sports_outlined),
-                  selectedIcon: Icon(Icons.sports),
-                  label: 'Тренировки',
-                ),
+              // if (Supabase.instance.client.auth.currentUser != null)
+              //   const NavigationDestination(
+              //     icon: Icon(Icons.sports_outlined),
+              //     selectedIcon: Icon(Icons.sports),
+              //     label: 'Тренировки',
+              //   ),
               if (Supabase.instance.client.auth.currentUser != null)
                 const NavigationDestination(
                     icon: Icon(Icons.account_box_outlined),

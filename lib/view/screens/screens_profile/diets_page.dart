@@ -4,6 +4,7 @@ import 'package:graphql/client.dart';
 
 import '../../../models/diet/diet_model.dart';
 import '../../../stuffs/constant.dart';
+import '../../../stuffs/widgets.dart';
 
 class DietsPage extends StatefulWidget {
   const DietsPage({super.key});
@@ -14,13 +15,13 @@ class DietsPage extends StatefulWidget {
 
 class _DietsPageState extends State<DietsPage> {
   List<DietModel> diets = [];
-
+  bool isLoading = true;
   @override
   void initState() {
     GRaphQLProvider.client
         .query(
       QueryOptions(
-        document: gql(getAllDietsData),
+        document: gql(dietHelp),
       ),
     )
         .then((value) {
@@ -29,6 +30,9 @@ class _DietsPageState extends State<DietsPage> {
           ((dietsUn.data as Map<String, dynamic>)['diet'] as List<dynamic>)
               .cast<Map<String, dynamic>>();
       diets = dietList.map((e) => DietModel.fromMap(e)).toList();
+    });
+    setState(() {
+      isLoading = false;
     });
 
     super.initState();
@@ -43,7 +47,35 @@ class _DietsPageState extends State<DietsPage> {
         title: const Text('Диеты'),
       ),
       body: Center(
-        child: Column(),
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                'Подборка лучших диет',
+                style: TextStyle(
+                  fontSize: 24,
+                  //color: Colors.black,
+                ),
+              ),
+            ),
+            Divider(),
+            if (isLoading)
+              CircularProgressIndicator()
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemCount: diets.length,
+                  itemBuilder: (context, i) {
+                    return DietPost(
+                      id_diet: '${diets[i].id}',
+                      name: '${diets[i].name}',
+                      duration: '${diets[i].duration}',
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

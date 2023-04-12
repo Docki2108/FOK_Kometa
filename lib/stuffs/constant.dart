@@ -447,3 +447,12 @@ String allPersonWorkout = r'''
   
   }
 ''';
+
+String dietHelp = r'''query MyQuery {
+  diet {
+    id_diet
+    name
+    duration
+  }
+}
+''';
