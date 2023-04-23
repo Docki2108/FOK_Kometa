@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 const String GRAPHQL_LINK = "https://flexible-weevil-94.hasura.app/v1/graphql";

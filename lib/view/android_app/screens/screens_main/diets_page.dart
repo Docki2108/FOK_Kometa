@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/stuffs/graphql.dart';
 import 'package:graphql/client.dart';
-
-import '../../../models/diet/diet_model.dart';
-import '../../../stuffs/constant.dart';
-import '../../../stuffs/widgets.dart';
+import 'package:fok_kometa/stuffs/constant.dart';
+import '../../../../models/diet/diet_model.dart';
+import '../../../../stuffs/widgets.dart';
 
 class DietsPage extends StatefulWidget {
   const DietsPage({super.key});
@@ -49,18 +48,8 @@ class _DietsPageState extends State<DietsPage> {
       body: Center(
         child: Column(
           children: [
-            Center(
-              child: Text(
-                'Подборка лучших диет',
-                style: TextStyle(
-                  fontSize: 24,
-                  //color: Colors.black,
-                ),
-              ),
-            ),
-            Divider(),
             if (isLoading)
-              CircularProgressIndicator()
+              const CircularProgressIndicator()
             else
               Expanded(
                 child: ListView.builder(
@@ -68,7 +57,7 @@ class _DietsPageState extends State<DietsPage> {
                   itemBuilder: (context, i) {
                     return DietPost(
                       id_diet: '${diets[i].id}',
-                      name: '${diets[i].name}',
+                      name: diets[i].name,
                       duration: '${diets[i].duration}',
                     );
                   },

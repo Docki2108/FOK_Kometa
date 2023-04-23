@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:switcher_button/switcher_button.dart';
 
-import '../../../theme/theme.dart';
+import '../../../../theme/theme.dart';
 import 'screens_options/about_app_page.dart';
 
 class options_page extends StatelessWidget {
@@ -53,11 +53,12 @@ class _OptionsPageState extends State<OptionsPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Изменить тему    '),
+                      //Слайдер для изменения текущей темы
+                      const Text('Изменить тему    '),
                       Consumer<ThemeNotifier>(
                         builder: (context, notifier, child) => SwitcherButton(
                           size: 50,
-                          offColor: Color.fromRGBO(145, 145, 145, 1),
+                          offColor: const Color.fromRGBO(145, 145, 145, 1),
                           onColor: Colors.black,
                           value: notifier.darkTheme,
                           onChange: (val) {
@@ -70,6 +71,9 @@ class _OptionsPageState extends State<OptionsPage> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(3),
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,

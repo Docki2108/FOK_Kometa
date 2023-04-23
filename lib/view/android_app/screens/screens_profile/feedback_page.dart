@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../theme/theme.dart';
+import '../../../../theme/theme.dart';
 
 class feedback_page extends StatelessWidget {
   const feedback_page({Key? key}) : super(key: key);

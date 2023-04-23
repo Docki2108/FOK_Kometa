@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../services/auth.service.dart';
-import '../theme/theme.dart';
+import '../../services/auth.service.dart';
+import '../../theme/theme.dart';
 
 class registration_page extends StatelessWidget {
   const registration_page({Key? key}) : super(key: key);

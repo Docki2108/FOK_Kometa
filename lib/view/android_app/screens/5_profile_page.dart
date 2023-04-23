@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/view/login_page.dart';
-import 'package:fok_kometa/view/screens/screens_profile/options_page.dart';
+import 'package:fok_kometa/view/android_app/login_page.dart';
+import 'package:fok_kometa/view/android_app/screens/screens_profile/options_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'screens_main/bioritm_page.dart';
 import 'screens_profile/calculators_page.dart';
-import 'screens_profile/diets_page.dart';
+import 'screens_main/diets_page.dart';
 import 'screens_profile/feedback_page.dart';
 import 'screens_profile/personal_data_page.dart';
+import 'screens_main/sleep_page.dart';
 
 class profile_page extends StatelessWidget {
   const profile_page({
@@ -116,32 +118,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   //   ),
                   // ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DietsPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Диеты',
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(3),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CalculatorsPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Калькуляторы',
-                    ),
-                  ),
-                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -155,6 +134,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(3),
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -168,6 +150,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(3),
+                    ),
                     onPressed: () {
                       showDialog(
                         context: context,

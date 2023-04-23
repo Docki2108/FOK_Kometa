@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fok_kometa/stuffs/constant.dart';
 import 'package:graphql/client.dart';
 
-import '../../models/service/service_model.dart';
-import '../../stuffs/graphql.dart';
-import '../../stuffs/widgets.dart';
+import '../../../../models/service/service_model.dart';
+import '../../../../stuffs/graphql.dart';
+import '../../../../stuffs/widgets.dart';
 
 class services_page extends StatelessWidget {
   const services_page({Key? key}) : super(key: key);
@@ -64,25 +64,14 @@ class _ServicesPageState extends State<ServicesPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        title: const Center(
-          child: Text('Услуги'),
-        ),
+        title: Text('Товары и слуги'),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
           children: [
-            Center(
-              child: Text(
-                'Наши товары и услуги',
-                style: TextStyle(
-                  fontSize: 32,
-                  //color: Colors.black,
-                ),
-              ),
-            ),
-            Divider(),
             if (isLoading)
-              CircularProgressIndicator()
+              const CircularProgressIndicator()
             else
               Expanded(
                 child: ListView.builder(

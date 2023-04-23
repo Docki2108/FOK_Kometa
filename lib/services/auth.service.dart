@@ -16,7 +16,7 @@ class AuthService {
                 schema: 'public',
                 table: 'users',
                 filter: 'id=eq.${user.id}'), (payload, [ref]) {
-      print('payload ${payload.toString()}');
+      log('payload ${payload.toString()}');
     });
     sub.subscribe();
   }

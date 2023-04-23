@@ -3,15 +3,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/view/screens/5_profile_page.dart';
-import 'package:fok_kometa/view/screens/1_first_page.dart';
-import 'package:fok_kometa/view/screens/2_schedule_page.dart';
-import 'package:fok_kometa/view/screens/3_services_page.dart';
+import 'package:fok_kometa/view/android_app/screens/5_profile_page.dart';
+import 'package:fok_kometa/view/android_app/screens/1_first_page.dart';
+import 'package:fok_kometa/view/android_app/screens/2_schedule_page.dart';
+import 'package:fok_kometa/view/android_app/screens/screens_main/services_page.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../view/login_page.dart';
+import 'login_page.dart';
 
-import '../theme/theme.dart';
+import '../../theme/theme.dart';
+import 'screens/3_main_page.dart';
 import 'screens/4_workout_page.dart';
 
 class menu_page extends StatelessWidget {
@@ -47,8 +48,8 @@ class _MenuState extends State<Menu> {
   final screens = [
     FirstPage(),
     const SchedulePage(),
-    const ServicesPage(),
-    //WorkoutPage(),
+    MainPage(),
+    WorkoutPage(),
     const ProfilePage()
   ];
 
@@ -107,8 +108,8 @@ class _MenuState extends State<Menu> {
             }),
             destinations: [
               const NavigationDestination(
-                icon: Icon(Icons.home_outlined),
-                selectedIcon: Icon(Icons.home),
+                icon: Icon(Icons.newspaper_outlined),
+                selectedIcon: Icon(Icons.newspaper),
                 label: 'Новости',
               ),
               const NavigationDestination(
@@ -117,16 +118,16 @@ class _MenuState extends State<Menu> {
                 label: 'Раписание',
               ),
               const NavigationDestination(
-                icon: Icon(Icons.table_rows_outlined),
-                selectedIcon: Icon(Icons.table_rows),
-                label: 'Услуги',
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home),
+                label: 'Главная',
               ),
-              // if (Supabase.instance.client.auth.currentUser != null)
-              //   const NavigationDestination(
-              //     icon: Icon(Icons.sports_outlined),
-              //     selectedIcon: Icon(Icons.sports),
-              //     label: 'Тренировки',
-              //   ),
+              if (Supabase.instance.client.auth.currentUser != null)
+                const NavigationDestination(
+                  icon: Icon(Icons.sports_outlined),
+                  selectedIcon: Icon(Icons.sports),
+                  label: 'Тренировки',
+                ),
               if (Supabase.instance.client.auth.currentUser != null)
                 const NavigationDestination(
                     icon: Icon(Icons.account_box_outlined),

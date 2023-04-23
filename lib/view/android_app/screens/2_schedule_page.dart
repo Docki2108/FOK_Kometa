@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/models/group_workout/coach_model.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
 
-import '../../models/group_workout/group_workout_category_model.dart';
-import '../../models/group_workout/group_workout_model.dart';
-import '../../stuffs/constant.dart';
-import '../../stuffs/graphql.dart';
-import '../../stuffs/widgets.dart';
+import '../../../models/group_workout/group_workout_model.dart';
+import '../../../stuffs/constant.dart';
+import '../../../stuffs/graphql.dart';
+import '../../../stuffs/widgets.dart';
 
 class schedule_page extends StatelessWidget {
   const schedule_page({Key? key}) : super(key: key);

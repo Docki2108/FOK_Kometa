@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/view/login_page.dart';
+import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hasura_connect/hasura_connect.dart';
-import '../../models/news/news_model.dart';
-import '../../stuffs/constant.dart';
-import '../../stuffs/graphql.dart';
-import '../../stuffs/widgets.dart';
+import '../../../models/news/news_model.dart';
+import '../../../stuffs/constant.dart';
+import '../../../stuffs/graphql.dart';
+import '../../../stuffs/widgets.dart';
 
 class first_page extends StatelessWidget {
   first_page({Key? key}) : super(key: key);
@@ -82,22 +82,12 @@ class _FirstPageState extends State<FirstPage> {
         centerTitle: true,
         elevation: 3,
         title: const Center(
-          child: Text('Главная'),
+          child: Text('Новости'),
         ),
       ),
       body: Center(
         child: Column(
           children: [
-            Center(
-              child: Text(
-                'Новости',
-                style: TextStyle(
-                  fontSize: 32,
-                  //color: Colors.black,
-                ),
-              ),
-            ),
-            Divider(),
             if (isLoading)
               CircularProgressIndicator()
             else

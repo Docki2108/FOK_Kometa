@@ -25,5 +25,11 @@
     },
     "lib/models/group_workout": {
         "description": "Групповые занятия"
+    },
+    "lib/view/android_app": {
+        "description": "ANDROID_APP"
+    },
+    "lib/view/windows_app": {
+        "description": "ДЕСКТОП"
     }
 }

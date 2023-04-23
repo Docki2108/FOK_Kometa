@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/services/auth.service.dart';
 import 'package:fok_kometa/theme/theme.dart';
-import 'package:fok_kometa/view/menu_page.dart';
+import 'package:fok_kometa/view/android_app/menu_page.dart';
 
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

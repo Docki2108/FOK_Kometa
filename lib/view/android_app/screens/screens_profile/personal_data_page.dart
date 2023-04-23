@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../theme/theme.dart';
+import '../../../../theme/theme.dart';
 
 class personal_data_page extends StatelessWidget {
   const personal_data_page({Key? key}) : super(key: key);
