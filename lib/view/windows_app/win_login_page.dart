@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:fok_kometa/services/auth_repository.dart';
 import '../../services/auth.dart';
 import '../../stuffs/widgets.dart';
 
@@ -15,7 +16,7 @@ class _WinLoginPageState extends State<WinLoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordObscured = true;
-
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final dio = Dio();
   final _authService = AuthService();
@@ -83,7 +84,28 @@ class _WinLoginPageState extends State<WinLoginPage> {
                                 ),
                                 const SizedBox(height: 40.0),
                                 Button(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    AuthRepository.login(
+                                            _emailController.text.trim(),
+                                            _passwordController.text.trim())
+                                        .then((value) {
+                                      setState(() {
+                                        _isLoading = false;
+                                        if (value == null) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (ctx) => ContentDialog(
+                                                    content: Text("Ошибка"),
+                                                  ));
+                                        } else {
+                                          log(value.toString());
+                                        }
+                                      });
+                                    });
+                                  },
                                   child: const Text('Войти'),
                                 ),
                                 // Button(
