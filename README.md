@@ -1,6 +1,6 @@
-# Курсовой проект
+# Курсовой-Дипломный проект
 
-What use:
+What use на курсач:
 - flutter
 - postgresql - Supabase
 - API - graphQL - Hasura
