@@ -67,7 +67,7 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredNews = _selectedCategory == null || _selectedCategory == 'All'
+    final filteredNews = _selectedCategory == null || _selectedCategory == 'Все'
         ? _news
         : _news.where((news) => news['category'] == _selectedCategory).toList();
 
@@ -108,7 +108,7 @@ class _FirstPageState extends State<FirstPage> {
               });
             },
             itemBuilder: (BuildContext context) {
-              final categories = ['All'] +
+              final categories = ['Все'] +
                   _news
                       .map((news) => news['category'].toString())
                       .toSet()
@@ -135,21 +135,25 @@ class _FirstPageState extends State<FirstPage> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
-                child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      news['title'],
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(news['content']),
-                    ),
-                    Text(
-                      news['create_date'],
-                    )
-                  ],
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        news['title'],
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(news['content']),
+                      ),
+                      Text(
+                        news['create_date'],
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

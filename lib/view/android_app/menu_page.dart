@@ -47,7 +47,7 @@ class _MenuState extends State<Menu> {
   int index = 0;
   final screens = [
     FirstPage(),
-    const SchedulePage(),
+    SchedulePage(),
     MainPage(),
     WorkoutPage(),
     const ProfilePage()

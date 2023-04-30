@@ -1,189 +1,244 @@
-import 'package:flutter/material.dart';
-import 'package:graphql/client.dart';
-import 'package:intl/intl.dart';
+// ignore_for_file: prefer_interpolation_to_compose_strings
 
-import '../../../models/group_workout/group_workout_model.dart';
-import '../../../stuffs/constant.dart';
-import '../../../stuffs/graphql.dart';
-import '../../../stuffs/widgets.dart';
+import 'dart:async';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class schedule_page extends StatelessWidget {
-  const schedule_page({Key? key}) : super(key: key);
+  schedule_page({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SchedulePage(),
+      home: SchedulePage(),
     );
   }
 }
 
 class SchedulePage extends StatefulWidget {
-  const SchedulePage({Key? key}) : super(key: key);
-
+  SchedulePage({Key? key}) : super(key: key);
   @override
   State<SchedulePage> createState() => _SchedulePageState();
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-  final _controller = PageController();
-  String textdate = '';
-  List<GroupWorkoutModel> groupWorkouts = [];
-  var groupWorkoutsUn;
-  late QueryOptions currentQuery;
+  String? _selectedCategory;
+  List _group_workouts = [];
+  String? _searchQuery;
+  String? _searchText;
+
+  Future<List<dynamic>> _fetchNews() async {
+    try {
+      final response = await Dio().get('http://10.0.2.2:5000/group_workouts');
+      if (response.statusCode == 200) {
+        return response.data['group_workouts'];
+      } else {
+        throw Exception('Failed to load group_workouts');
+      }
+    } catch (e) {
+      throw Exception('Failed to load group_workouts: $e');
+    }
+  }
+
+  List<String> _getCategories() {
+    final categories = ['All'] +
+        _group_workouts
+            .map((group_workouts) =>
+                group_workouts['group_workout_category'].toString())
+            .toSet()
+            .toList();
+
+    return categories;
+  }
+
+  Future<void> _refreshNews() async {
+    setState(() {
+      _group_workouts = [];
+    });
+    final group_workouts = await _fetchNews();
+    setState(() {
+      _group_workouts = group_workouts;
+    });
+  }
 
   @override
   void initState() {
-    textdate = DateFormat('M.y').format(todaydate);
-
-    GRaphQLProvider.client
-        .query(
-      QueryOptions(
-        document: gql(allGroupWorkout),
-      ),
-    )
-        .then((value) {
-      groupWorkoutsUn = value;
-      var groupWorkoutList = ((groupWorkoutsUn.data
-              as Map<String, dynamic>)['group_workout'] as List<dynamic>)
-          .cast<Map<String, dynamic>>();
-      groupWorkouts =
-          groupWorkoutList.map((e) => GroupWorkoutModel.fromMap(e)).toList();
-
+    super.initState();
+    _fetchNews().then((group_workouts) {
       setState(() {
-        isLoading = false;
+        _group_workouts = group_workouts;
       });
     });
-
-    currentQuery = QueryOptions(
-      document: gql(allGroupWorkout),
-    );
-    super.initState();
   }
 
-  var todaydate = DateTime.now();
-  var tomorrowdate = DateTime.now().add(new Duration(days: 1));
-  var aftertomorrowdate = DateTime.now().add(new Duration(days: 2));
-  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
+    final filteredNews = _selectedCategory == null || _selectedCategory == 'All'
+        ? _group_workouts
+        : _group_workouts
+            .where((group_workouts) =>
+                group_workouts['group_workout_category'] == _selectedCategory)
+            .toList();
+
+    if (_searchQuery != null && _searchQuery!.isNotEmpty) {
+      final query = _searchQuery!.toLowerCase();
+      filteredNews.retainWhere((group_workouts) =>
+          group_workouts['title'].toString().toLowerCase().contains(query));
+    }
+
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          //Card(
-          // margin: EdgeInsets.all(10),
-          // elevation: 1,
-          //child:
-          IconButton(
-            icon: const Icon(
-              Icons.info_outline,
-              size: 22,
-            ),
-            tooltip: 'Информация',
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Описание групповых занятий'),
-                  content: SingleChildScrollView(
-                    child: const Text(
-                      DESCRIPTION_OF_GROUP_TRAINING,
-                    ),
-                  ),
-                  actions: <Widget>[
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
-                      child: const Text(
-                        'Ок',
-                      ),
-                    ),
-                  ],
-                ),
-              );
+        centerTitle: true,
+        elevation: 3,
+        title: const Text('Групповые тренировки'),
+        actions: [
+          PopupMenuButton(
+            onSelected: (group_workout_category) {
+              setState(() {
+                _selectedCategory = group_workout_category;
+                _searchText = null; // Clear search text
+              });
+            },
+            itemBuilder: (BuildContext context) {
+              final categories = ['All'] +
+                  _group_workouts
+                      .map((group_workouts) =>
+                          group_workouts['group_workout_category'].toString())
+                      .toSet()
+                      .toList();
+
+              return categories.map((group_workout_category) {
+                return PopupMenuItem(
+                  value: group_workout_category,
+                  child: Text(group_workout_category),
+                );
+              }).toList();
             },
           ),
-          //),
+
+          // Добавляем строку поиска
         ],
-        elevation: 3,
-        centerTitle: true,
-        title: Text('Расписание на ' + textdate),
-        //Text(textdate),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            if (isLoading)
-              Center(child: CircularProgressIndicator())
-            else
-              Expanded(
-                child: ListView.builder(
-                  itemCount: groupWorkouts.length,
-                  itemBuilder: (context, i) {
-                    return GroupWorkoutPost(
-                        id_group_workout: '${groupWorkouts[i].id}',
-                        name: '${groupWorkouts[i].name}',
-                        description: '${groupWorkouts[i].description}',
-                        load_score: '${groupWorkouts[i].load_score}',
-                        event_date: '${groupWorkouts[i].event_date}',
-                        recommended_age: '${groupWorkouts[i].recommended_age}',
-                        start_time: '${groupWorkouts[i].start_time}',
-                        end_time: '${groupWorkouts[i].end_time}',
-                        group_workout_category:
-                            '${groupWorkouts[i].group_workout_category}',
-                        coach_name:
-                            '${groupWorkouts[i].coach.coachs_first_name}',
-                        coach_second_name:
-                            '${groupWorkouts[i].coach.coachs_second_name}',
-                        coach_patronymic:
-                            '${groupWorkouts[i].coach.coachs_patronymic}');
-                  },
+      body: RefreshIndicator(
+        onRefresh: _refreshNews,
+        child: ListView.builder(
+          itemCount: filteredNews.length,
+          itemBuilder: (BuildContext context, int index) {
+            final group_workouts = filteredNews[index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ExpansionTile(
+                    shape: null,
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          group_workouts['start_time'].substring(0, 5),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          group_workouts['end_time'].substring(0, 5),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    title: Text(
+                      group_workouts['name'],
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    subtitle: Text(
+                      'Дата проведения: ' + group_workouts['event_date'],
+                    ),
+                    children: [
+                      ListTile(
+                        title: Text(
+                          group_workouts['description'],
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Тренер: ' + group_workouts['coach'],
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Балл нагрузки: ' +
+                              group_workouts['load_score'].toString(),
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Рекомендуемый возраст: ' +
+                              group_workouts['recommended_age'].toString() +
+                              '+',
+                        ),
+                      ),
+                    ],
+                  ),
+                  //   Row(
+                  //     children: <Widget>[
+                  //       Expanded(
+                  //         flex: 0,
+                  //         child: Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.end,
+                  //           children: [
+                  //             Container(
+                  //               alignment: Alignment.centerLeft,
+                  //               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+                  //               child: Text(
+                  //                 group_workouts['start_time'].substring(0, 5),
+                  //                 style: const TextStyle(fontSize: 20),
+                  //               ),
+                  //             ),
+                  //             Container(
+                  //               alignment: Alignment.centerLeft,
+                  //               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+                  //               child: Text(
+                  //                 group_workouts['end_time'].substring(0, 5),
+                  //                 style: const TextStyle(fontSize: 20),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       Expanded(
+                  //         flex: 0,
+                  //         child: Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Container(
+                  //               alignment: Alignment.centerLeft,
+                  //               child: Text(
+                  //                 group_workouts['name'],
+                  //                 style: TextStyle(fontSize: 16),
+                  //               ),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 7.5,
+                  //               width: 0,
+                  //             ),
+                  //             Container(
+                  //                 alignment: Alignment.centerLeft,
+                  //                 child: Text(
+                  //                   group_workouts['coach'],
+                  //                   style: TextStyle(
+                  //                       color: Colors.grey[700], fontSize: 16),
+                  //                 )),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
                 ),
               ),
-          ],
+            );
+          },
         ),
       ),
     );
   }
-
-  // Widget dotsview() {
-  //   return SingleChildScrollView(
-  //     scrollDirection: Axis.vertical,
-  //     child: ConstrainedBox(
-  //       constraints: BoxConstraints(
-  //         minWidth: 150,
-  //         minHeight: 150,
-  //         maxWidth: MediaQuery.of(context).size.width,
-  //         maxHeight: MediaQuery.of(context).size.height * 0.815,
-  //       ),
-  //       child: PageView(
-  //         controller: _controller,
-  //         children: const [TodayPage(), TomorrowPage(), DayAfterPage()],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget get dots {
-  //   return ConstrainedBox(
-  //     constraints: BoxConstraints(
-  //         minWidth: 40, maxWidth: 100, minHeight: 20, maxHeight: 20),
-  //     child: Container(
-  //       padding: EdgeInsets.all(10),
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       child: SmoothPageIndicator(
-  //         controller: _controller,
-  //         count: 3,
-  //         effect: SwapEffect(
-  //             activeDotColor: Colors.black,
-  //             dotHeight: 10,
-  //             dotWidth: 10,
-  //             spacing: 10),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

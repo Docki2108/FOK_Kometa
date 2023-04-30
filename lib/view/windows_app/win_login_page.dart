@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:fok_kometa/new_models/user.dart';
 import 'package:fok_kometa/services/auth_repository.dart';
 import '../../services/auth.dart';
 import '../../stuffs/widgets.dart';
+import 'win_user_page.dart';
 
 class WinLoginPage extends StatefulWidget {
   @override
@@ -19,7 +21,7 @@ class _WinLoginPageState extends State<WinLoginPage> {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final dio = Dio();
-  final _authService = AuthService();
+  final _authService = AuthServiceWin();
   String _errorMessage = '';
   String? _accessToken;
 
@@ -28,6 +30,9 @@ class _WinLoginPageState extends State<WinLoginPage> {
     return FluentApp(
       debugShowCheckedModeBanner: false,
       title: 'My App',
+      theme: ThemeData(
+        accentColor: Colors.blue,
+      ),
       home: FluentTheme(
         data: ThemeData(
           accentColor: Colors.blue,
@@ -88,7 +93,7 @@ class _WinLoginPageState extends State<WinLoginPage> {
                                     setState(() {
                                       _isLoading = true;
                                     });
-                                    AuthRepository.login(
+                                    AuthRepository.winLogin(
                                             _emailController.text.trim(),
                                             _passwordController.text.trim())
                                         .then((value) {
@@ -96,28 +101,41 @@ class _WinLoginPageState extends State<WinLoginPage> {
                                         _isLoading = false;
                                         if (value == null) {
                                           showDialog(
-                                              context: context,
-                                              builder: (ctx) => ContentDialog(
-                                                    content: Text("Ошибка"),
-                                                  ));
+                                            context: context,
+                                            builder: (ctx) => ContentDialog(
+                                              content: Text("Ошибка"),
+                                            ),
+                                          );
                                         } else {
                                           log(value.toString());
                                         }
                                       });
                                     });
+                                    // Navigator.push(
+                                    //   context,
+                                    //   FluentPageRoute(
+                                    //       builder: (context) => WinLoginPage()),
+                                    // );
                                   },
                                   child: const Text('Войти'),
                                 ),
-                                // Button(
-                                //   child: Text('map'),
-                                //   onPressed: () async {
-                                //     if (await canLaunch(FOK_KOMETA_MAP_URL)) {
-                                //       await launch(FOK_KOMETA_MAP_URL);
-                                //     } else {
-                                //       throw 'Ошибка перехода на URL: $FOK_KOMETA_MAP_URL';
-                                //     }
-                                //   },
-                                // )
+                                Button(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      FluentPageRoute(
+                                          builder: (context) =>
+                                              MyNavigationPage()),
+                                    );
+                                  },
+                                  child: const Text('перейти'),
+                                ),
+                                Button(
+                                  onPressed: () {
+                                    AuthServiceWin.winLogout();
+                                  },
+                                  child: const Text('Выйти'),
+                                ),
                               ],
                             ),
                           ),

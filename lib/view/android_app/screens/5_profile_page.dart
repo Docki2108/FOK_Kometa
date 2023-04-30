@@ -1,14 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_profile/options_page.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'screens_main/bioritm_page.dart';
-import 'screens_profile/calculators_page.dart';
-import 'screens_main/diets_page.dart';
+import '../../../new_models/user.dart';
+import '../../../services/auth.dart';
 import 'screens_profile/feedback_page.dart';
-import 'screens_profile/personal_data_page.dart';
-import 'screens_main/sleep_page.dart';
 
 class profile_page extends StatelessWidget {
   const profile_page({
@@ -31,25 +28,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late User supaUser;
-  Map? thisUser;
-  @override
-  initState() {
-    // supaUser = Supabase.instance.client.auth.currentUser!;
-
-    // Supabase.instance.client
-    //     .from("personal_data")
-    //     .select()
-    //     .eq("id_personal_data", supaUser.id)
-    //     .then((value) {
-    //   setState(() {
-    //     thisUser = value[0];
-    //   });
-    // });
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,20 +47,58 @@ class _ProfilePageState extends State<ProfilePage> {
               elevation: 6,
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.account_box,
-                    size: 280,
+                  Stack(
+                    children: [
+                      if (User.get().personalData.secondName == null &&
+                          User.get().personalData.firstName == null)
+                        const Center(
+                          child: Icon(
+                            Icons.account_box,
+                            size: 280,
+                          ),
+                        ),
+                      if (User.get().personalData.secondName != null &&
+                          User.get().personalData.firstName != null)
+                        Padding(
+                          padding: const EdgeInsets.all(32.0),
+                          child: Card(
+                            elevation: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  User.get()
+                                          .personalData
+                                          .firstName
+                                          ?.substring(0, 1) ??
+                                      ' ',
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 128),
+                                ),
+                                Text(
+                                    User.get()
+                                            .personalData
+                                            .secondName
+                                            ?.substring(0, 1) ??
+                                        ' ',
+                                    style: const TextStyle(
+                                        color: Colors.blue, fontSize: 128)),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        thisUser?['first_name'] ?? ' ',
+                        User.get().personalData.firstName ?? ' ',
                         style: TextStyle(fontSize: 16),
                       ),
                       Text(' '),
                       Text(
-                        thisUser?['second_name'] ?? ' ',
+                        User.get().personalData.secondName ?? ' ',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
@@ -91,8 +107,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                          'email' //Supabase.instance.client.auth.currentUser!.email!,
-                          ),
+                        User.get().email,
+                      ),
                     ),
                   ),
                 ],
@@ -166,12 +182,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           actions: <Widget>[
                             OutlinedButton(
                               onPressed: () async {
-                                // Supabase.instance.client.auth.signOut();
-                                // if (Supabase.instance.client.auth.currentUser ==
-                                //     null) {
+                                AuthServiceMob.mobLogout();
                                 Navigator.pushReplacementNamed(
                                     context, login_page.route);
-                                // }
                               },
                               child: const Text(
                                 'ДА',
@@ -194,27 +207,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Выйти',
                     ),
                   ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(25),
-                  //       color: Colors.white,
-                  //       boxShadow: const [
-                  //         BoxShadow(
-                  //           blurRadius: 10,
-                  //           offset: Offset(0, 0),
-                  //           color: Colors.grey,
-                  //         ),
-                  //         BoxShadow(
-                  //           blurRadius: 10,
-                  //           offset: Offset(-5, -5),
-                  //           color: Colors.white,
-                  //         )
-                  //       ]),
-                  //   child: const SizedBox(
-                  //     height: 50,
-                  //     width: 100,
-                  //   ),
-                  // ),
                 ],
               ),
             ),

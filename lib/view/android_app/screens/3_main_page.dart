@@ -47,180 +47,191 @@ class _MainPageState extends State<MainPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Основное'),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 98,
+          Card(
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const Text('Основное'),
+                  const Divider(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.shopping_bag_outlined,
+                                    size: 98,
+                                  ),
+                                  Text('Витрина'),
+                                ],
+                              ),
                             ),
-                            Text('Витрина'),
-                          ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ServicesPage(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ServicesPage(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.apple_outlined,
-                              size: 98,
+                      Expanded(
+                        child: InkWell(
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.apple_outlined,
+                                    size: 98,
+                                  ),
+                                  Text('Диеты'),
+                                ],
+                              ),
                             ),
-                            Text('Диеты'),
-                          ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DietsPage(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DietsPage(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.people_outlined,
-                              size: 98,
+                      Expanded(
+                        child: InkWell(
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.people_outlined,
+                                    size: 98,
+                                  ),
+                                  Text('Тренеры'),
+                                ],
+                              ),
                             ),
-                            Text('Тренеры'),
-                          ],
+                          ),
+                          onTap: () {},
                         ),
                       ),
-                    ),
-                    onTap: () {},
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          Container(
-            height: 20,
-          ),
-          const Text('Наблюдение'),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.calculate_outlined,
-                              size: 42,
+          Card(
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const Text('Наблюдение'),
+                  const Divider(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.calculate_outlined,
+                                    size: 42,
+                                  ),
+                                  Text('Калькуляторы'),
+                                ],
+                              ),
                             ),
-                            Text('Калькуляторы'),
-                          ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CalculatorsPage(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CalculatorsPage(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.border_inner_rounded,
-                              size: 42,
+                      Expanded(
+                        child: InkWell(
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.border_inner_rounded,
+                                    size: 42,
+                                  ),
+                                  Text('Биоритмы'),
+                                ],
+                              ),
                             ),
-                            Text('Биоритмы'),
-                          ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BiorhythmCalculator(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BiorhythmCalculator(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.bedtime_outlined,
-                              size: 42,
+                      Expanded(
+                        child: InkWell(
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.bedtime_outlined,
+                                    size: 42,
+                                  ),
+                                  Text('Сон'),
+                                ],
+                              ),
                             ),
-                            Text('Сон'),
-                          ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SleepCycleCalculator(),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SleepCycleCalculator(),
-                        ),
-                      );
-                    },
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(

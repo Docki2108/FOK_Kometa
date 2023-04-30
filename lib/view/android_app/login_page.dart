@@ -43,8 +43,8 @@ class _LoginPageState extends State<LoginPage> {
   late FocusNode loginNode;
   late FocusNode passwordNode;
   late FocusNode btn_contNode;
-  TextEditingController loginController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   final _loginformKey = GlobalKey<FormState>();
   final _passwordformKey = GlobalKey<FormState>();
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isAllExist = false;
   bool _isPasswordExist = false;
   bool _isEmailExist = false;
-  bool isLoading = false;
+  bool _isLoading = false;
   bool light0 = true;
 
   @override
@@ -78,8 +78,8 @@ class _LoginPageState extends State<LoginPage> {
     passwordNode.dispose();
     btn_contNode.dispose();
 
-    loginController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -88,12 +88,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //       image: AssetImage(
-        //           "lib/theme/images/background/noisable-gradient-1-small.jpg"),
-        //       fit: BoxFit.fill),
-        // ),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Center(
@@ -121,10 +115,10 @@ class _LoginPageState extends State<LoginPage> {
                           child: TextFormField(
                             onChanged: (value1) => {
                               _checkEmail(value1),
-                              value1 = passwordController.text.trim()
+                              value1 = _passwordController.text.trim()
                             },
                             key: _loginformKey,
-                            controller: loginController,
+                            controller: _emailController,
                             onEditingComplete: () => passwordNode.nextFocus(),
                             focusNode: loginNode,
                             decoration: const InputDecoration(
@@ -153,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                               _checkPassword(valuePassword),
                             },
                             key: _passwordformKey,
-                            controller: passwordController,
+                            controller: _passwordController,
                             obscureText: true,
                             focusNode: passwordNode,
                             onEditingComplete: () => btn_contNode.nextFocus(),
@@ -165,8 +159,6 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               filled: true,
-                              //fillColor: Colors.white,
-                              //focusColor: Colors.brown,
                               prefixIcon: Icon(
                                 Icons.lock_outline,
                               ),
@@ -204,8 +196,8 @@ class _LoginPageState extends State<LoginPage> {
                                     _isEmailExist == false)
                                 ? null
                                 : () {
-                                    if (passwordController.text.isEmpty ||
-                                        loginController.text.isEmpty) {
+                                    if (_passwordController.text.isEmpty ||
+                                        _emailController.text.isEmpty) {
                                       showDialog(
                                         context: context,
                                         builder: (_) => const AlertDialog(
@@ -214,22 +206,32 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     } else {
                                       setState(() {
-                                        isLoading = true;
+                                        _isLoading = true;
                                       });
-                                      AuthRepository.login(
-                                              loginController.text.trim(),
-                                              passwordController.text.trim())
+                                      AuthRepository.mobLogin(
+                                              _emailController.text.trim(),
+                                              _passwordController.text.trim())
                                           .then((value) {
                                         setState(() {
-                                          isLoading = false;
+                                          _isLoading = false;
+
                                           if (value == null) {
                                             showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                      content: Text("Ошибка"),
-                                                    ));
+                                              context: context,
+                                              builder: (ctx) =>
+                                                  const AlertDialog(
+                                                title: Text('Ошибка входа!'),
+                                                content: Text(
+                                                    "Проверьте введенные данные"),
+                                              ),
+                                            );
                                           } else {
                                             log(value.toString());
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pushNamedAndRemoveUntil(
+                                                    "/menu_page", (_) => false,
+                                                    arguments: true);
                                           }
                                         });
                                       });
