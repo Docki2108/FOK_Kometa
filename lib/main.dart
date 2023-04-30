@@ -13,8 +13,8 @@ import 'view/windows_app/win_login_page.dart';
 void main() async {
   if (defaultTargetPlatform == TargetPlatform.android ||
       defaultTargetPlatform == TargetPlatform.iOS) {
-    await Supabase.initialize(
-        url: SupabaseCredentials.API_URL, anonKey: SupabaseCredentials.API_KEY);
+    // await Supabase.initialize(
+    //     url: SupabaseCredentials.API_URL, anonKey: SupabaseCredentials.API_KEY);
     initializeDateFormatting('ru_RU', null).then(
       (_) => runApp(
         ChangeNotifierProvider(
@@ -45,8 +45,8 @@ void main() async {
   } else if (defaultTargetPlatform == TargetPlatform.windows ||
       defaultTargetPlatform == TargetPlatform.linux ||
       defaultTargetPlatform == TargetPlatform.macOS) {
-    await Supabase.initialize(
-        url: SupabaseCredentials.API_URL, anonKey: SupabaseCredentials.API_KEY);
+    // await Supabase.initialize(
+    //     url: SupabaseCredentials.API_URL, anonKey: SupabaseCredentials.API_KEY);
     runApp(
       MaterialApp(debugShowCheckedModeBanner: false, home: WinLoginPage()),
     );

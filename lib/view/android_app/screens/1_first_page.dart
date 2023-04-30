@@ -1,17 +1,6 @@
 import 'dart:async';
-
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/view/android_app/login_page.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:graphql/client.dart';
-import 'package:intl/intl.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:hasura_connect/hasura_connect.dart';
-import '../../../models/news/news_model.dart';
-import '../../../stuffs/constant.dart';
-import '../../../stuffs/graphql.dart';
-import '../../../stuffs/widgets.dart';
 
 class first_page extends StatelessWidget {
   first_page({Key? key}) : super(key: key);
@@ -26,85 +15,145 @@ class first_page extends StatelessWidget {
 
 class FirstPage extends StatefulWidget {
   FirstPage({Key? key}) : super(key: key);
-  HasuraConnect hasuraConnect = HasuraConnect(GRAPHQL_LINK);
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FirstPage> {
-  late QueryOptions currentQuery;
+  String? _selectedCategory;
+  List _news = [];
+  String? _searchQuery;
+  String? _searchText;
 
-  List<NewsModel> news = [];
-  var newsUn;
+  Future<List<dynamic>> _fetchNews() async {
+    try {
+      final response = await Dio().get('http://10.0.2.2:5000/news');
+      if (response.statusCode == 200) {
+        return response.data['news'];
+      } else {
+        throw Exception('Failed to load news');
+      }
+    } catch (e) {
+      throw Exception('Failed to load news: $e');
+    }
+  }
 
-  bool isLoading = true;
+  List<String> _getCategories() {
+    final categories = ['All'] +
+        _news.map((news) => news['category'].toString()).toSet().toList();
+
+    return categories;
+  }
+
+  Future<void> _refreshNews() async {
+    setState(() {
+      _news = [];
+    });
+    final news = await _fetchNews();
+    setState(() {
+      _news = news;
+    });
+  }
 
   @override
   void initState() {
-    GRaphQLProvider.client
-        .query(
-      QueryOptions(
-        document: gql(allNews),
-      ),
-    )
-        .then((value) {
-      newsUn = value;
-      var newsList =
-          ((newsUn.data as Map<String, dynamic>)['news'] as List<dynamic>)
-              .cast<Map<String, dynamic>>();
-      news = newsList.map((e) => NewsModel.fromMap(e)).toList();
-
+    super.initState();
+    _fetchNews().then((news) {
       setState(() {
-        isLoading = false;
+        _news = news;
       });
     });
-
-    currentQuery = QueryOptions(
-      document: gql(newsView),
-    );
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final filteredNews = _selectedCategory == null || _selectedCategory == 'All'
+        ? _news
+        : _news.where((news) => news['category'] == _selectedCategory).toList();
+
+    if (_searchQuery != null && _searchQuery!.isNotEmpty) {
+      final query = _searchQuery!.toLowerCase();
+      filteredNews.retainWhere(
+          (news) => news['title'].toString().toLowerCase().contains(query));
+    }
+
     return Scaffold(
       appBar: AppBar(
-        leading: Supabase.instance.client.auth.currentUser == null
-            ? IconButton(
-                icon: const Icon(Icons.arrow_back),
-                tooltip: 'Выйти',
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .pushReplacementNamed(login_page.route);
-                })
-            : null,
         centerTitle: true,
         elevation: 3,
-        title: const Center(
-          child: Text('Новости'),
-        ),
+        title: const Text('Новости'),
+        actions: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: SizedBox(
+              width: 200.0,
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Поиск по заголовку',
+                ),
+                onChanged: (text) {
+                  setState(() {
+                    _searchQuery = text;
+                  });
+                },
+              ),
+            ),
+          ),
+          PopupMenuButton(
+            onSelected: (category) {
+              setState(() {
+                _selectedCategory = category;
+                _searchText = null; // Clear search text
+              });
+            },
+            itemBuilder: (BuildContext context) {
+              final categories = ['All'] +
+                  _news
+                      .map((news) => news['category'].toString())
+                      .toSet()
+                      .toList();
+
+              return categories.map((category) {
+                return PopupMenuItem(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList();
+            },
+          ),
+
+          // Добавляем строку поиска
+        ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            if (isLoading)
-              CircularProgressIndicator()
-            else
-              Expanded(
-                child: ListView.builder(
-                  itemCount: news.length,
-                  itemBuilder: (context, i) {
-                    return NewsPost(
-                        id_news: '${news[i].id}',
-                        content: '${news[i].content}',
-                        title: '${news[i].title}',
-                        create_date: '${news[i].create_date}',
-                        news_category: '${news[i].news_category.name}');
-                  },
+      body: RefreshIndicator(
+        onRefresh: _refreshNews,
+        child: ListView.builder(
+          itemCount: filteredNews.length,
+          itemBuilder: (BuildContext context, int index) {
+            final news = filteredNews[index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      news['title'],
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(news['content']),
+                    ),
+                    Text(
+                      news['create_date'],
+                    )
+                  ],
                 ),
               ),
-          ],
+            );
+          },
         ),
       ),
     );

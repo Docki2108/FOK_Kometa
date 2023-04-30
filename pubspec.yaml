@@ -40,7 +40,9 @@ dependencies:
   image_gallery_saver: ^1.7.1
   fluent_ui: ^4.5.0
   material_design_icons_flutter: ^6.0.7096
-  
+  flutter_svg: ^2.0.5
+  dio: ^5.1.1
+
 
 dev_dependencies:
 
@@ -67,6 +69,10 @@ flutter:
     - lib/theme/images/background/noisable-gradient-1-small.jpg
     - lib/theme/images/background/icons-pic/dumbbell.png
     - lib/theme/images/background/layered-waves-haikei.png
+    - lib/theme/images/kometa-map.png
+    - lib/theme/images/logo2.png
+    - lib/theme/images/logosvg.svg
+    - lib/theme/images/background/Rectangle.jpg
 
  
   # fonts:

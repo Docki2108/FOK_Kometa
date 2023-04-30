@@ -8,6 +8,8 @@ import 'package:fok_kometa/view/android_app/menu_page.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../stuffs/widgets.dart';
+
 class login_page extends StatelessWidget {
   const login_page({super.key});
   static const String route = "/login_page";
@@ -61,12 +63,12 @@ class _LoginPageState extends State<LoginPage> {
     passwordNode = FocusNode();
     btn_contNode = FocusNode();
     super.initState();
-    Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-      if (event.event == AuthChangeEvent.signedIn) {
-        Navigator.of(context, rootNavigator: true)
-            .pushReplacementNamed(menu_page.route);
-      }
-    });
+    // Supabase.instance.client.auth.onAuthStateChange.listen((event) {
+    //   if (event.event == AuthChangeEvent.signedIn) {
+    // Navigator.of(context, rootNavigator: true)
+    //     .pushReplacementNamed(menu_page.route);
+    //   }
+    // });
   }
 
   @override
@@ -96,31 +98,22 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 80),
-                  Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                              "lib/theme/images/background/icons-pic/dumbbell.png"),
-                          fit: BoxFit.fill),
-                    ),
-                  ),
+                  const SizedBox(height: 40),
+                  logosvg,
                   Container(
                     margin: const EdgeInsets.all(40.0),
                     padding: const EdgeInsets.all(5.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          key: _fokformKey,
-                          'ФОК Комета',
-                          style: const TextStyle(
-                            fontSize: 36,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
+                        // Text(
+                        //   key: _fokformKey,
+                        //   'ФОК Комета',
+                        //   style: const TextStyle(
+                        //     fontSize: 36,
+                        //   ),
+                        // ),
+                        const SizedBox(height: 20),
                         Container(
                           alignment: Alignment.centerLeft,
                           height: 60,

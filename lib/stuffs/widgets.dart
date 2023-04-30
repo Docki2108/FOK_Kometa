@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fok_kometa/models/person_workout/person_workout_model.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
@@ -453,3 +454,7 @@ Widget test1() {
     ),
   ]);
 }
+
+final Widget logosvg = SvgPicture.asset(
+  'lib/theme/images/logosvg.svg',
+);

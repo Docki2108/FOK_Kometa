@@ -1,4 +1,7 @@
+// ignore_for_file: unused_element
+
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -36,12 +39,16 @@ class _RegistrationState extends State<Registration> {
   late FocusNode loginNode;
   late FocusNode passwordNode;
   late FocusNode btn_contNode;
-  TextEditingController loginController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  final _roleController = TextEditingController();
+  final _secondNameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _patronymicController = TextEditingController();
+  final _mobileNumberController = TextEditingController();
 
   final _loginformKey = GlobalKey<FormState>();
   final _passwordformKey = GlobalKey<FormState>();
-  final _fokformKey = GlobalKey<FormState>();
 
   late String _password;
   double _strength = 0;
@@ -50,18 +57,43 @@ class _RegistrationState extends State<Registration> {
 
   String _displayText = 'Введите пароль';
 
+  void _submitForm() async {
+    try {
+      var dio = Dio();
+      var response = await dio.post(
+        'http://10.0.2.2:5000/register',
+        data: {
+          'email': _emailController.text,
+          'password': _passwordController.text,
+          'role': "Client",
+          'second_name': null,
+          'first_name': null,
+          'patronymic': null,
+          'mobile_number': null
+        },
+      );
+      if (response.statusCode == 201) {
+        log('Пользователь успешно зарегистрирован!');
+      } else {
+        log('Ошибка в регистрации!');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   @override
   void initState() {
     loginNode = FocusNode();
     passwordNode = FocusNode();
     btn_contNode = FocusNode();
     super.initState();
-    Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-      if (event.event == AuthChangeEvent.signedIn) {
-        Navigator.of(context).pushReplacementNamed('/menu_page');
-        log('Регистрация прошла успешно');
-      }
-    });
+    // Supabase.instance.client.auth.onAuthStateChange.listen((event) {
+    //   if (event.event == AuthChangeEvent.signedIn) {
+    //     Navigator.of(context).pushReplacementNamed('/menu_page');
+    //     log('Регистрация прошла успешно');
+    //   }
+    // });
   }
 
   @override
@@ -70,8 +102,8 @@ class _RegistrationState extends State<Registration> {
     passwordNode.dispose();
     btn_contNode.dispose();
 
-    loginController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -85,26 +117,10 @@ class _RegistrationState extends State<Registration> {
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
-        height: double.infinity,
-        // decoration: const BoxDecoration(
-        //   image: DecorationImage(
-        //       image: AssetImage(
-        //           "lib/theme/images/background/noisable-gradient-1-small.jpg"),
-        //       fit: BoxFit.fill),
-        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 16, 0, 10),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
+            Card(
               child: Center(
                 child: Column(
                   children: [
@@ -119,7 +135,7 @@ class _RegistrationState extends State<Registration> {
                             height: 60,
                             child: TextFormField(
                               key: _loginformKey,
-                              controller: loginController,
+                              controller: _emailController,
                               onEditingComplete: () => passwordNode.nextFocus(),
                               focusNode: loginNode,
                               decoration: const InputDecoration(
@@ -144,7 +160,7 @@ class _RegistrationState extends State<Registration> {
                             child: TextFormField(
                               onChanged: (value) => _checkPassword(value),
                               key: _passwordformKey,
-                              controller: passwordController,
+                              controller: _passwordController,
                               obscureText: true,
                               focusNode: passwordNode,
                               onEditingComplete: () => btn_contNode.nextFocus(),
@@ -200,8 +216,8 @@ class _RegistrationState extends State<Registration> {
                       onPressed: _strength < 1 / 2
                           ? null
                           : () {
-                              if (loginController.text.isEmpty ||
-                                  passwordController.text.isEmpty) {
+                              if (_emailController.text.isEmpty ||
+                                  _passwordController.text.isEmpty) {
                                 showDialog(
                                   context: context,
                                   builder: (_) => const AlertDialog(
@@ -214,13 +230,14 @@ class _RegistrationState extends State<Registration> {
                                 );
                                 log('Ошибка регистрации');
                               } else {
-                                AuthService.signUp(
-                                  email: loginController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                );
-                                Navigator.of(context, rootNavigator: true)
-                                    .pushNamedAndRemoveUntil(
-                                        "/menu_page", (_) => false);
+                                _submitForm();
+                                // AuthService.signUp(
+                                //   email: emailController.text.trim(),
+                                //   password: passwordController.text.trim(),
+                                // );
+                                // Navigator.of(context, rootNavigator: true)
+                                //     .pushNamedAndRemoveUntil(
+                                //         "/menu_page", (_) => false);
                               }
                             },
                       focusNode: btn_contNode,

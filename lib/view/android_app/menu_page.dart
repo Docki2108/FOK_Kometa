@@ -55,21 +55,21 @@ class _MenuState extends State<Menu> {
 
   StreamSubscription? sub;
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (ModalRoute.of(context)?.settings.arguments != null) {
-        sub = Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-          if (event.event == AuthChangeEvent.signedOut) {
-            Navigator.of(context, rootNavigator: true)
-                .pushReplacementNamed(login_page.route);
-          }
-        });
-      }
-    });
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     if (ModalRoute.of(context)?.settings.arguments != null) {
+  //       sub = Supabase.instance.client.auth.onAuthStateChange.listen((event) {
+  //         if (event.event == AuthChangeEvent.signedOut) {
+  //           Navigator.of(context, rootNavigator: true)
+  //               .pushReplacementNamed(login_page.route);
+  //         }
+  //       });
+  //     }
+  //   });
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
@@ -117,22 +117,23 @@ class _MenuState extends State<Menu> {
                 selectedIcon: Icon(Icons.event_note),
                 label: 'Раписание',
               ),
+              //if (Supabase.instance.client.auth.currentUser != null)
               const NavigationDestination(
                 icon: Icon(Icons.home_outlined),
                 selectedIcon: Icon(Icons.home),
                 label: 'Главная',
               ),
-              if (Supabase.instance.client.auth.currentUser != null)
-                const NavigationDestination(
-                  icon: Icon(Icons.sports_outlined),
-                  selectedIcon: Icon(Icons.sports),
-                  label: 'Тренировки',
-                ),
-              if (Supabase.instance.client.auth.currentUser != null)
-                const NavigationDestination(
-                    icon: Icon(Icons.account_box_outlined),
-                    selectedIcon: Icon(Icons.account_box),
-                    label: 'Профиль'),
+              //if (Supabase.instance.client.auth.currentUser != null)
+              const NavigationDestination(
+                icon: Icon(Icons.sports_outlined),
+                selectedIcon: Icon(Icons.sports),
+                label: 'Тренировки',
+              ),
+              //if (Supabase.instance.client.auth.currentUser != null)
+              const NavigationDestination(
+                  icon: Icon(Icons.account_box_outlined),
+                  selectedIcon: Icon(Icons.account_box),
+                  label: 'Профиль'),
             ],
           ),
         ),

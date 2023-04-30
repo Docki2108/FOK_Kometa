@@ -35,17 +35,17 @@ class _ProfilePageState extends State<ProfilePage> {
   Map? thisUser;
   @override
   initState() {
-    supaUser = Supabase.instance.client.auth.currentUser!;
+    // supaUser = Supabase.instance.client.auth.currentUser!;
 
-    Supabase.instance.client
-        .from("personal_data")
-        .select()
-        .eq("id_personal_data", supaUser.id)
-        .then((value) {
-      setState(() {
-        thisUser = value[0];
-      });
-    });
+    // Supabase.instance.client
+    //     .from("personal_data")
+    //     .select()
+    //     .eq("id_personal_data", supaUser.id)
+    //     .then((value) {
+    //   setState(() {
+    //     thisUser = value[0];
+    //   });
+    // });
 
     super.initState();
   }
@@ -91,8 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                        Supabase.instance.client.auth.currentUser!.email!,
-                      ),
+                          'email' //Supabase.instance.client.auth.currentUser!.email!,
+                          ),
                     ),
                   ),
                 ],
@@ -166,12 +166,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           actions: <Widget>[
                             OutlinedButton(
                               onPressed: () async {
-                                Supabase.instance.client.auth.signOut();
-                                if (Supabase.instance.client.auth.currentUser ==
-                                    null) {
-                                  Navigator.pushReplacementNamed(
-                                      context, login_page.route);
-                                }
+                                // Supabase.instance.client.auth.signOut();
+                                // if (Supabase.instance.client.auth.currentUser ==
+                                //     null) {
+                                Navigator.pushReplacementNamed(
+                                    context, login_page.route);
+                                // }
                               },
                               child: const Text(
                                 'ДА',

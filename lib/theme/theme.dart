@@ -53,7 +53,7 @@ ThemeData light = ThemeData(
     primarySwatch: Colors.blueGrey,
     brightness: Brightness.light,
     accentColor: Color.fromARGB(255, 174, 228, 255),
-    backgroundColor: Color.fromARGB(255, 155, 172, 200),
+    backgroundColor: Color.fromARGB(255, 155, 186, 255),
     primaryColorDark: Colors.blueGrey,
   ),
   useMaterial3: true, primaryColor: Colors.amber,
