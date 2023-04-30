@@ -6,7 +6,6 @@ import 'package:fok_kometa/view/android_app/menu_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'services/supabase.credentials.dart';
 import 'view/android_app/registration_page.dart';
 import 'view/windows_app/win_login_page.dart';
 

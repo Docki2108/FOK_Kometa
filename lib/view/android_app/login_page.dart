@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/services/auth.service.dart';
+import 'package:fok_kometa/services/auth.dart';
+import 'package:fok_kometa/services/auth_repository.dart';
 import 'package:fok_kometa/theme/theme.dart';
 import 'package:fok_kometa/view/android_app/menu_page.dart';
 
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isAllExist = false;
   bool _isPasswordExist = false;
   bool _isEmailExist = false;
-
+  bool isLoading = false;
   bool light0 = true;
 
   @override
@@ -212,11 +213,26 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       );
                                     } else {
-                                      AuthService.signIn(
-                                        email: loginController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
-                                      );
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      AuthRepository.login(
+                                              loginController.text.trim(),
+                                              passwordController.text.trim())
+                                          .then((value) {
+                                        setState(() {
+                                          isLoading = false;
+                                          if (value == null) {
+                                            showDialog(
+                                                context: context,
+                                                builder: (ctx) => AlertDialog(
+                                                      content: Text("Ошибка"),
+                                                    ));
+                                          } else {
+                                            log(value.toString());
+                                          }
+                                        });
+                                      });
                                     }
                                   },
                             focusNode: btn_contNode,
