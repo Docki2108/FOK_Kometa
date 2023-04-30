@@ -3,66 +3,55 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-
 version: 1.0.0+1
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
 
-
 dependencies:
+  animated_splash_screen: ^1.3.0
+  cupertino_icons: ^1.0.2
+  dio: ^5.1.1
+  fl_chart: ^0.62.0
+  flex_color_scheme: ^6.1.2
+  flex_seed_scheme: ^1.2.2
+  fluent_ui: ^4.5.0
   flutter:
     sdk: flutter
-   
-  cupertino_icons: ^1.0.2  
-  flex_color_scheme: ^6.1.2
-  persistent_bottom_nav_bar: any
-  google_fonts: ^4.0.3
-  go_router: ^6.2.0
-  flex_seed_scheme: ^1.2.2
+  flutter_svg: ^2.0.5
   glass_kit: ^2.0.1
-  animated_splash_screen: ^1.3.0
-
-  
-  supabase_flutter: ^1.6.2
-  supabase: ^1.6.0
-  smooth_page_indicator: ^1.0.1
-  switcher_button: ^0.0.4
-  
-  shared_preferences: ^2.0.20
-  provider: ^6.0.5
-  url_launcher: ^6.1.10
+  go_router: ^6.2.0
+  google_fonts: ^4.0.3
   graphql: ^5.1.2
   graphql_flutter: ^5.1.2
   hasura_connect: ^4.0.0+4
-  uuid: ^3.0.7
-  fl_chart: ^0.62.0
   image_gallery_saver: ^1.7.1
-  fluent_ui: ^4.5.0
   material_design_icons_flutter: ^6.0.7096
-  flutter_svg: ^2.0.5
-  dio: ^5.1.1
-
+  persistent_bottom_nav_bar: any
+  pretty_dio_logger: ^1.3.1
+  provider: ^6.0.5
+  shared_preferences: ^2.0.20
+  smooth_page_indicator: ^1.0.1
+  supabase: ^1.6.0
+  supabase_flutter: ^1.6.2
+  switcher_button: ^0.0.4
+  url_launcher: ^6.1.10
+  uuid: ^3.0.7
 
 dev_dependencies:
 
-  hive_generator: ^2.0.0
-  
-
-  build_runner: 
-
-  flutter_test:
-    sdk: flutter
-
+  build_runner: null
 
   flutter_lints: ^2.0.0
 
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^2.0.0
 
 flutter:
 
   uses-material-design: true
 
-  
   assets:
     - lib/theme/images/background/noisable-gradient-1.jpg
     - lib/theme/images/background/noisable-gradient-1-maxsize.jpg
@@ -73,8 +62,6 @@ flutter:
     - lib/theme/images/logo2.png
     - lib/theme/images/logosvg.svg
     - lib/theme/images/background/Rectangle.jpg
-
- 
   # fonts:
   #   - family: Schyler
   #     fonts:
@@ -86,4 +73,3 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-

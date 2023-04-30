@@ -1,11 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../new_models/user.dart';
 
 class AuthService {
   static const baseUrl = 'http://localhost:5000';
 
-  static Dio _dio = Dio(BaseOptions(baseUrl: baseUrl));
+  static Dio _dio = Dio(
+    BaseOptions(baseUrl: baseUrl),
+  )..interceptors.add(PrettyDioLogger(
+      requestBody: true,
+      requestHeader: true,
+      responseBody: true,
+      responseHeader: true));
 
   static Future<void> login(String email, String password) async {
     try {
