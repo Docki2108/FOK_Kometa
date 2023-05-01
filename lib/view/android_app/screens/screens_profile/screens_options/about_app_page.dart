@@ -2,6 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../stuffs/widgets.dart';
+
 class about_app_page extends StatelessWidget {
   const about_app_page({Key? key}) : super(key: key);
 
@@ -73,38 +75,26 @@ class _AboutAppPageState extends State<AboutAppPage> {
         title: const Text('О приложении'),
       ),
       body: Center(
-        child: Card(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          "lib/theme/images/background/icons-pic/dumbbell.png"),
-                      fit: BoxFit.fill),
-                ),
-              ),
-              Text(
-                'Версия: ' + '0.0.1',
-                style: TextStyle(color: Colors.grey[700], fontSize: 16),
-              ),
-              // TextButton(
-              //   child: const Text('Описание'),
-              //   onPressed: () {},
-              // ),
-              Text(
-                'Ⓒ 2023 dumilin',
-                style: TextStyle(color: Colors.grey[700], fontSize: 16),
-              ),
-              Text(
-                'Проект Думилина Вадима',
-                style: TextStyle(color: Colors.grey[700], fontSize: 16),
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(
+              elevation: 11,
+              child: logosvg,
+            ),
+            Text(
+              'Версия: 11.11.22',
+              style: TextStyle(color: Colors.grey[700], fontSize: 16),
+            ),
+            Text(
+              'Ⓒ 2023 dumilin',
+              style: TextStyle(color: Colors.grey[700], fontSize: 16),
+            ),
+            Text(
+              'Проект Думилина Вадима',
+              style: TextStyle(color: Colors.grey[700], fontSize: 16),
+            ),
+          ],
         ),
       ),
     );

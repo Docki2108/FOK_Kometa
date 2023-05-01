@@ -49,6 +49,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 //       ),
 
 ThemeData light = ThemeData(
+  // colorScheme: ColorScheme.fromSwatch(
+  //   primarySwatch: Colors.cyan,
+  //   brightness: Brightness.light,
+  //   accentColor: Color.fromARGB(255, 174, 255, 231),
+  //   backgroundColor: Color.fromARGB(255, 155, 255, 240),
+  //   primaryColorDark: Color.fromARGB(255, 96, 139, 113),
+  // ),
+  // useMaterial3: true, primaryColor: Color.fromARGB(255, 7, 172, 255),
+  // brightness: Brightness.light,
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: Colors.blueGrey,
     brightness: Brightness.light,

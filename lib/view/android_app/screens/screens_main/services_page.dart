@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/stuffs/constant.dart';
-import 'package:graphql/client.dart';
 
 import '../../../../models/service/service_model.dart';
-import '../../../../stuffs/graphql.dart';
 import '../../../../stuffs/widgets.dart';
 
 class services_page extends StatelessWidget {
@@ -11,8 +9,8 @@ class services_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const ServicesPage(),
+    return const MaterialApp(
+      home: ServicesPage(),
     );
   }
 }
@@ -25,46 +23,17 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
-  late QueryOptions currentQuery;
-
   List<ServiceModel> services = [];
   var serviceUn;
 
   bool isLoading = true;
 
   @override
-  void initState() {
-    GRaphQLProvider.client
-        .query(
-      QueryOptions(
-        document: gql(allService),
-      ),
-    )
-        .then((value) {
-      serviceUn = value;
-      var newsList =
-          ((serviceUn.data as Map<String, dynamic>)['service'] as List<dynamic>)
-              .cast<Map<String, dynamic>>();
-      services = newsList.map((e) => ServiceModel.fromMap(e)).toList();
-
-      setState(() {
-        isLoading = false;
-      });
-    });
-
-    currentQuery = QueryOptions(
-      document: gql(allService),
-    );
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        title: Text('Товары и слуги'),
+        title: const Text('Товары и слуги'),
         centerTitle: true,
       ),
       body: Center(

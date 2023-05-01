@@ -111,11 +111,6 @@ class _WinLoginPageState extends State<WinLoginPage> {
                                         }
                                       });
                                     });
-                                    // Navigator.push(
-                                    //   context,
-                                    //   FluentPageRoute(
-                                    //       builder: (context) => WinLoginPage()),
-                                    // );
                                   },
                                   child: const Text('Войти'),
                                 ),

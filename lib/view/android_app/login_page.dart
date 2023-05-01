@@ -1,14 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/services/auth.dart';
 import 'package:fok_kometa/services/auth_repository.dart';
 import 'package:fok_kometa/theme/theme.dart';
-import 'package:fok_kometa/view/android_app/menu_page.dart';
-
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../stuffs/widgets.dart';
 
 class login_page extends StatelessWidget {
@@ -64,12 +58,6 @@ class _LoginPageState extends State<LoginPage> {
     passwordNode = FocusNode();
     btn_contNode = FocusNode();
     super.initState();
-    // Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-    //   if (event.event == AuthChangeEvent.signedIn) {
-    // Navigator.of(context, rootNavigator: true)
-    //     .pushReplacementNamed(menu_page.route);
-    //   }
-    // });
   }
 
   @override
@@ -86,176 +74,199 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(height: 40),
-                  logosvg,
-                  Container(
-                    margin: const EdgeInsets.all(40.0),
-                    padding: const EdgeInsets.all(5.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Text(
-                        //   key: _fokformKey,
-                        //   'ФОК Комета',
-                        //   style: const TextStyle(
-                        //     fontSize: 36,
-                        //   ),
-                        // ),
-                        const SizedBox(height: 20),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height: 60,
-                          child: TextFormField(
-                            onChanged: (value1) => {
-                              _checkEmail(value1),
-                              value1 = _passwordController.text.trim()
-                            },
-                            key: _loginformKey,
-                            controller: _emailController,
-                            onEditingComplete: () => passwordNode.nextFocus(),
-                            focusNode: loginNode,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16.0),
-                                ),
-                              ),
-                              filled: true,
-                              // fillColor: Colors.white,
-                              // focusColor: Colors.brown,
-                              prefixIcon: Icon(
-                                Icons.account_circle_outlined,
-                              ),
-                              hintText: 'Почта',
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height: 60,
-                          child: TextFormField(
-                            onChanged: (valuePassword) => {
-                              _checkPassword(valuePassword),
-                            },
-                            key: _passwordformKey,
-                            controller: _passwordController,
-                            obscureText: true,
-                            focusNode: passwordNode,
-                            onEditingComplete: () => btn_contNode.nextFocus(),
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16.0),
-                                ),
-                              ),
-                              filled: true,
-                              prefixIcon: Icon(
-                                Icons.lock_outline,
-                              ),
-                              hintText: 'Пароль',
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 40),
+                logosvg,
+                Container(
+                  margin: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.all(5.0),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: ButtonTheme(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushNamedAndRemoveUntil(
-                                      "/menu_page", (_) => false,
-                                      arguments: true);
-                              log('Анонимный вход');
-                            },
-                            focusNode: btn_contNode,
-                            child: const Text('Войти как гость'),
+                      const SizedBox(height: 20),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        height: 60,
+                        child: TextFormField(
+                          onChanged: (value1) => {
+                            _checkEmail(value1),
+                            value1 = _passwordController.text.trim()
+                          },
+                          key: _loginformKey,
+                          controller: _emailController,
+                          onEditingComplete: () => passwordNode.nextFocus(),
+                          focusNode: loginNode,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16.0),
+                              ),
+                            ),
+                            filled: true,
+                            // fillColor: Colors.white,
+                            // focusColor: Colors.brown,
+                            prefixIcon: Icon(
+                              Icons.account_circle_outlined,
+                            ),
+                            hintText: 'Почта',
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: ButtonTheme(
-                          child: ElevatedButton(
-                            onPressed: (_isPasswordExist == false &&
-                                    _isEmailExist == false)
-                                ? null
-                                : () {
-                                    if (_passwordController.text.isEmpty ||
-                                        _emailController.text.isEmpty) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (_) => const AlertDialog(
-                                          content: Text('Заполните все поля!'),
-                                        ),
-                                      );
-                                    } else {
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-                                      AuthRepository.mobLogin(
-                                              _emailController.text.trim(),
-                                              _passwordController.text.trim())
-                                          .then((value) {
-                                        setState(() {
-                                          _isLoading = false;
-
-                                          if (value == null) {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) =>
-                                                  const AlertDialog(
-                                                title: Text('Ошибка входа!'),
-                                                content: Text(
-                                                    "Проверьте введенные данные"),
-                                              ),
-                                            );
-                                          } else {
-                                            log(value.toString());
-                                            Navigator.of(context,
-                                                    rootNavigator: true)
-                                                .pushNamedAndRemoveUntil(
-                                                    "/menu_page", (_) => false,
-                                                    arguments: true);
-                                          }
-                                        });
-                                      });
-                                    }
-                                  },
-                            focusNode: btn_contNode,
-                            child: const Text('Войти'),
+                      const SizedBox(height: 20),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        height: 60,
+                        child: TextFormField(
+                          onChanged: (valuePassword) => {
+                            _checkPassword(valuePassword),
+                          },
+                          key: _passwordformKey,
+                          controller: _passwordController,
+                          obscureText: true,
+                          focusNode: passwordNode,
+                          onEditingComplete: () => btn_contNode.nextFocus(),
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16.0),
+                              ),
+                            ),
+                            filled: true,
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                            ),
+                            hintText: 'Пароль',
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .pushNamedAndRemoveUntil(
-                              "/login_page/registration_page", (_) => false);
-                      log('Вход пользователя');
-                    },
-                    child: const Text('Зарегистрироваться'),
-                  )
-                ],
-              ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(45, 0, 45, 0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushNamedAndRemoveUntil(
+                                    "/login_page/registration_page",
+                                    (_) => false);
+                            log('Вход пользователя');
+                          },
+                          child: const Text('Зарегистрироваться'),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: ButtonTheme(
+                            child: ElevatedButton(
+                              onPressed: (_isPasswordExist == false &&
+                                      _isEmailExist == false)
+                                  ? null
+                                  : () {
+                                      if (_passwordController.text.isEmpty ||
+                                          _emailController.text.isEmpty) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (_) => const AlertDialog(
+                                            content:
+                                                Text('Заполните все поля!'),
+                                          ),
+                                        );
+                                      } else {
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
+                                        AuthRepository.mobLogin(
+                                                _emailController.text.trim(),
+                                                _passwordController.text.trim())
+                                            .then((value) {
+                                          setState(() {
+                                            _isLoading = false;
+
+                                            if (value == null) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (ctx) =>
+                                                    const AlertDialog(
+                                                  title: Text('Ошибка входа!'),
+                                                  content: Text(
+                                                      "Проверьте введенные данные"),
+                                                ),
+                                              );
+                                            } else {
+                                              log(value.toString());
+                                              Navigator.of(context,
+                                                      rootNavigator: true)
+                                                  .pushNamedAndRemoveUntil(
+                                                      "/menu_page",
+                                                      (_) => false,
+                                                      arguments: true);
+                                            }
+                                          });
+                                        });
+                                      }
+                                    },
+                              focusNode: btn_contNode,
+                              child: const Text('Войти'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Color.fromARGB(255, 72, 72, 72),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      '  или  ',
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Color.fromARGB(255, 72, 72, 72),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: ButtonTheme(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamedAndRemoveUntil("/menu_page", (_) => false,
+                                arguments: true);
+                        log('Анонимный вход');
+                      },
+                      focusNode: btn_contNode,
+                      child: const Text('Войти как гость'),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

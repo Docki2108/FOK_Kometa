@@ -6,11 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/android_app/screens/5_profile_page.dart';
 import 'package:fok_kometa/view/android_app/screens/1_first_page.dart';
 import 'package:fok_kometa/view/android_app/screens/2_schedule_page.dart';
-import 'package:fok_kometa/view/android_app/screens/screens_main/services_page.dart';
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'login_page.dart';
-
+import '../../../new_models/user.dart' as User;
 import '../../theme/theme.dart';
 import 'screens/3_main_page.dart';
 import 'screens/4_workout_page.dart';
@@ -117,23 +114,25 @@ class _MenuState extends State<Menu> {
                 selectedIcon: Icon(Icons.event_note),
                 label: 'Раписание',
               ),
-              //if (Supabase.instance.client.auth.currentUser != null)
+              // if (User.User.get().email != null)
               const NavigationDestination(
                 icon: Icon(Icons.home_outlined),
                 selectedIcon: Icon(Icons.home),
                 label: 'Главная',
               ),
-              //if (Supabase.instance.client.auth.currentUser != null)
+              // if (User.User.fromJson(['email'] as Map<String, dynamic>) != null)
               const NavigationDestination(
                 icon: Icon(Icons.sports_outlined),
                 selectedIcon: Icon(Icons.sports),
                 label: 'Тренировки',
               ),
-              //if (Supabase.instance.client.auth.currentUser != null)
+              // if (User.User.fromJson(['email'] as Map<String, dynamic>) != null)
               const NavigationDestination(
                   icon: Icon(Icons.account_box_outlined),
                   selectedIcon: Icon(Icons.account_box),
                   label: 'Профиль'),
+
+              //if (User.User.get().role == Manager)
             ],
           ),
         ),

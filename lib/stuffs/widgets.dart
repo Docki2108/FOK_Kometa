@@ -1,13 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fok_kometa/models/person_workout/person_workout_model.dart';
-import 'package:graphql/client.dart';
-import 'package:intl/intl.dart';
-
-import '../models/group_workout/coach_model.dart';
-import '../models/group_workout/group_workout_category_model.dart';
 
 class NewsPost extends StatelessWidget {
   final String id_news;
@@ -43,7 +36,7 @@ class NewsPost extends StatelessWidget {
         );
       },
       child: Card(
-        margin: EdgeInsets.all(12),
+        margin: const EdgeInsets.all(12),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
           child: Column(
@@ -60,7 +53,8 @@ class NewsPost extends StatelessWidget {
                         ),
                         Text(
                           news_category,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],
                     ),

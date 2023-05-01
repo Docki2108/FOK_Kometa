@@ -2,17 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/stuffs/constant.dart';
+import 'package:fok_kometa/view/android_app/screens/screens_main/coachs_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_main/services_page.dart';
-import 'package:graphql/client.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../models/service/service_model.dart';
-import '../../../stuffs/graphql.dart';
-import '../../../stuffs/widgets.dart';
 import 'screens_main/bioritm_page.dart';
 import 'screens_main/diets_page.dart';
 import 'screens_main/sleep_page.dart';
-import 'screens_profile/calculators_page.dart';
+import 'screens_main/calculators_page.dart';
 
 class main_page extends StatelessWidget {
   const main_page({Key? key}) : super(key: key);
@@ -33,8 +29,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late QueryOptions currentQuery;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +122,14 @@ class _MainPageState extends State<MainPage> {
                               ),
                             ),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CoachesPage(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],

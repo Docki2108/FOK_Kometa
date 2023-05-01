@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graphql/client.dart';
-import 'package:hasura_connect/hasura_connect.dart';
 
 import '../../../models/person_workout/person_workout_model.dart';
 import '../../../stuffs/constant.dart';
-import '../../../stuffs/graphql.dart';
 import '../../../stuffs/widgets.dart';
 
 class workout_page extends StatelessWidget {
@@ -20,69 +17,15 @@ class workout_page extends StatelessWidget {
 
 class WorkoutPage extends StatefulWidget {
   WorkoutPage({Key? key}) : super(key: key);
-  HasuraConnect hasuraConnect = HasuraConnect(GRAPHQL_LINK);
   @override
   State<WorkoutPage> createState() => _WorkoutPageState();
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  late QueryOptions currentQuery;
-
   List<PersonWorkoutModel> personWorkoutss = [];
   var personWorkoutUn;
 
   bool isLoading = true;
-
-  @override
-  void initState() {
-    // GRaphQLProvider.client
-    //     .query(
-    //   QueryOptions(
-    //     document: gql(allPersonWorkout),
-    //   ),
-    // )
-    //     .then((value) {
-    //   personWorkoutUn = value;
-    //   var personWorkouts = ((personWorkoutUn.data
-    //           as Map<String, dynamic>)['person_workout'] as List<dynamic>)
-    //       .cast<Map<String, dynamic>>();
-    //   personWorkoutss =
-    //       personWorkouts.map((e) => PersonWorkoutModel.fromMap(e)).toList();
-
-    //   setState(() {
-    //     isLoading = false;
-    //   });
-    // });
-
-    // currentQuery = QueryOptions(
-    //   document: gql(allPersonWorkout),
-    // );
-
-    GRaphQLProvider.client
-        .query(
-      QueryOptions(
-        document: gql(allPersonWorkout),
-      ),
-    )
-        .then((value) {
-      personWorkoutUn = value;
-      var personWorkouts = ((personWorkoutUn.data
-              as Map<String, dynamic>)['person_workout'] as List<dynamic>)
-          .cast<Map<String, dynamic>>();
-      personWorkoutss =
-          personWorkouts.map((e) => PersonWorkoutModel.fromMap(e)).toList();
-
-      setState(() {
-        isLoading = false;
-      });
-    });
-
-    currentQuery = QueryOptions(
-      document: gql(allPersonWorkout),
-    );
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
