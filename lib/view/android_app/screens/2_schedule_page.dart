@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, non_constant_identifier_names
 
 import 'dart:async';
 import 'package:dio/dio.dart';
@@ -131,108 +131,57 @@ class _SchedulePageState extends State<SchedulePage> {
                 elevation: 3,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ExpansionTile(
-                    shape: null,
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  child: Theme(
+                    data: Theme.of(context)
+                        .copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      trailing: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'с ' + group_workouts['start_time'].substring(0, 5),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            'до ' + group_workouts['end_time'].substring(0, 5),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      title: Text(
+                        group_workouts['name'],
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      subtitle: Text(
+                        'Дата проведения: ' + group_workouts['event_date'],
+                      ),
                       children: [
-                        Text(
-                          group_workouts['start_time'].substring(0, 5),
-                          style: const TextStyle(fontSize: 16),
+                        ListTile(
+                          title: Text(
+                            group_workouts['description'],
+                          ),
                         ),
-                        Text(
-                          group_workouts['end_time'].substring(0, 5),
-                          style: const TextStyle(fontSize: 16),
+                        ListTile(
+                          title: Text(
+                            'Тренер: ' + group_workouts['coach'],
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            'Балл нагрузки: ' +
+                                group_workouts['load_score'].toString(),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            'Рекомендуемый возраст: ' +
+                                group_workouts['recommended_age'].toString() +
+                                '+',
+                          ),
                         ),
                       ],
                     ),
-                    title: Text(
-                      group_workouts['name'],
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    subtitle: Text(
-                      'Дата проведения: ' + group_workouts['event_date'],
-                    ),
-                    children: [
-                      ListTile(
-                        title: Text(
-                          group_workouts['description'],
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Тренер: ' + group_workouts['coach'],
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Балл нагрузки: ' +
-                              group_workouts['load_score'].toString(),
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Рекомендуемый возраст: ' +
-                              group_workouts['recommended_age'].toString() +
-                              '+',
-                        ),
-                      ),
-                    ],
                   ),
-                  //   Row(
-                  //     children: <Widget>[
-                  //       Expanded(
-                  //         flex: 0,
-                  //         child: Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.end,
-                  //           children: [
-                  //             Container(
-                  //               alignment: Alignment.centerLeft,
-                  //               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                  //               child: Text(
-                  //                 group_workouts['start_time'].substring(0, 5),
-                  //                 style: const TextStyle(fontSize: 20),
-                  //               ),
-                  //             ),
-                  //             Container(
-                  //               alignment: Alignment.centerLeft,
-                  //               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                  //               child: Text(
-                  //                 group_workouts['end_time'].substring(0, 5),
-                  //                 style: const TextStyle(fontSize: 20),
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //       Expanded(
-                  //         flex: 0,
-                  //         child: Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             Container(
-                  //               alignment: Alignment.centerLeft,
-                  //               child: Text(
-                  //                 group_workouts['name'],
-                  //                 style: TextStyle(fontSize: 16),
-                  //               ),
-                  //             ),
-                  //             SizedBox(
-                  //               height: 7.5,
-                  //               width: 0,
-                  //             ),
-                  //             Container(
-                  //                 alignment: Alignment.centerLeft,
-                  //                 child: Text(
-                  //                   group_workouts['coach'],
-                  //                   style: TextStyle(
-                  //                       color: Colors.grey[700], fontSize: 16),
-                  //                 )),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
                 ),
               ),
             );

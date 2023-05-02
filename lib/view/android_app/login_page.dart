@@ -234,18 +234,19 @@ class _LoginPageState extends State<LoginPage> {
                     Expanded(
                       child: Divider(
                         thickness: 1,
-                        color: Color.fromARGB(255, 72, 72, 72),
+                        color: Colors.grey,
                       ),
                     ),
                     SizedBox(width: 10),
                     Text(
                       '  или  ',
+                      style: TextStyle(color: Colors.grey),
                     ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Divider(
                         thickness: 1,
-                        color: Color.fromARGB(255, 72, 72, 72),
+                        color: Colors.grey,
                       ),
                     ),
                   ],

@@ -37,13 +37,12 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Text('Профиль'),
         ),
       ),
-      body: Container(
-        height: double.infinity,
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Card(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
               elevation: 6,
               child: Column(
                 children: [
@@ -60,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (User.get().personalData.secondName != null &&
                           User.get().personalData.firstName != null)
                         Padding(
-                          padding: const EdgeInsets.all(32.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Card(
                             elevation: 0,
                             child: Row(
@@ -94,12 +93,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Text(
                         User.get().personalData.firstName ?? ' ',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      Text(' '),
+                      const Text(' '),
                       Text(
                         User.get().personalData.secondName ?? ' ',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   ),
@@ -108,6 +107,71 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Center(
                       child: Text(
                         User.get().email,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    child: Card(
+                      elevation: 0,
+                      child: Theme(
+                        data: Theme.of(context)
+                            .copyWith(dividerColor: Colors.transparent),
+                        child: ExpansionTile(
+                          title: const Text('Персональные данные'),
+                          children: [
+                            ListTile(
+                              title: Row(
+                                children: [
+                                  const Text('Имя: '),
+                                  Text(
+                                      User.get().personalData.firstName ?? ' '),
+                                ],
+                              ),
+                            ),
+                            ListTile(
+                              title: Row(
+                                children: [
+                                  const Text('Фамилия: '),
+                                  Text(User.get().personalData.secondName ??
+                                      ' '),
+                                ],
+                              ),
+                            ),
+                            ListTile(
+                              title: Row(
+                                children: [
+                                  const Text('Отчество: '),
+                                  Text(User.get().personalData.patronymic ??
+                                      '...'),
+                                ],
+                              ),
+                            ),
+                            ListTile(
+                              title: Row(
+                                children: [
+                                  const Text('Номер телефона: '),
+                                  Text(User.get().personalData.mobileNumber ??
+                                      ' '),
+                                ],
+                              ),
+                            ),
+                            ListTile(
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('Изменить'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -120,91 +184,87 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => PersonalDataPage(),
-                  //       ),
-                  //     );
-                  //   },
-                  //   child: const Text(
-                  //     'Персональные данные',
-                  //   ),
-                  // ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(3),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FeedbackPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Обратная связь',
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(3),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FeedbackPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Обратная связь',
+                      ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(3),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OptionsPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Настройки',
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(3),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OptionsPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Настройки',
+                      ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(3),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text(
-                            'Внимание',
-                          ),
-                          content: const Text(
-                            'Вы действительно хотите выйти?',
-                          ),
-                          actions: <Widget>[
-                            OutlinedButton(
-                              onPressed: () async {
-                                AuthServiceMob.mobLogout();
-                                Navigator.pushReplacementNamed(
-                                    context, login_page.route);
-                              },
-                              child: const Text(
-                                'ДА',
-                              ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(3),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text(
+                              'Внимание',
                             ),
-                            OutlinedButton(
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                              },
-                              child: const Text(
-                                'НЕТ',
-                              ),
+                            content: const Text(
+                              'Вы действительно хотите выйти?',
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Выйти',
+                            actions: <Widget>[
+                              OutlinedButton(
+                                onPressed: () async {
+                                  AuthServiceMob.mobLogout();
+                                  Navigator.pushReplacementNamed(
+                                      context, login_page.route);
+                                },
+                                child: const Text(
+                                  'ДА',
+                                ),
+                              ),
+                              OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                },
+                                child: const Text(
+                                  'НЕТ',
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Выйти',
+                      ),
                     ),
                   ),
                 ],

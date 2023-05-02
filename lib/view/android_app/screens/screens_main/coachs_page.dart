@@ -24,6 +24,7 @@ class _CoachesPageState extends State<CoachesPage> {
   List _coaches = [];
   String? _searchQuery;
   String? _searchText;
+  bool isLoading = false;
 
   Future<void> _fetchCoaches() async {
     try {
@@ -152,15 +153,20 @@ class _CoachesPageState extends State<CoachesPage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    coaches['specialization'],
-                                    style: const TextStyle(
-                                        color: Colors.blue, fontSize: 32),
-                                  ),
-                                  Text(
-                                    coaches['first_name']?.substring(0, 1),
-                                    style: const TextStyle(
-                                        color: Colors.blue, fontSize: 32),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        coaches['specialization'],
+                                        style: const TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 27, 94, 150),
+                                            fontSize: 22),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -196,28 +202,13 @@ class _CoachesPageState extends State<CoachesPage> {
                             coaches['work_experience'],
                             style: const TextStyle(fontSize: 18),
                           ),
-                          // if (coaches['work_experience']
-                          //     .str
-                          //     .substring(str.length - 1))
-                          //   Text(' год'),
-                          // if (coaches['work_experience'].lastChars(1) == 2)
-                          //   Text(' года'),
-                          // if (coaches['work_experience'].lastChars(1) == 3)
-                          //   Text(' года'),
-                          // if (coaches['work_experience'].lastChars(1) == 4)
-                          //   Text(' года'),
-                          // if (coaches['work_experience'].lastChars(1) == 5)
-                          //   Text(' лет'),
-                          // if (coaches['work_experience'].lastChars(1) == 6)
-                          //   Text(' лет'),
-                          // if (coaches['work_experience'].lastChars(1) == 7)
-                          //   Text(' лет'),
-                          // if (coaches['work_experience'].lastChars(1) == 8)
-                          //   Text(' лет'),
-                          // if (coaches['work_experience'].lastChars(1) == 9)
-                          //   Text(' лет'),
-                          // if (coaches['work_experience'].lastChars(1) == 0)
-                          //   Text(' лет'),
+                          Text(
+                            int.parse(coaches['work_experience']) % 10 == 1 &&
+                                    int.parse(coaches['work_experience']) != 11
+                                ? ' год'
+                                : ' лет',
+                            style: const TextStyle(fontSize: 18),
+                          ),
                         ],
                       ),
                     ],
