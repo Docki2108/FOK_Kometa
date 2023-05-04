@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../models/person_workout/person_workout_model.dart';
-import '../../../stuffs/constant.dart';
-import '../../../stuffs/widgets.dart';
+import 'package:dio/dio.dart';
 
 class workout_page extends StatelessWidget {
   const workout_page({Key? key}) : super(key: key);
@@ -10,74 +7,150 @@ class workout_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: WorkoutPage(),
+      home: ExercisePage(),
     );
   }
 }
 
-class WorkoutPage extends StatefulWidget {
-  WorkoutPage({Key? key}) : super(key: key);
+class WorkoutPage extends StatelessWidget {
+  const WorkoutPage({Key? key}) : super(key: key);
+
   @override
-  State<WorkoutPage> createState() => _WorkoutPageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ExercisePage(),
+    );
+  }
 }
 
-class _WorkoutPageState extends State<WorkoutPage> {
-  List<PersonWorkoutModel> personWorkoutss = [];
-  var personWorkoutUn;
+class ExercisePage extends StatefulWidget {
+  @override
+  _ExercisePageState createState() => _ExercisePageState();
+}
 
-  bool isLoading = true;
+class _ExercisePageState extends State<ExercisePage> {
+  List<dynamic> exerciseData = [];
+
+  Future<void> getExerciseData() async {
+    try {
+      var response = await Dio().get('http://10.0.2.2:5000/exercise');
+      if (response.statusCode == 200) {
+        setState(() {
+          exerciseData = response.data;
+        });
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getExerciseData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 3,
-        title: const Center(
-          child: Text('Тренировки'),
-        ),
+        title: const Text('Тренировки'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            //   if (isLoading)
-            //     Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         CircularProgressIndicator(),
-            //       ],
-            //     )
-            //   else
-            //     Expanded(
-            //       child: ListView.builder(
-            //         itemCount: personWorkoutss.length,
-            //         itemBuilder: (context, i) {
-            //           return PersonWorkoutPost(
-            //             id_person_workout:
-            //                 '${personWorkoutss[i].id_person_workout}',
-            //             name: '${personWorkoutss[i].name}',
-            //             description: '${personWorkoutss[i].description}',
-            //             id_exercise: '${personWorkoutss[i].exercise}',
-            //             exercise_name: '${personWorkoutss[i].exercise}',
-            //             exercise_description: '${personWorkoutss[i].exercise}',
-            //             exercise_load_score: '${personWorkoutss[i].exercise}',
-            //             id_exercise_category: '${personWorkoutss[i].exercise}',
-            //             exercise_category_name: '${personWorkoutss[i].exercise}',
-            //             id_exercise_plan: '${personWorkoutss[i].exercise}',
-            //             exercise_plan_name: '${personWorkoutss[i].exercise}',
-            //             exercise_plan_description:
-            //                 '${personWorkoutss[i].exercise}',
-            //             exercise_plan_number_of_repetitions:
-            //                 '${personWorkoutss[i].exercise}',
-            //             exercise_plan_number_of_approaches:
-            //                 '${personWorkoutss[i].exercise}',
-            //             exercise_plan_rest_time: '${personWorkoutss[i].exercise}',
-            //           );
-            //         },
-            //       ),
-            //     ),
-          ],
-        ),
-      ),
+      body: exerciseData.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : RefreshIndicator(
+              onRefresh: getExerciseData,
+              child: ListView.builder(
+                itemCount: exerciseData.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      if (index == 0 ||
+                          exerciseData[index]['Person_workout'] !=
+                              exerciseData[index - 1]['Person_workout'])
+                        Container(
+                          color: const Color.fromARGB(255, 154, 185, 201),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        exerciseData[index]['Person_workout'],
+                                        style: const TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 27, 94, 150),
+                                            fontSize: 22),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    '${exerciseData[index]['Person_workout_Description']}'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      Card(
+                        child: Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            title: Text(exerciseData[index]['Name']),
+                            subtitle:
+                                Text(exerciseData[index]['Exercise_category']),
+                            children: [
+                              ListTile(
+                                title: Text(
+                                    'Exercise Plan Description: ${exerciseData[index]['Exercise_plan_Description']}'),
+                              ),
+                              ListTile(
+                                title: Text(
+                                    'Load Score: ${exerciseData[index]['Load_score']}'),
+                              ),
+                              ListTile(
+                                title: Text(
+                                    'Exercise Plan: ${exerciseData[index]['Exercise_plan']}'),
+                              ),
+                              ListTile(
+                                title: Text(
+                                    'Number of Repetitions: ${exerciseData[index]['Number_of_repetitions']}'),
+                              ),
+                              ListTile(
+                                title: Text(
+                                    'Number of Approaches: ${exerciseData[index]['Number_of_approaches']}'),
+                              ),
+                              ListTile(
+                                title: Text(
+                                    'Rest Time: ${exerciseData[index]['Rest_time']}'),
+                              ),
+                              ListTile(
+                                title: Text(
+                                    'Description: ${exerciseData[index]['Description']}'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
     );
   }
 }

@@ -23,7 +23,7 @@ class _ServicesPageState extends State<ServicesPage> {
   List _services = [];
   String? _searchQuery;
   String? _searchText;
-  List _filteredNews = [];
+  List _filteredServices = [];
 
   Future<void> _fetchServices() async {
     try {
@@ -43,7 +43,7 @@ class _ServicesPageState extends State<ServicesPage> {
 
   List<String> _getCategories() {
     final categories = ['Все'] +
-        _filteredNews
+        _filteredServices
             .map((service) => service['service_category'].toString())
             .toSet()
             .toList();
@@ -66,7 +66,7 @@ class _ServicesPageState extends State<ServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _filteredNews = _selectedCategory == null ||
+    final _filteredServices = _selectedCategory == null ||
             _selectedCategory == 'Все'
         ? _services
         : _services
@@ -76,7 +76,7 @@ class _ServicesPageState extends State<ServicesPage> {
 
     if (_searchQuery != null && _searchQuery!.isNotEmpty) {
       final query = _searchQuery!.toLowerCase();
-      _filteredNews.retainWhere((service) =>
+      _filteredServices.retainWhere((service) =>
           service['title'].toString().toLowerCase().contains(query));
     }
 
@@ -95,7 +95,7 @@ class _ServicesPageState extends State<ServicesPage> {
             },
             itemBuilder: (BuildContext context) {
               final categories = ['Все'] +
-                  _filteredNews
+                  _filteredServices
                       .map((service) => service['service_category'].toString())
                       .toSet()
                       .toList();
@@ -112,80 +112,85 @@ class _ServicesPageState extends State<ServicesPage> {
           // Добавляем строку поиска
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: _refreshNews,
-        child: ListView.builder(
-          itemCount: _filteredNews.length,
-          itemBuilder: (BuildContext context, int index) {
-            final service = _filteredNews[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              elevation: 0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        service['name'],
-                                        style: const TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 27, 94, 150),
-                                            fontSize: 22),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                      ),
+      body: _filteredServices.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : RefreshIndicator(
+              onRefresh: _refreshNews,
+              child: ListView.builder(
+                itemCount: _filteredServices.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final service = _filteredServices[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              service['name'],
+                                              style: const TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 154, 185, 201),
+                                                  fontSize: 22),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    service['description'],
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              service['description'],
-                              style: const TextStyle(fontSize: 18),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${service['cost']} руб.',
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              '${service['cost']} руб.',
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }

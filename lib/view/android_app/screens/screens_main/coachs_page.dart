@@ -55,12 +55,10 @@ class _CoachesPageState extends State<CoachesPage> {
   @override
   void initState() {
     super.initState();
-    _fetchCoaches().then((_) {
-      // do something after the coaches are fetched
-    });
+    _fetchCoaches().then((_) {});
   }
 
-  Future<void> _refreshNews() async {
+  Future<void> _refreshCoaches() async {
     setState(() {
       _coaches = [];
     });
@@ -130,95 +128,103 @@ class _CoachesPageState extends State<CoachesPage> {
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: _refreshNews,
-        child: ListView.builder(
-          itemCount: filteredCoaches.length,
-          itemBuilder: (BuildContext context, int index) {
-            final coaches = filteredCoaches[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              elevation: 0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        coaches['specialization'],
-                                        style: const TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 27, 94, 150),
-                                            fontSize: 22),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                      ),
+      body: filteredCoaches.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : RefreshIndicator(
+              onRefresh: _refreshCoaches,
+              child: ListView.builder(
+                itemCount: filteredCoaches.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final coaches = filteredCoaches[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              coaches['specialization'],
+                                              style: const TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 154, 185, 201),
+                                                  fontSize: 22),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  coaches['second_name'] + ' ',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  coaches['first_name'] + ' ',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  coaches['patronymic'],
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Стаж работы: ',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  coaches['work_experience'],
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  int.parse(coaches['work_experience']) % 10 ==
+                                              1 &&
+                                          int.parse(
+                                                  coaches['work_experience']) !=
+                                              11
+                                      ? ' год'
+                                      : ' лет',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            coaches['second_name'] + ' ',
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            coaches['first_name'] + ' ',
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            coaches['patronymic'],
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Стаж работы: ',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            coaches['work_experience'],
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            int.parse(coaches['work_experience']) % 10 == 1 &&
-                                    int.parse(coaches['work_experience']) != 11
-                                ? ' год'
-                                : ' лет',
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }

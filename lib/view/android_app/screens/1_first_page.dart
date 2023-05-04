@@ -76,7 +76,6 @@ class _FirstPageState extends State<FirstPage> {
       filteredNews.retainWhere(
           (news) => news['title'].toString().toLowerCase().contains(query));
     }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -126,40 +125,51 @@ class _FirstPageState extends State<FirstPage> {
           // Добавляем строку поиска
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: _refreshNews,
-        child: ListView.builder(
-          itemCount: filteredNews.length,
-          itemBuilder: (BuildContext context, int index) {
-            final news = filteredNews[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        news['title'],
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Padding(
+      body: filteredNews.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : RefreshIndicator(
+              onRefresh: _refreshNews,
+              child: ListView.builder(
+                itemCount: filteredNews.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final news = filteredNews[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 3,
+                      child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(news['content']),
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              news['title'],
+                              // style: const TextStyle(fontSize: 18),
+                              style: const TextStyle(
+                                  color:
+                                      const Color.fromARGB(255, 154, 185, 201),
+                                  fontSize: 22),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(news['content']),
+                            ),
+                            Text(
+                              news['create_date'],
+                            )
+                          ],
+                        ),
                       ),
-                      Text(
-                        news['create_date'],
-                      )
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }

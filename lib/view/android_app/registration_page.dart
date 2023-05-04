@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../stuffs/constant.dart';
 import '../../theme/theme.dart';
 
 class registration_page extends StatelessWidget {
@@ -64,10 +65,10 @@ class _RegistrationState extends State<Registration> {
           'email': _emailController.text,
           'password': _passwordController.text,
           'role': "Client",
-          'second_name': null,
-          'first_name': null,
-          'patronymic': null,
-          'mobile_number': null
+          'second_name': _secondNameController.text,
+          'first_name': _firstNameController.text,
+          'patronymic': _patronymicController.text,
+          'mobile_number': _mobileNumberController.text
         },
       );
       if (response.statusCode == 201) {
@@ -86,12 +87,6 @@ class _RegistrationState extends State<Registration> {
     passwordNode = FocusNode();
     btn_contNode = FocusNode();
     super.initState();
-    // Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-    //   if (event.event == AuthChangeEvent.signedIn) {
-    //     Navigator.of(context).pushReplacementNamed('/menu_page');
-    //     log('Регистрация прошла успешно');
-    //   }
-    // });
   }
 
   @override
@@ -113,146 +108,364 @@ class _RegistrationState extends State<Registration> {
           child: Text('Регистрация'),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              child: Center(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(20.0),
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            height: 60,
-                            child: TextFormField(
-                              key: _loginformKey,
-                              controller: _emailController,
-                              onEditingComplete: () => passwordNode.nextFocus(),
-                              focusNode: loginNode,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8.0),
-                                  ),
-                                ),
-                                filled: true,
-                                prefixIcon: Icon(
-                                  Icons.account_circle_outlined,
-                                ),
-                                hintText: 'Почта',
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            height: 60,
-                            child: TextFormField(
-                              onChanged: (value) => _checkPassword(value),
-                              key: _passwordformKey,
-                              controller: _passwordController,
-                              obscureText: true,
-                              focusNode: passwordNode,
-                              onEditingComplete: () => btn_contNode.nextFocus(),
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8.0),
-                                  ),
-                                ),
-                                filled: true,
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                ),
-                                hintText: 'Пароль',
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 20,
-                          ),
-                          LinearProgressIndicator(
-                            value: _strength,
-                            backgroundColor: Colors.grey[300],
-                            color: _strength <= 1 / 4
-                                ? Colors.red
-                                : _strength == 2 / 4
-                                    ? Colors.yellow
-                                    : _strength == 3 / 4
-                                        ? Colors.blue
-                                        : Colors.green,
-                            minHeight: 15,
-                          ),
-                          Text(
-                            _displayText,
-                            //style: const TextStyle(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: ButtonTheme(
-                    shape: CircleBorder(),
-                    child: ElevatedButton(
-                      onPressed: _strength < 1 / 2
-                          ? null
-                          : () {
-                              if (_emailController.text.isEmpty ||
-                                  _passwordController.text.isEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => const AlertDialog(
-                                    title: Text(
-                                      'Ошибка',
-                                      style: TextStyle(),
+                Card(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: 60,
+                                child: TextFormField(
+                                  key: _loginformKey,
+                                  controller: _emailController,
+                                  onEditingComplete: () =>
+                                      passwordNode.nextFocus(),
+                                  focusNode: loginNode,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(8.0),
+                                      ),
                                     ),
-                                    content: Text('Заполните все поля!'),
+                                    filled: true,
+                                    prefixIcon: Icon(
+                                      Icons.email,
+                                    ),
+                                    hintText: 'Почта',
                                   ),
-                                );
-                                log('Ошибка регистрации');
-                              } else {
-                                _submitForm();
-                                // AuthService.signUp(
-                                //   email: emailController.text.trim(),
-                                //   password: passwordController.text.trim(),
-                                // );
-                                // Navigator.of(context, rootNavigator: true)
-                                //     .pushNamedAndRemoveUntil(
-                                //         "/menu_page", (_) => false);
-                              }
-                            },
-                      focusNode: btn_contNode,
-                      child: const Text('Зарегистрироваться'),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: 60,
+                                child: TextFormField(
+                                  onChanged: (value) => _checkPassword(value),
+                                  key: _passwordformKey,
+                                  controller: _passwordController,
+                                  obscureText: true,
+                                  focusNode: passwordNode,
+                                  onEditingComplete: () =>
+                                      btn_contNode.nextFocus(),
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(8.0),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                    ),
+                                    hintText: 'Пароль',
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 20,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: LinearProgressIndicator(
+                                  value: _strength,
+                                  backgroundColor: Colors.grey[300],
+                                  color: _strength <= 1 / 4
+                                      ? Colors.red
+                                      : _strength == 2 / 4
+                                          ? Colors.yellow
+                                          : _strength == 3 / 4
+                                              ? Colors.blue
+                                              : Colors.green,
+                                  minHeight: 15,
+                                ),
+                              ),
+                              Text(
+                                _displayText,
+                                //style: const TextStyle(fontSize: 18),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Stack(
+                                children: [
+                                  Card(
+                                    elevation: 0,
+                                    child: Column(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Номер телефона',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 60,
+                                          child: TextFormField(
+                                            keyboardType: TextInputType.number,
+
+                                            controller: _mobileNumberController,
+                                            //focusNode: passwordNode,
+                                            inputFormatters: [maskTelephone],
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(16.0),
+                                                ),
+                                              ),
+                                              filled: true,
+                                              hintText: "+7 (XXX) XXX-XX-XX",
+                                              hintStyle:
+                                                  TextStyle(color: Colors.grey),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const AlertDialog(
+                                            title: Text('Номер телефона'),
+                                            content: Text(
+                                                'Будет использован для возможного будущего восстановления доступа'),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: const Icon(Icons.info),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushNamedAndRemoveUntil("/login_page", (t) => false);
-                  },
-                  child: const Text('Назад'),
+                Container(
+                  height: 16,
+                ),
+                Card(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Theme(
+                                data: Theme.of(context)
+                                    .copyWith(dividerColor: Colors.transparent),
+                                child: ExpansionTile(
+                                  title: const Text(
+                                    'Персональные данные',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  subtitle: const Text(
+                                      'Необязательны к заполнению. Можно добавить позже.'),
+                                  children: [
+                                    ListBody(
+                                      children: [
+                                        Card(
+                                          child: Column(
+                                            children: [
+                                              const Text(
+                                                'Имя',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.centerLeft,
+                                                height: 60,
+                                                child: TextFormField(
+                                                  controller:
+                                                      _firstNameController,
+                                                  //focusNode: passwordNode,
+                                                  // onEditingComplete: () =>
+                                                  //    btn_contNode.nextFocus(),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderSide:
+                                                          BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(16.0),
+                                                      ),
+                                                    ),
+                                                    filled: true,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    ListBody(
+                                      children: [
+                                        Card(
+                                          child: Column(
+                                            children: [
+                                              const Text(
+                                                'Фамилия',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.centerLeft,
+                                                height: 60,
+                                                child: TextFormField(
+                                                  controller:
+                                                      _secondNameController,
+                                                  //focusNode: passwordNode,
+                                                  // onEditingComplete: () =>
+                                                  //    btn_contNode.nextFocus(),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderSide:
+                                                          BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(16.0),
+                                                      ),
+                                                    ),
+                                                    filled: true,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    ListBody(
+                                      children: [
+                                        Card(
+                                          child: Column(
+                                            children: [
+                                              const Text(
+                                                'Отчество',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.centerLeft,
+                                                height: 60,
+                                                child: TextFormField(
+                                                  controller:
+                                                      _patronymicController,
+                                                  //focusNode: passwordNode,
+                                                  // onEditingComplete: () =>
+                                                  //    btn_contNode.nextFocus(),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderSide:
+                                                          BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(16.0),
+                                                      ),
+                                                    ),
+                                                    filled: true,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // ListBody(
+                                    //   children: [
+
+                                    //   ],
+                                    // )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 16,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: ButtonTheme(
+                        child: ElevatedButton(
+                          onPressed: _strength < 1 / 2
+                              ? null
+                              : () {
+                                  if (_emailController.text.isEmpty ||
+                                      _passwordController.text.isEmpty ||
+                                      _mobileNumberController.text.isEmpty) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => const AlertDialog(
+                                        title: Text(
+                                          'Ошибка',
+                                          style: TextStyle(),
+                                        ),
+                                        content: Text(
+                                            'Заполните все обязательные поля!'),
+                                      ),
+                                    );
+                                    log('Ошибка регистрации');
+                                  } else {
+                                    _submitForm();
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pushNamedAndRemoveUntil(
+                                            "/login_page", (_) => false);
+                                  }
+                                },
+                          focusNode: btn_contNode,
+                          child: const Text('Зарегистрироваться'),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamedAndRemoveUntil(
+                                "/login_page", (t) => false);
+                      },
+                      child: const Text('Назад'),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

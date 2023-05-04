@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_profile/options_page.dart';
 import '../../../new_models/user.dart';
 import '../../../services/auth.dart';
+import '../../../stuffs/constant.dart';
 import 'screens_profile/feedback_page.dart';
 
 class profile_page extends StatelessWidget {
@@ -28,6 +31,52 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late FocusNode _emailNode;
+  late FocusNode _firstNameNode;
+  late FocusNode _secondNameNode;
+  late FocusNode _patronymicNameNode;
+  late FocusNode _mobileNumberNameNode;
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _secondNameController = TextEditingController();
+  TextEditingController _patronymicController = TextEditingController();
+  TextEditingController _mobileNumberController = TextEditingController();
+
+  @override
+  void initState() {
+    _emailNode = FocusNode();
+    _firstNameNode = FocusNode();
+    _secondNameNode = FocusNode();
+    _patronymicNameNode = FocusNode();
+    _mobileNumberNameNode = FocusNode();
+
+    _emailController.text = User.get().email;
+    _firstNameController.text = User.get().personalData.firstName.toString();
+    _secondNameController.text = User.get().personalData.secondName.toString();
+    _patronymicController.text = User.get().personalData.patronymic.toString();
+    _mobileNumberController.text =
+        User.get().personalData.mobileNumber.toString();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailNode.dispose();
+    _firstNameNode.dispose();
+    _secondNameNode.dispose();
+    _patronymicNameNode.dispose();
+    _mobileNumberNameNode.dispose();
+
+    _emailController.dispose();
+    _firstNameController.dispose();
+    _secondNameController.dispose();
+    _patronymicController.dispose();
+    _mobileNumberController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Card(
-              margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
+              margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               elevation: 6,
               child: Column(
                 children: [
@@ -75,13 +124,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: Colors.blue, fontSize: 128),
                                 ),
                                 Text(
-                                    User.get()
-                                            .personalData
-                                            .secondName
-                                            ?.substring(0, 1) ??
-                                        ' ',
-                                    style: const TextStyle(
-                                        color: Colors.blue, fontSize: 128)),
+                                  User.get()
+                                          .personalData
+                                          .secondName
+                                          ?.substring(0, 1) ??
+                                      ' ',
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 128),
+                                ),
                               ],
                             ),
                           ),
@@ -118,8 +168,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
-                          title: const Text('Персональные данные'),
+                          title: const Text('Полные персональные данные'),
                           children: [
+                            ListTile(
+                              title: Row(
+                                children: [
+                                  const Text('Почта: '),
+                                  Text(User.get().email),
+                                ],
+                              ),
+                            ),
                             ListTile(
                               title: Row(
                                 children: [
@@ -160,12 +218,254 @@ class _ProfilePageState extends State<ProfilePage> {
                               title: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 16),
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      child: const Text('Изменить'),
-                                    ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text(
+                                            'Ваши данные',
+                                          ),
+                                          content: SingleChildScrollView(
+                                            child: Column(
+                                              children: [
+                                                Card(
+                                                  child: Column(
+                                                    children: [
+                                                      const Text(
+                                                        'Почта',
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        height: 60,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              _emailController,
+                                                          //focusNode: passwordNode,
+                                                          // onEditingComplete: () =>
+                                                          //    btn_contNode.nextFocus(),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    16.0),
+                                                              ),
+                                                            ),
+                                                            filled: true,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Card(
+                                                  child: Column(
+                                                    children: [
+                                                      const Text(
+                                                        'Имя',
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        height: 60,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              _firstNameController,
+                                                          //focusNode: passwordNode,
+                                                          // onEditingComplete: () =>
+                                                          //    btn_contNode.nextFocus(),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    16.0),
+                                                              ),
+                                                            ),
+                                                            filled: true,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Card(
+                                                  child: Column(
+                                                    children: [
+                                                      const Text(
+                                                        'Фамилия',
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        height: 60,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              _secondNameController,
+                                                          //focusNode: passwordNode,
+                                                          // onEditingComplete: () =>
+                                                          //    btn_contNode.nextFocus(),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    16.0),
+                                                              ),
+                                                            ),
+                                                            filled: true,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Card(
+                                                  child: Column(
+                                                    children: [
+                                                      const Text(
+                                                        'Отчество',
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        height: 60,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              _patronymicController,
+                                                          //focusNode: passwordNode,
+                                                          // onEditingComplete: () =>
+                                                          //    btn_contNode.nextFocus(),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    16.0),
+                                                              ),
+                                                            ),
+                                                            filled: true,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Card(
+                                                  child: Column(
+                                                    children: [
+                                                      const Text(
+                                                        'Телефон',
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        height: 60,
+                                                        child: TextFormField(
+                                                          inputFormatters: [
+                                                            maskTelephone
+                                                          ],
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          controller:
+                                                              _mobileNumberController,
+                                                          //focusNode: passwordNode,
+                                                          // onEditingComplete: () =>
+                                                          //    btn_contNode.nextFocus(),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    16.0),
+                                                              ),
+                                                            ),
+                                                            filled: true,
+                                                            hintText:
+                                                                "+7 (XXX) XXX-XX-XX",
+                                                            hintStyle: TextStyle(
+                                                                color: Colors
+                                                                    .grey),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                OutlinedButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .pop();
+                                                  },
+                                                  child: const Text(
+                                                    'Закрыть',
+                                                  ),
+                                                ),
+                                                OutlinedButton(
+                                                  onPressed: () {},
+                                                  child: const Text(
+                                                    'Изменить',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('Изменить'),
                                   ),
                                 ],
                               ),
@@ -237,9 +537,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             content: const Text(
                               'Вы действительно хотите выйти?',
+                              style: TextStyle(fontSize: 16),
                             ),
                             actions: <Widget>[
                               OutlinedButton(
+                                style: ButtonStyle(),
                                 onPressed: () async {
                                   AuthServiceMob.mobLogout();
                                   Navigator.pushReplacementNamed(
@@ -247,6 +549,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 },
                                 child: const Text(
                                   'ДА',
+                                  style: TextStyle(color: Colors.red),
                                 ),
                               ),
                               OutlinedButton(
@@ -256,6 +559,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 },
                                 child: const Text(
                                   'НЕТ',
+                                  style: TextStyle(color: Colors.green),
                                 ),
                               ),
                             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/theme/theme.dart';
+import 'package:fok_kometa/view/android_app/forgot_password_page.dart';
 import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/menu_page.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,8 @@ void main() async {
                   menu_page.route: (BuildContext context) => const menu_page(),
                   registration_page.route: (BuildContext context) =>
                       const registration_page(),
+                  forgot_password_page.route: (BuildContext content) =>
+                      const forgot_password_page()
                 });
           },
         ),

@@ -102,7 +102,8 @@ class _WinLoginPageState extends State<WinLoginPage> {
                                         if (value == null) {
                                           showDialog(
                                             context: context,
-                                            builder: (ctx) => ContentDialog(
+                                            builder: (ctx) =>
+                                                const ContentDialog(
                                               content: Text("Ошибка"),
                                             ),
                                           );

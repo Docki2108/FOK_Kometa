@@ -35,73 +35,84 @@ class _DishesPageState extends State<DishesPage> {
         title: const Text('Диеты'),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        itemCount: _dishes.length,
-        itemBuilder: (context, index) {
-          final dish = _dishes[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (index == 0 ||
-                  dish['diet']['name'] != _dishes[index - 1]['diet']['name'])
-                Stack(
+      body: _dishes.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: _dishes.length,
+              itemBuilder: (context, index) {
+                final dish = _dishes[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      color: const Color.fromARGB(255, 154, 185, 201),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    dish['diet']['name'],
-                                    style: const TextStyle(
-                                        color: Color.fromARGB(255, 27, 94, 150),
-                                        fontSize: 22),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
+                    if (index == 0 ||
+                        dish['diet']['name'] !=
+                            _dishes[index - 1]['diet']['name'])
+                      Container(
+                        color: const Color.fromARGB(255, 154, 185, 201),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      dish['diet']['name'],
+                                      style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 27, 94, 150),
+                                          fontSize: 22),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                 ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                      'Категория: ${dish['diet']['category']}'),
+                                  Text(
+                                      'Количество дней: ${dish['diet']['duration']}'),
+                                ],
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            title: Text(dish['category']),
+                            subtitle: Text(dish['name']),
+                            trailing: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('ККал: ${dish['kcal']}'),
+                                Text(
+                                    'БЖУ: ${dish['pfc']['proteins']}/${dish['pfc']['fats']}/${dish['pfc']['carbohydrates']}'),
+                              ],
+                            ),
                           ),
-                          Text('Категория: ${dish['diet']['category']}'),
-                          Text('Количество дней: ${dish['diet']['duration']}'),
-                        ],
+                        ),
                       ),
                     ),
                   ],
-                ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text(dish['category']),
-                      subtitle: Text(dish['name']),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('ККал: ${dish['kcal']}'),
-                          Text(
-                              'БЖУ: ${dish['pfc']['proteins']}/${dish['pfc']['fats']}/${dish['pfc']['carbohydrates']}'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                );
+              },
+            ),
     );
   }
 }

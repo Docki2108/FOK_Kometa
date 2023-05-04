@@ -46,27 +46,11 @@ class _MenuState extends State<Menu> {
     FirstPage(),
     SchedulePage(),
     MainPage(),
-    WorkoutPage(),
+    ExercisePage(),
     const ProfilePage()
   ];
 
   StreamSubscription? sub;
-
-  // @override
-  // void initState() {
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     if (ModalRoute.of(context)?.settings.arguments != null) {
-  //       sub = Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-  //         if (event.event == AuthChangeEvent.signedOut) {
-  //           Navigator.of(context, rootNavigator: true)
-  //               .pushReplacementNamed(login_page.route);
-  //         }
-  //       });
-  //     }
-  //   });
-
-  //   super.initState();
-  // }
 
   @override
   void dispose() {
@@ -82,11 +66,8 @@ class _MenuState extends State<Menu> {
         body: screens[index],
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
-            //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             elevation: 0.2,
             height: 80,
-            // indicatorColor: Colors.blue.shade100,
-            // shadowColor: Colors.grey.shade100,
             labelTextStyle: MaterialStateProperty.all(
               const TextStyle(
                 fontSize: 12,
