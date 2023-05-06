@@ -7,6 +7,7 @@ import '../../../../new_models/user.dart';
 import '../../../../services/hive_weight.dart';
 import '../../../../theme/theme.dart';
 import 'package:fok_kometa/l10n/ru.dart';
+import 'package:intl/intl.dart';
 
 class weight_calendar_page extends StatelessWidget {
   const weight_calendar_page({Key? key}) : super(key: key);
@@ -93,6 +94,7 @@ class _WeightCalendarState extends State<WeightCalendar> {
             Card(
               child: SfCartesianChart(
                 primaryXAxis: DateTimeAxis(
+                  dateFormat: DateFormat('dd MMMM', 'ru'),
                   intervalType: DateTimeIntervalType.days,
                 ),
                 series: <ChartSeries>[

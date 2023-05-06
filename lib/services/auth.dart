@@ -17,9 +17,14 @@ class AuthServiceWin {
     try {
       final response = await _dio
           .post('/login', data: {'email': email, 'password': password});
-      final accessToken = response.data['access_token'];
-      _dio.options = _dio.options
-          .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
+
+      if (response.data['role'] == 'Manager') {
+        final accessToken = response.data['access_token'];
+        _dio.options = _dio.options
+            .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
+      } else {
+        throw Exception('Не');
+      }
     } catch (error) {
       throw Exception('Failed to login: $error');
     }
@@ -30,7 +35,7 @@ class AuthServiceWin {
       await _dio.post(
         '/logout',
       );
-            User.get().logout();
+      User.get().logout();
 
       _dio.options = BaseOptions();
     } catch (error) {
