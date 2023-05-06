@@ -9,6 +9,7 @@ import '../../../new_models/user.dart';
 import '../../../services/auth.dart';
 import '../../../stuffs/constant.dart';
 import 'screens_profile/feedback_page.dart';
+import 'screens_profile/weight_calendar.dart';
 
 class profile_page extends StatelessWidget {
   const profile_page({
@@ -487,9 +488,30 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(3),
+                      // style: ButtonStyle(
+                      //   elevation: MaterialStateProperty.all(3),
+                      // ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WeightCalendar(
+                              User.get().email,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'График массы тела',
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      // style: ButtonStyle(
+                      //   elevation: MaterialStateProperty.all(3),
+                      // ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -506,9 +528,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(3),
-                      ),
+                      // style: ButtonStyle(
+                      //   elevation: MaterialStateProperty.all(3),
+                      // ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -525,9 +547,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(3),
-                      ),
+                      // style: ButtonStyle(
+                      //   elevation: MaterialStateProperty.all(3),
+                      // ),
                       onPressed: () {
                         showDialog(
                           context: context,

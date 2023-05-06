@@ -40,16 +40,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   late FocusNode loginNode;
   late FocusNode passwordNode;
   late FocusNode btn_contNode;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  final _roleController = TextEditingController();
-  final _secondNameController = TextEditingController();
-  final _firstNameController = TextEditingController();
-  final _patronymicController = TextEditingController();
-  final _mobileNumberController = TextEditingController();
-
-  final _loginformKey = GlobalKey<FormState>();
-  final _passwordformKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final _codeController = TextEditingController();
 
   late String _password;
   double _strength = 0;
@@ -60,25 +53,40 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   bool _onEditing = true;
   String? _code;
 
-  void _submitForm() async {
+  void _sendCode() async {
     try {
       var dio = Dio();
-      var response = await dio.post(
-        'http://10.0.2.2:5000/register',
+      var response = await dio.get(
+        'http://10.0.2.2:5000/forgot_password',
         data: {
           'email': _emailController.text,
-          'password': _passwordController.text,
-          'role': "Client",
-          'second_name': _secondNameController.text,
-          'first_name': _firstNameController.text,
-          'patronymic': _patronymicController.text,
-          'mobile_number': _mobileNumberController.text
         },
       );
       if (response.statusCode == 201) {
-        log('Пользователь успешно зарегистрирован!');
+        log('Письмо отправлено на указаный номер телефона');
       } else {
-        log('Ошибка в регистрации!');
+        log('Ошибка');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void _changePassword() async {
+    try {
+      var dio = Dio();
+      var response = await dio.post(
+        'http://10.0.2.2:5000/reset_password',
+        data: {
+          'email': _emailController.text,
+          'code': _codeController.text,
+          'new_password': _newPasswordController.text
+        },
+      );
+      if (response.statusCode == 201) {
+        log('Изменение пароля прошло успешно');
+      } else {
+        log('Ошибка');
       }
     } catch (e) {
       log(e.toString());
@@ -100,7 +108,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     btn_contNode.dispose();
 
     _emailController.dispose();
-    _passwordController.dispose();
+    _newPasswordController.dispose();
     super.dispose();
   }
 
@@ -148,23 +156,37 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
-                              OutlinedButton(
+                              ElevatedButton(
                                 style: ButtonStyle(
                                   elevation: MaterialStateProperty.all(0),
                                 ),
-                                onPressed: () {},
-                                child: Text('Отправить код на почту'),
+                                onPressed: () {
+                                  _sendCode();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => new AlertDialog(
+                                      title: const Text('Сообщение'),
+                                      content: Text(
+                                          textAlign: TextAlign.center,
+                                          'Письмо отправлено на указаный номер телефона в профиле'),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                    textAlign: TextAlign.center,
+                                    'Отправить код на указаный номер телефона в профиле'),
                               ),
                               const SizedBox(height: 20),
-                              Text(
+                              const Text(
                                   'Введите код, который пришел вам на номер телефона, привязанный к аккаунту'),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
                                   child: PinCodeTextField(
+                                    controller: _codeController,
                                     appContext: context,
                                     length: 6,
                                     animationType: AnimationType.scale,
@@ -177,7 +199,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         activeFillColor: Colors.white,
                                         inactiveFillColor: Colors.black),
                                     onChanged: (value) {
-                                      print(value);
+                                      log(_codeController.text);
                                     },
                                   ),
                                 ),
@@ -186,8 +208,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 alignment: Alignment.centerLeft,
                                 height: 60,
                                 child: TextFormField(
+                                  onChanged: (value) => _checkPassword(value),
                                   obscureText: true,
-                                  // controller: _emailController,
+                                  controller: _newPasswordController,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
@@ -202,6 +225,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     hintText: 'Новый пароль',
                                   ),
                                 ),
+                              ),
+                              Container(
+                                height: 20,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: LinearProgressIndicator(
+                                  value: _strength,
+                                  backgroundColor: Colors.grey[300],
+                                  color: _strength <= 1 / 4
+                                      ? Colors.red
+                                      : _strength == 2 / 4
+                                          ? Colors.yellow
+                                          : _strength == 3 / 4
+                                              ? Colors.blue
+                                              : Colors.green,
+                                  minHeight: 15,
+                                ),
+                              ),
+                              Text(
+                                _displayText,
+                                //style: const TextStyle(fontSize: 18),
                               ),
                             ],
                           ),
@@ -223,31 +268,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: ButtonTheme(
                         child: ElevatedButton(
-                          onPressed: () {},
-                          // _strength < 1 / 2
-                          //     ? null
-                          //     : () {
-                          //         if (_emailController.text.isEmpty ||
-                          //             _passwordController.text.isEmpty) {
-                          //           showDialog(
-                          //             context: context,
-                          //             builder: (_) => const AlertDialog(
-                          //               title: Text(
-                          //                 'Ошибка',
-                          //                 style: TextStyle(),
-                          //               ),
-                          //               content: Text('Заполните все поля!'),
-                          //             ),
-                          //           );
-                          //           log('Ошибка регистрации');
-                          //         } else {
-                          //           _submitForm();
-                          //           Navigator.of(context, rootNavigator: true)
-                          //               .pushNamedAndRemoveUntil(
-                          //                   "/login_page", (_) => false);
-                          //         }
-                          //       },
-
+                          onPressed: () {
+                            if (_emailController.text.isEmpty ||
+                                _newPasswordController.text.isEmpty ||
+                                _codeController.text.isEmpty) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => const AlertDialog(
+                                  title: Text(
+                                    'Ошибка',
+                                    style: TextStyle(),
+                                  ),
+                                  content: Text('Заполните все поля!'),
+                                ),
+                              );
+                              log('Ошибка');
+                            } else {
+                              _changePassword();
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushNamedAndRemoveUntil(
+                                      "/login_page", (t) => false);
+                            }
+                          },
                           child: const Text('Сохранить новый пароль'),
                         ),
                       ),
@@ -276,7 +318,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     if (_password.isEmpty) {
       setState(() {
         _strength = 0;
-        _displayText = 'Введите пароль';
+        _displayText = '';
       });
     } else if (_password.length < 8) {
       setState(() {

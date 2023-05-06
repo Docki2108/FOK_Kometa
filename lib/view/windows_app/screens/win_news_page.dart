@@ -2,13 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/auth.dart';
-import '../../stuffs/widgets.dart';
-import '../../theme/theme.dart';
+import '../../../theme/theme.dart';
 
-class win_login_page extends StatelessWidget {
-  const win_login_page({super.key});
-  static const String route = "/win_login_page";
+class win_news_page extends StatelessWidget {
+  const win_news_page({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,7 @@ class win_login_page extends StatelessWidget {
         builder: (context, ThemeNotifier notifier, child) {
           return MaterialApp(
             theme: notifier.darkTheme ? dark : light,
-            home: WinLoginPage(),
+            home: WinNewsPage(),
             debugShowCheckedModeBanner: false,
           );
         },
@@ -27,22 +24,13 @@ class win_login_page extends StatelessWidget {
   }
 }
 
-class WinLoginPage extends StatefulWidget {
+class WinNewsPage extends StatefulWidget {
   @override
-  _WinLoginPageState createState() => _WinLoginPageState();
+  _WinNewsPageState createState() => _WinNewsPageState();
 }
 
-class _WinLoginPageState extends State<WinLoginPage> {
-  static const String route = "/win_login_page";
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isPasswordObscured = true;
-  bool _isLoading = false;
-  final _formKey = GlobalKey<FormState>();
-  final dio = Dio();
-  final _authService = AuthServiceWin();
-  String _errorMessage = '';
-  String? _accessToken;
+class _WinNewsPageState extends State<WinNewsPage> {
+  static const String route = "/win_news_page";
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +48,6 @@ class _WinLoginPageState extends State<WinLoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return SizedBox(
-                    width: constraints.maxWidth * 0.75,
-                    height: constraints.maxHeight * 0.75,
-                    child: logosvg,
-                  );
-                },
-              ),
-            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -119,7 +96,6 @@ class _WinLoginPageState extends State<WinLoginPage> {
                               maxHeight: 50.0,
                             ),
                             child: TextFormField(
-                              controller: _passwordController,
                               obscureText: true,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
@@ -142,12 +118,7 @@ class _WinLoginPageState extends State<WinLoginPage> {
                             child: Text('Войти'),
                           ),
                           OutlinedButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushNamedAndRemoveUntil(
-                                      "/win_menu_page", (_) => false,
-                                      arguments: true);
-                            },
+                            onPressed: () {},
                             child: Text('Перейти'),
                           )
                         ],

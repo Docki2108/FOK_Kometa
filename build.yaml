@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      hive_generator:
+        enabled: true
+        options:
+          build_mode: release

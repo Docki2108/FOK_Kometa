@@ -88,6 +88,14 @@ ThemeData dark = ThemeData(
 );
 
 class ThemeNotifier extends ChangeNotifier {
+  bool _useMaterial3 = true;
+  bool get useMaterial3 => _useMaterial3;
+
+  set useMaterial3(bool value) {
+    _useMaterial3 = value;
+    notifyListeners();
+  }
+
   final String key = "theme";
 
   bool _darkTheme = false;

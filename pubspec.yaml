@@ -9,6 +9,9 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
+  build_runner:
+  calendar_timeline: ^1.1.2
+  charts_flutter: ^0.12.0
   cupertino_icons: ^1.0.2
   dio: ^5.1.1
   fl_chart: ^0.62.0
@@ -17,11 +20,15 @@ dependencies:
   fluent_ui: ^4.5.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_svg: ^2.0.5
   flutter_verification_code: ^1.1.6
   glass_kit: ^2.0.1
   go_router: ^6.2.0
   google_fonts: ^4.0.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   image_gallery_saver: ^1.7.1
   json_annotation: ^4.8.0
   mask_text_input_formatter: ^2.4.0
@@ -33,6 +40,7 @@ dependencies:
   shared_preferences: ^2.0.20
   smooth_page_indicator: ^1.0.1
   switcher_button: ^0.0.4
+  syncfusion_flutter_charts: ^21.2.3
   url_launcher: ^6.1.10
   uuid: ^3.0.7
 
