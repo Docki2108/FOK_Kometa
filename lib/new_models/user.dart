@@ -13,6 +13,8 @@ class User {
       required this.role,
       required this.personalData});
 
+   void logout() => _context = null;
+
   factory User.get() {
     if (_context == null) {
       throw UnimplementedError(

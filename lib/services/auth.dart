@@ -30,6 +30,8 @@ class AuthServiceWin {
       await _dio.post(
         '/logout',
       );
+            User.get().logout();
+
       _dio.options = BaseOptions();
     } catch (error) {
       throw Exception('Failed to logout: $error');
@@ -53,6 +55,7 @@ class AuthServiceWin {
       await _dio.post(
         '/logout',
       );
+      User.get().logout();
       _dio.options = BaseOptions();
     } catch (error) {
       throw Exception('Failed to logout: $error');
@@ -123,6 +126,8 @@ class AuthServiceMob {
       await _dio.post(
         '/logout',
       );
+      User.get().logout();
+
       _dio.options = BaseOptions();
     } catch (error) {
       throw Exception('Failed to logout: $error');
