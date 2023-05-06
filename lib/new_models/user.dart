@@ -13,7 +13,7 @@ class User {
       required this.role,
       required this.personalData});
 
-   void logout() => _context = null;
+  void logout() => _context = null;
 
   factory User.get() {
     if (_context == null) {
@@ -22,6 +22,10 @@ class User {
     } else {
       return _context!;
     }
+  }
+
+  static bool isAnon() {
+    return _context == null;
   }
 
   factory User.fromJson(Map<String, dynamic> json) {

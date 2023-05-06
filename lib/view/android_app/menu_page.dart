@@ -42,6 +42,9 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   int index = 0;
+  late List<Widget> listiki;
+  late List<Widget> destinations;
+
   final screens = [
     FirstPage(),
     SchedulePage(),
@@ -51,6 +54,69 @@ class _MenuState extends State<Menu> {
   ];
 
   StreamSubscription? sub;
+
+  @override
+  void initState() {
+    listiki = User.User.isAnon()
+        ? [
+            FirstPage(),
+            SchedulePage(),
+            ExercisePage(),
+          ]
+        : [
+            FirstPage(),
+            SchedulePage(),
+            MainPage(),
+            ExercisePage(),
+            const ProfilePage()
+          ];
+
+    destinations = User.User.isAnon()
+        ? [
+            const NavigationDestination(
+              icon: Icon(Icons.newspaper_outlined),
+              selectedIcon: Icon(Icons.newspaper),
+              label: 'Новости',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.event_note_outlined),
+              selectedIcon: Icon(Icons.event_note),
+              label: 'Раписание',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.sports_outlined),
+              selectedIcon: Icon(Icons.sports),
+              label: 'Тренировки',
+            ),
+          ]
+        : [
+            const NavigationDestination(
+              icon: Icon(Icons.newspaper_outlined),
+              selectedIcon: Icon(Icons.newspaper),
+              label: 'Новости',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.event_note_outlined),
+              selectedIcon: Icon(Icons.event_note),
+              label: 'Раписание',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Главная',
+            ),
+            const NavigationDestination(
+              icon: Icon(Icons.sports_outlined),
+              selectedIcon: Icon(Icons.sports),
+              label: 'Тренировки',
+            ),
+            const NavigationDestination(
+                icon: Icon(Icons.account_box_outlined),
+                selectedIcon: Icon(Icons.account_box),
+                label: 'Профиль'),
+          ];
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -63,7 +129,7 @@ class _MenuState extends State<Menu> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        body: screens[index],
+        body: listiki[index],
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
             elevation: 0.2,
@@ -84,37 +150,7 @@ class _MenuState extends State<Menu> {
             onDestinationSelected: (index) => setState(() {
               this.index = index;
             }),
-            destinations: [
-              const NavigationDestination(
-                icon: Icon(Icons.newspaper_outlined),
-                selectedIcon: Icon(Icons.newspaper),
-                label: 'Новости',
-              ),
-              const NavigationDestination(
-                icon: Icon(Icons.event_note_outlined),
-                selectedIcon: Icon(Icons.event_note),
-                label: 'Раписание',
-              ),
-              // if (User.User.get().email != null)
-              const NavigationDestination(
-                icon: Icon(Icons.home_outlined),
-                selectedIcon: Icon(Icons.home),
-                label: 'Главная',
-              ),
-              // if (User.User.fromJson(['email'] as Map<String, dynamic>) != null)
-              const NavigationDestination(
-                icon: Icon(Icons.sports_outlined),
-                selectedIcon: Icon(Icons.sports),
-                label: 'Тренировки',
-              ),
-              // if (User.User.fromJson(['email'] as Map<String, dynamic>) != null)
-              const NavigationDestination(
-                  icon: Icon(Icons.account_box_outlined),
-                  selectedIcon: Icon(Icons.account_box),
-                  label: 'Профиль'),
-
-              //if (User.User.get().role == Manager)
-            ],
+            destinations: destinations,
           ),
         ),
       ),
