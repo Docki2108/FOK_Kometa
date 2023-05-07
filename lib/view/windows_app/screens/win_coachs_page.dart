@@ -1,0 +1,441 @@
+import 'dart:developer';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:fok_kometa/new_models/user.dart';
+import 'package:provider/provider.dart';
+import '../../../new_models/service_category.dart';
+import '../../../theme/theme.dart';
+
+class win_coachs_page extends StatelessWidget {
+  const win_coachs_page({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(),
+      child: Consumer<ThemeNotifier>(
+        builder: (context, ThemeNotifier notifier, child) {
+          return MaterialApp(
+            theme: notifier.darkTheme ? dark : light,
+            home: WinCoachsPage(),
+            debugShowCheckedModeBanner: false,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class WinCoachsPage extends StatefulWidget {
+  @override
+  _WinCoachsPageState createState() => _WinCoachsPageState();
+}
+
+class _WinCoachsPageState extends State<WinCoachsPage> {
+  String? _work_experience;
+  List _coaches = [];
+  String? _searchQuery;
+  String? _searchText;
+  bool isLoading = false;
+
+  Future<void> _fetchCoaches() async {
+    try {
+      final response = await Dio().get('http://localhost:5000/coaches');
+      if (response.statusCode == 200) {
+        final coaches = response.data['coach'];
+        setState(() {
+          _coaches = coaches;
+        });
+      } else {
+        throw Exception('Failed to load coaches');
+      }
+    } catch (e) {
+      throw Exception('Failed to load coaches: $e');
+    }
+  }
+
+  List<String> _getWork_experience() {
+    final categories = ['Все'] +
+        _coaches
+            .map((coaches) => coaches['work_experience'].toString())
+            .toSet()
+            .toList();
+
+    return categories;
+  }
+
+  Future<void> _addCoach(Map<String, dynamic> coachData) async {
+    try {
+      final response =
+          await Dio().post('http://localhost:5000/coach', data: coachData);
+      if (response.statusCode == 200) {
+        _refreshCoaches();
+        // Show success message
+      } else {
+        // Show error message
+      }
+    } catch (e) {
+      // Show error message
+    }
+  }
+
+  Future<void> _updateCoach(Map<String, dynamic> coachData) async {
+    try {
+      final coachId = coachData['id'];
+      final response = await Dio()
+          .put('http://localhost:5000/coach/$coachId', data: coachData);
+      if (response.statusCode == 200) {
+        _refreshCoaches();
+        // Show success message
+      } else {
+        // Show error message
+      }
+    } catch (e) {
+      // Show error message
+    }
+  }
+
+  Future<void> _deleteCoach(int coachId) async {
+    try {
+      final response =
+          await Dio().delete('http://localhost:5000/coach/$coachId');
+      if (response.statusCode == 200) {
+        final message = response.data['message'];
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(message)));
+        await _fetchCoaches();
+      } else {
+        throw Exception('Failed to delete coach');
+      }
+    } catch (e) {
+      throw Exception('Failed to delete coach: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCoaches().then((_) {});
+  }
+
+  Future<void> _refreshCoaches() async {
+    setState(() {
+      _coaches = [];
+    });
+    await _fetchCoaches();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filteredCoaches = _work_experience == null ||
+            _work_experience == 'Все'
+        ? _coaches
+        : _coaches
+            .where((coaches) => coaches['work_experience'] == _work_experience)
+            .toList();
+
+    if (_searchQuery != null && _searchQuery!.isNotEmpty) {
+      final query = _searchQuery!.toLowerCase();
+      filteredCoaches.retainWhere((coaches) =>
+          coaches['work_experience'].toString().toLowerCase().contains(query));
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Тренировки'),
+            const Text('Тренеры'),
+          ],
+        ),
+      ),
+      body: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Container())
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: Colors.blueGrey[100],
+                child: RefreshIndicator(
+                  onRefresh: _refreshCoaches,
+                  child: ListView.builder(
+                    itemCount: filteredCoaches.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final coaches = filteredCoaches[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          elevation: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Card(
+                                        elevation: 0,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Flexible(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  coaches['specialization'],
+                                                  style: const TextStyle(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              154,
+                                                              185,
+                                                              201),
+                                                      fontSize: 22),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      coaches['second_name'] + ' ',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    Text(
+                                      coaches['first_name'] + ' ',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    Text(
+                                      coaches['patronymic'],
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Стаж работы: ',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    Text(
+                                      coaches['work_experience'],
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    Text(
+                                      int.parse(coaches['work_experience']) %
+                                                      10 ==
+                                                  1 &&
+                                              int.parse(coaches[
+                                                      'work_experience']) !=
+                                                  11
+                                          ? ' год'
+                                          : ' лет',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        _showEditCoachDialog(coaches);
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        _deleteCoach(coaches['id']);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showAddDialog,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showAddDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Добавить тренера'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText: 'Фамилия'),
+                  controller: TextEditingController(),
+                ),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Имя'),
+                  controller: TextEditingController(),
+                ),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Отчество'),
+                  controller: TextEditingController(),
+                ),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Специализация'),
+                  controller: TextEditingController(),
+                ),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Стаж работы'),
+                  controller: TextEditingController(),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Отмена'),
+            ),
+            TextButton(
+              onPressed: () {
+                final coachData = {
+                  'second_name': TextEditingController().text,
+                  'first_name': TextEditingController().text,
+                  'patronymic': TextEditingController().text,
+                  'specialization': TextEditingController().text,
+                  'work_experience': TextEditingController().text,
+                };
+                _addCoach(coachData);
+                Navigator.pop(context);
+              },
+              child: Text('Добавить'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _showEditCoachDialog(Map<String, dynamic> coach) {
+    final TextEditingController secondNameController =
+        TextEditingController(text: coach['second_name']);
+    final TextEditingController firstNameController =
+        TextEditingController(text: coach['first_name']);
+    final TextEditingController patronymicController =
+        TextEditingController(text: coach['patronymic']);
+    final TextEditingController specializationController =
+        TextEditingController(text: coach['specialization']);
+    final TextEditingController workExperienceController =
+        TextEditingController(text: coach['work_experience']);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Редактирование тренера'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: secondNameController,
+                decoration: const InputDecoration(labelText: 'Фамилия'),
+              ),
+              TextField(
+                controller: firstNameController,
+                decoration: const InputDecoration(labelText: 'Имя'),
+              ),
+              TextField(
+                controller: patronymicController,
+                decoration: const InputDecoration(labelText: 'Отчество'),
+              ),
+              TextField(
+                controller: specializationController,
+                decoration: const InputDecoration(labelText: 'Специализация'),
+              ),
+              TextField(
+                controller: workExperienceController,
+                decoration: const InputDecoration(labelText: 'Стаж работы'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Отмена'),
+            ),
+            TextButton(
+              onPressed: () {
+                final coachData = {
+                  'id': coach['id'],
+                  'second_name': secondNameController.text,
+                  'first_name': firstNameController.text,
+                  'patronymic': patronymicController.text,
+                  'specialization': specializationController.text,
+                  'work_experience': workExperienceController.text,
+                };
+                _updateCoach(coachData);
+                Navigator.pop(context);
+              },
+              child: const Text('Сохранить'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

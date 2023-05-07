@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SleepCycleCalculator extends StatefulWidget {
   @override
@@ -46,18 +50,36 @@ class _SleepCycleCalculatorState extends State<SleepCycleCalculator> {
     }
   }
 
-  void _calculateSleep() {
-    final sleepTime = DateFormat('HH:mm').parse(_sleepTimeController.text);
+  void _calculateSleepAtTime() {
     final wakeUpTime = DateFormat('HH:mm').parse(_wakeUpTimeController.text);
 
+    setState(() {
+      _sleepAtTime = '';
+    });
+
     for (int i = 0; i < 6; i++) {
-      final duration = Duration(hours: i + 1, minutes: 30);
+      final duration = Duration(minutes: 90 * (i + 1));
       final sleepAtTime =
           DateFormat('HH:mm').format(wakeUpTime.subtract(duration));
-      final wakeUpAtTime = DateFormat('HH:mm').format(sleepTime.add(duration));
 
       setState(() {
         _sleepAtTime += '$sleepAtTime\n';
+      });
+    }
+  }
+
+  void _calculateWakeUpTime() {
+    final sleepTime = DateFormat('HH:mm').parse(_sleepTimeController.text);
+
+    setState(() {
+      _wakeUpAtTime = '';
+    });
+
+    for (int i = 0; i < 6; i++) {
+      final duration = Duration(minutes: 90 * (i + 1));
+      final wakeUpAtTime = DateFormat('HH:mm').format(sleepTime.add(duration));
+
+      setState(() {
         _wakeUpAtTime += '$wakeUpAtTime\n';
       });
     }
@@ -122,15 +144,21 @@ class _SleepCycleCalculatorState extends State<SleepCycleCalculator> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Card(
+                                Card(
                                   elevation: 0,
                                   child: Padding(
                                     padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Встать в:',
-                                      style: TextStyle(
+                                    child: SizedBox(
+                                      width: 250,
+                                      child: Text(
+                                        _wakeUpAtTime != ''
+                                            ? 'Чтобы быть бодрым, нужно встать в:'
+                                            : '',
+                                        style: TextStyle(
                                           fontSize: 18.0,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -139,11 +167,19 @@ class _SleepCycleCalculatorState extends State<SleepCycleCalculator> {
                                   child: Text(
                                     _wakeUpAtTime,
                                     style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ],
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                              ),
+                              onPressed: () => _calculateWakeUpTime(),
+                              child: const Text('Рассчитать время подъема'),
                             ),
                           ],
                         ),
@@ -191,15 +227,20 @@ class _SleepCycleCalculatorState extends State<SleepCycleCalculator> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Card(
+                                Card(
                                   elevation: 0,
                                   child: Padding(
                                     padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Заснуть в:',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
+                                    child: SizedBox(
+                                      width: 250,
+                                      child: Text(
+                                        _sleepAtTime != ''
+                                            ? 'Чтобы быть бодрым, нужно заснуть в:'
+                                            : '',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -209,22 +250,25 @@ class _SleepCycleCalculatorState extends State<SleepCycleCalculator> {
                                   child: Text(
                                     _sleepAtTime,
                                     style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ],
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                              ),
+                              onPressed: () => _calculateSleepAtTime(),
+                              child: const Text('Рассчитать время засыпания'),
                             ),
                           ],
                         ),
                       ),
                     ),
                     const SizedBox(height: 16.0),
-                    const SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: () => _calculateSleep(),
-                      child: const Text('Рассчитать'),
-                    ),
                     const SizedBox(height: 16.0),
                   ],
                 ),

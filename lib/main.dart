@@ -52,21 +52,15 @@ void main() async {
   } else if (defaultTargetPlatform == TargetPlatform.windows ||
       defaultTargetPlatform == TargetPlatform.linux ||
       defaultTargetPlatform == TargetPlatform.macOS) {
-    runApp(
-      ChangeNotifierProvider(
-          create: (_) => ThemeNotifier(),
-          child: Consumer<ThemeNotifier>(
-              builder: (context, ThemeNotifier notifier, child) {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                initialRoute: win_login_page.route,
-                routes: {
-                  win_login_page.route: (BuildContext context) => //
-                      const win_login_page(),
-                  win_menu_page.route: (BuildContext context) => //win_menu_page
-                      const win_menu_page(),
-                });
-          })),
-    );
+    runApp(MaterialApp(
+        theme: ThemeData(useMaterial3: true),
+        debugShowCheckedModeBanner: false,
+        initialRoute: win_login_page.route,
+        routes: {
+          win_login_page.route: (BuildContext context) => //
+              const win_login_page(),
+          win_menu_page.route: (BuildContext context) => //win_menu_page
+              win_menu_page(key: UniqueKey()),
+        }));
   } else {}
 }

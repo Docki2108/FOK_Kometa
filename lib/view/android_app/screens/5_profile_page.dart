@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_profile/options_page.dart';
@@ -76,6 +78,26 @@ class _ProfilePageState extends State<ProfilePage> {
     _patronymicController.dispose();
     _mobileNumberController.dispose();
     super.dispose();
+  }
+
+  void _updateUser() async {
+    try {
+      var dio = Dio();
+      var response = await dio.post(
+        'http://10.0.2.2:5000/update_user',
+        data: {
+          'email': _emailController.text,
+          'second_name': User.get().personalData.secondName
+        },
+      );
+      if (response.statusCode == 201) {
+        log('Изменение прошло успешно!');
+      } else {
+        log('Ошибка!');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
@@ -220,6 +242,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
+                                    style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(0),
+                                    ),
                                     onPressed: () {
                                       showDialog(
                                         context: context,

@@ -138,7 +138,6 @@ class _FirstPageState extends State<FirstPage> {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
-                      elevation: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(

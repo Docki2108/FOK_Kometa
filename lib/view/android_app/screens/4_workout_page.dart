@@ -105,44 +105,55 @@ class _ExercisePageState extends State<ExercisePage> {
                             ],
                           ),
                         ),
-                      Card(
-                        child: Theme(
-                          data: Theme.of(context)
-                              .copyWith(dividerColor: Colors.transparent),
-                          child: ExpansionTile(
-                            title: Text(exerciseData[index]['Name']),
-                            subtitle:
-                                Text(exerciseData[index]['Exercise_category']),
-                            children: [
-                              ListTile(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Theme(
+                            data: Theme.of(context)
+                                .copyWith(dividerColor: Colors.transparent),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ExpansionTile(
                                 title: Text(
-                                    'Exercise Plan Description: ${exerciseData[index]['Exercise_plan_Description']}'),
+                                  exerciseData[index]['Name'],
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: const Color.fromARGB(
+                                        255, 154, 185, 201),
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(exerciseData[index]
+                                        ['Exercise_category']),
+                                    Text(
+                                        'Сложность: ${exerciseData[index]['Load_score']}')
+                                  ],
+                                ),
+                                children: [
+                                  // ListTile(
+                                  //   title: Text(
+                                  //       'Exercise Plan Description: ${exerciseData[index]['Exercise_plan_Description']}'),
+                                  // ),
+                                  ListTile(
+                                    title: Center(
+                                      child: Text(
+                                          '${exerciseData[index]['Number_of_repetitions']} повторений x ${exerciseData[index]['Number_of_approaches']}'),
+                                    ),
+                                    subtitle: Center(
+                                      child: Text(
+                                          'Время отдыха между подходами: ${exerciseData[index]['Rest_time']}'),
+                                    ),
+                                  ),
+
+                                  ListTile(
+                                    subtitle: Text(
+                                        '${exerciseData[index]['Description']}'),
+                                  ),
+                                ],
                               ),
-                              ListTile(
-                                title: Text(
-                                    'Load Score: ${exerciseData[index]['Load_score']}'),
-                              ),
-                              ListTile(
-                                title: Text(
-                                    'Exercise Plan: ${exerciseData[index]['Exercise_plan']}'),
-                              ),
-                              ListTile(
-                                title: Text(
-                                    'Number of Repetitions: ${exerciseData[index]['Number_of_repetitions']}'),
-                              ),
-                              ListTile(
-                                title: Text(
-                                    'Number of Approaches: ${exerciseData[index]['Number_of_approaches']}'),
-                              ),
-                              ListTile(
-                                title: Text(
-                                    'Rest Time: ${exerciseData[index]['Rest_time']}'),
-                              ),
-                              ListTile(
-                                title: Text(
-                                    'Description: ${exerciseData[index]['Description']}'),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),

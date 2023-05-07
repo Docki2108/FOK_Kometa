@@ -4,6 +4,7 @@ import 'package:fok_kometa/services/auth_repository.dart';
 import 'package:fok_kometa/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../../stuffs/widgets.dart';
+import 'menu_page.dart';
 
 class login_page extends StatelessWidget {
   const login_page({super.key});
@@ -269,10 +270,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: ButtonTheme(
                       child: OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context, rootNavigator: true)
-                              .pushNamedAndRemoveUntil(
-                                  "/menu_page", (_) => false,
-                                  arguments: true);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => menu_page()),
+                          );
                           log('Анонимный вход');
                         },
                         focusNode: btn_contNode,

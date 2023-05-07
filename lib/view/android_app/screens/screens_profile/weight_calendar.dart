@@ -92,21 +92,24 @@ class _WeightCalendarState extends State<WeightCalendar> {
         child: Column(
           children: [
             Card(
-              child: SfCartesianChart(
-                primaryXAxis: DateTimeAxis(
-                  dateFormat: DateFormat('dd MMMM', 'ru'),
-                  intervalType: DateTimeIntervalType.days,
-                ),
-                series: <ChartSeries>[
-                  LineSeries<Weight, DateTime>(
-                    dataSource: _weights,
-                    xValueMapper: (Weight weight, _) => weight.date,
-                    yValueMapper: (Weight weight, _) => weight.weight,
-                    markerSettings: const MarkerSettings(
-                      isVisible: true,
-                    ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SfCartesianChart(
+                  primaryXAxis: DateTimeAxis(
+                    dateFormat: DateFormat('dd MMMM', 'ru'),
+                    intervalType: DateTimeIntervalType.days,
                   ),
-                ],
+                  series: <ChartSeries>[
+                    LineSeries<Weight, DateTime>(
+                      dataSource: _weights,
+                      xValueMapper: (Weight weight, _) => weight.date,
+                      yValueMapper: (Weight weight, _) => weight.weight,
+                      markerSettings: const MarkerSettings(
+                        isVisible: true,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             // Expanded(

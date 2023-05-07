@@ -56,7 +56,6 @@ class _MainPageState extends State<MainPage> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
                               child: Card(
-                                elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -84,7 +83,6 @@ class _MainPageState extends State<MainPage> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
                               child: Card(
-                                elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -112,7 +110,6 @@ class _MainPageState extends State<MainPage> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
                               child: Card(
-                                elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -156,7 +153,6 @@ class _MainPageState extends State<MainPage> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
                               child: Card(
-                                elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -185,7 +181,6 @@ class _MainPageState extends State<MainPage> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
                               child: Card(
-                                elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -213,7 +208,6 @@ class _MainPageState extends State<MainPage> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
                               child: Card(
-                                elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(

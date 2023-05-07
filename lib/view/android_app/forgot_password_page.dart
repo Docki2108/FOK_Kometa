@@ -84,7 +84,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         },
       );
       if (response.statusCode == 201) {
-        log('Изменение пароля прошло успешно');
+        log(response.toString());
       } else {
         log('Ошибка');
       }
@@ -285,9 +285,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               log('Ошибка');
                             } else {
                               _changePassword();
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushNamedAndRemoveUntil(
-                                      "/login_page", (t) => false);
+                              // Navigator.of(context, rootNavigator: true)
+                              //     .pushNamedAndRemoveUntil(
+                              //         "/login_page", (t) => false);
+                              log(_codeController.text);
+                              log(_newPasswordController.text);
+                              log(_emailController.text);
                             }
                           },
                           child: const Text('Сохранить новый пароль'),

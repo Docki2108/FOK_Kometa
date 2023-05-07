@@ -4,6 +4,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class BiorhythmCalculator extends StatefulWidget {
   @override
@@ -30,42 +32,41 @@ class _BiorhythmCalculatorState extends State<BiorhythmCalculator> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // TextFormField(
-              //   controller: _birthDateController,
-              //   keyboardType: TextInputType.datetime,
-              //   validator: (value) {
-              //     if (value!.isEmpty) {
-              //       return 'Введите дату рождения';
-              //     }
-              //     return null;
-              //   },
-              //   decoration: const InputDecoration(
-              //     filled: true,
-              //     labelText: 'Дата рождения формата "YYYY-MM-DD"',
-              //   ),
-              // ),
-              Container(
-                alignment: Alignment.centerLeft,
-                height: 60,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Биологические ритмы – это регулярное и периодическое повторение во времени жизненных процессов или отдельных состояний.',
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Center(
                 child: TextFormField(
+                  readOnly: true,
                   controller: _birthDateController,
                   keyboardType: TextInputType.datetime,
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Введите дату рождения';
-                  //   }
-                  //   return null;
-                  // },
+                  onTap: () {
+                    DatePicker.showDatePicker(
+                      context,
+                      showTitleActions: true,
+                      onConfirm: (date) {
+                        _birthDateController.text =
+                            DateFormat('yyyy-MM-dd').format(date);
+                      },
+                      currentTime: DateTime.now(),
+                      locale: LocaleType.ru,
+                    );
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Введите дату рождения';
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                    ),
                     filled: true,
-                    labelText: 'Дата рождения формата "YYYY-MM-DD"',
-                    labelStyle: TextStyle(height: 6),
+                    labelText: 'Дата рождения',
                   ),
                 ),
               ),

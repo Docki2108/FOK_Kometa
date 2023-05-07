@@ -18,13 +18,14 @@ class AuthServiceWin {
       final response = await _dio
           .post('/login', data: {'email': email, 'password': password});
 
-      if (response.data['role'] == 'Manager') {
-        final accessToken = response.data['access_token'];
-        _dio.options = _dio.options
-            .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
-      } else {
-        throw Exception('Не');
-      }
+      final accessToken = response.data['access_token'];
+      _dio.options = _dio.options
+          .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
+      // if (response.data['role'] == 'Manager') {
+
+      // } else {
+      //   throw Exception('Приложение недоступно');
+      // }
     } catch (error) {
       throw Exception('Failed to login: $error');
     }
@@ -37,30 +38,6 @@ class AuthServiceWin {
       );
       User.get().logout();
 
-      _dio.options = BaseOptions();
-    } catch (error) {
-      throw Exception('Failed to logout: $error');
-    }
-  }
-
-  static Future<void> mobLogin(String email, String password) async {
-    try {
-      final response = await _dio
-          .post('/login', data: {'email': email, 'password': password});
-      final accessToken = response.data['access_token'];
-      _dio.options = _dio.options
-          .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
-    } catch (error) {
-      throw Exception('Failed to login: $error');
-    }
-  }
-
-  static Future<void> mobLogout() async {
-    try {
-      await _dio.post(
-        '/logout',
-      );
-      User.get().logout();
       _dio.options = BaseOptions();
     } catch (error) {
       throw Exception('Failed to logout: $error');

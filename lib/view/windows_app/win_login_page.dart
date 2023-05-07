@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth.dart';
+import '../../services/auth_repository.dart';
 import '../../stuffs/widgets.dart';
 import '../../theme/theme.dart';
 
@@ -33,6 +36,11 @@ class WinLoginPage extends StatefulWidget {
 
 class _WinLoginPageState extends State<WinLoginPage> {
   static const String route = "/win_login_page";
+
+  late FocusNode emailNode;
+  late FocusNode passwordNode;
+  late FocusNode btnNode;
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordObscured = true;
@@ -42,6 +50,25 @@ class _WinLoginPageState extends State<WinLoginPage> {
   final _authService = AuthServiceWin();
   String _errorMessage = '';
   String? _accessToken;
+
+  @override
+  void initState() {
+    emailNode = FocusNode();
+    passwordNode = FocusNode();
+    btnNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailNode.dispose();
+    passwordNode.dispose();
+    btnNode.dispose();
+
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +123,9 @@ class _WinLoginPageState extends State<WinLoginPage> {
                               maxHeight: 50.0, // ограничение по высоте
                             ),
                             child: TextFormField(
+                              focusNode: emailNode,
+                              onEditingComplete: () => passwordNode.nextFocus(),
+                              controller: _emailController,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -119,6 +149,8 @@ class _WinLoginPageState extends State<WinLoginPage> {
                             ),
                             child: TextFormField(
                               controller: _passwordController,
+                              focusNode: passwordNode,
+                              onEditingComplete: () => btnNode.nextFocus(),
                               obscureText: true,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
@@ -137,18 +169,44 @@ class _WinLoginPageState extends State<WinLoginPage> {
                           ),
                           SizedBox(height: 16),
                           OutlinedButton(
-                            onPressed: () {},
+                            focusNode: btnNode,
+                            onPressed: () {
+                              if (_passwordController.text.isEmpty ||
+                                  _emailController.text.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => const AlertDialog(
+                                    content: Text('Заполните все поля!'),
+                                  ),
+                                );
+                              } else {
+                                AuthRepository.winLogin(
+                                        _emailController.text.trim(),
+                                        _passwordController.text.trim())
+                                    .then((value) {
+                                  setState(() {
+                                    if (value == null) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (ctx) => const AlertDialog(
+                                          title: Text('Ошибка входа!'),
+                                          content: Text(
+                                              "Проверьте введенные данные"),
+                                        ),
+                                      );
+                                    } else {
+                                      log(value.toString());
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pushNamedAndRemoveUntil(
+                                              "/win_menu_page", (_) => false,
+                                              arguments: true);
+                                    }
+                                  });
+                                });
+                              }
+                            },
                             child: Text('Войти'),
                           ),
-                          OutlinedButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushNamedAndRemoveUntil(
-                                      "/win_menu_page", (_) => false,
-                                      arguments: true);
-                            },
-                            child: Text('Перейти'),
-                          )
                         ],
                       ),
                     ),
