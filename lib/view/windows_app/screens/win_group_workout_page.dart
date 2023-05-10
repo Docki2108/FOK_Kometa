@@ -105,6 +105,8 @@ class _GroupWorkoutCategoriesScreenState
   List<dynamic> groupWorkouts = [];
   DateTime? selectedDate;
   DateTime selectedStartTime = DateTime.now();
+  int? _selectedCategoryId;
+
   @override
   void initState() {
     super.initState();
@@ -211,11 +213,19 @@ class _GroupWorkoutCategoriesScreenState
     } catch (error) {}
   }
 
-  Future<void> _updateGroupWorkoutCategory(int id, String newName) async {
+  Future<void> updateGroupWorkoutCategory(int id, String name) async {
     try {
-      await _api.updateGroupWorkoutCategory(id, newName);
-      _loadGroupWorkoutCategories();
-    } catch (error) {}
+      final response = await Dio().put(
+          'http://localhost:5000/group_workout_category/$id',
+          data: {'name': name});
+      if (response.statusCode == 200) {
+        final message = response.data['message'];
+        print(message);
+        _loadGroupWorkoutCategories();
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
   }
 
   Future<void> _deleteGroupWorkoutCategory(int id) async {
@@ -472,12 +482,22 @@ class _GroupWorkoutCategoriesScreenState
                                         filled: true,
                                         labelText: 'Рекомендуемый возраст'),
                                   ),
-                                  TextField(
-                                    controller: categoryController,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        labelText: 'Категория тренировки'),
-                                  ),
+                                  // DropdownButton<int>(
+                                  //   hint: Text('Категория'),
+                                  //   alignment: AlignmentDirectional.centerEnd,
+                                  //   value: _selectedCategoryId,
+                                  //   onChanged: (int? value) {
+                                  //     setState(() {
+                                  //       _selectedCategoryId = value;
+                                  //     });
+                                  //   },
+                                  //   items: _categories.map((category) {
+                                  //     return DropdownMenuItem<int>(
+                                  //       value: category['id'],
+                                  //       child: Text(category['name']),
+                                  //     );
+                                  //   }).toList(),
+                                  // ),
                                   TextField(
                                     controller: coachController,
                                     decoration: InputDecoration(
@@ -542,7 +562,7 @@ class _GroupWorkoutCategoriesScreenState
                                                   onPressed: () {
                                                     final newName =
                                                         nameController.text;
-                                                    _updateGroupWorkoutCategory(
+                                                    updateGroupWorkoutCategory(
                                                         category.id, newName);
                                                     Navigator.of(context).pop();
                                                   },

@@ -12,6 +12,7 @@ import 'screens/win_clients_page.dart';
 import 'screens/win_group_workout_page.dart';
 import 'screens/win_news_page.dart';
 import 'screens/win_services_page.dart';
+import 'screens/win_test.dart';
 
 class win_menu_page extends StatelessWidget {
   const win_menu_page({super.key});
@@ -94,6 +95,13 @@ class _WinLoginPageState extends State<WinLoginPage> {
                   ),
                 ),
                 NavigationRailDestination(
+                  icon: Icon(Icons.text_snippet_outlined),
+                  selectedIcon: Icon(Icons.text_snippet),
+                  label: Text(
+                    'Тест',
+                  ),
+                ),
+                NavigationRailDestination(
                   icon: Icon(Icons.exit_to_app),
                   label: Text(
                     style: TextStyle(color: Colors.red),
@@ -123,6 +131,8 @@ class _WinLoginPageState extends State<WinLoginPage> {
         return win_clients_page();
       case 4:
         return win_group_workout_page();
+      case 5:
+        return win_test();
       // case 3:
       //   {
       //     AuthServiceWin.winLogout();
