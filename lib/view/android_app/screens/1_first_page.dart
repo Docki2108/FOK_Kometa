@@ -121,12 +121,10 @@ class _FirstPageState extends State<FirstPage> {
               }).toList();
             },
           ),
-
-          // Добавляем строку поиска
         ],
       ),
       body: filteredNews.isEmpty
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : RefreshIndicator(
@@ -141,11 +139,9 @@ class _FirstPageState extends State<FirstPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               news['title'],
-                              // style: const TextStyle(fontSize: 18),
                               style: const TextStyle(
                                   color:
                                       const Color.fromARGB(255, 154, 185, 201),

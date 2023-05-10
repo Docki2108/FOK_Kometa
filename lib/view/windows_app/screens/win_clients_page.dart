@@ -68,7 +68,7 @@ class _WinClientsPageState extends State<WinClientsPage> {
             child: Container(
               color: Colors.blueGrey[100],
               child: clients.isEmpty
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ListView.builder(
                       itemCount: clients.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -80,18 +80,72 @@ class _WinClientsPageState extends State<WinClientsPage> {
                             margin: EdgeInsets.all(8.0),
                             elevation: 3.0,
                             child: ListTile(
-                              title: Text(client['email'] ?? 'Нет данных'),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              title: Stack(
                                 children: [
-                                  Text(personalData['First_name'] ??
-                                      'Нет данных'),
-                                  Text(personalData['Second_name'] ??
-                                      'Нет данных'),
-                                  Text(personalData['Patronymic'] ??
-                                      'Нет данных'),
-                                  Text(personalData['Mobile_number'] ??
-                                      'Нет данных'),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Card(
+                                      elevation: 0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                client['email'] ?? 'Нет данных',
+                                                style: const TextStyle(
+                                                    color: const Color.fromARGB(
+                                                        255, 154, 185, 201),
+                                                    fontSize: 22),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    personalData['Second_name'] ??
+                                        'Нет фамилии',
+                                    style: const TextStyle(fontSize: 18),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    personalData['First_name'] ?? 'Нет имени',
+                                    style: const TextStyle(fontSize: 18),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    personalData['Patronymic'] ??
+                                        'Нет отчества',
+                                    style: const TextStyle(fontSize: 18),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    personalData['Mobile_number'] ??
+                                        'Нет номера телефона',
+                                    style: const TextStyle(fontSize: 18),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ],
                               ),
                             ),

@@ -38,11 +38,69 @@ class _WinServicesPageState extends State<WinServicesPage> {
   final descriptionController = TextEditingController();
   final userIdController = TextEditingController();
   final categoryIdController = TextEditingController();
+  List<Map<String, dynamic>> serviceCategories = [];
 
   @override
   void initState() {
     super.initState();
     _fetchServices().then((service) {});
+    fetchServiceCategories();
+  }
+
+  Future<void> fetchServiceCategories() async {
+    try {
+      final response =
+          await Dio().get('http://localhost:5000/service_categories');
+      if (response.statusCode == 200) {
+        setState(() {
+          serviceCategories = List<Map<String, dynamic>>.from(response.data);
+        });
+      } else {
+        print('Failed to fetch service categories');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  void addServiceCategory(String name) async {
+    try {
+      var response = await Dio()
+          .post('http://localhost:5000/service_category', data: {'name': name});
+
+      fetchServiceCategories();
+
+      print('Add Service Category Response: $response');
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  void updateServiceCategory(int id, String name) async {
+    try {
+      var response = await Dio().put(
+          'http://localhost:5000/service_category/$id',
+          data: {'name': name});
+
+      fetchServiceCategories();
+
+      print('Update Service Category Response: $response');
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  void deleteServiceCategory(int id) async {
+    try {
+      var response =
+          await Dio().delete('http://localhost:5000/service_category/$id');
+
+      fetchServiceCategories();
+
+      print('Delete Service Category Response: $response');
+    } catch (error) {
+      print('Error: $error');
+    }
   }
 
   String? _selectedCategory;
@@ -67,17 +125,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
     }
   }
 
-  List<String> _getCategories() {
-    final categories = ['Все'] +
-        _filteredServices
-            .map((service) => service['service_category'].toString())
-            .toSet()
-            .toList();
-
-    return categories;
-  }
-
-  Future<void> _refreshNews() async {
+  Future<void> _refreshServices() async {
     setState(() {
       _services = [];
     });
@@ -85,26 +133,26 @@ class _WinServicesPageState extends State<WinServicesPage> {
   }
 
   Future<void> addService() async {
+    final data = {
+      'name': nameController.text,
+      'cost': costController.text,
+      'description': descriptionController.text,
+      'category_id': _selectedCategory,
+    };
+
     try {
-      Dio dio = Dio();
+      final response = await Dio().post(
+        'http://localhost:5000/service',
+        data: data,
+      );
 
-      Map<String, dynamic> serviceData = {
-        'name': nameController.text,
-        'cost': int.parse(costController.text),
-        'description': descriptionController.text,
-        'user_id': User.get().id,
-        'category_id': int.parse(categoryIdController.text),
-      };
-
-      await dio.post('http://your-api-endpoint/service', data: serviceData);
-
-      nameController.clear();
-      costController.clear();
-      descriptionController.clear();
-      userIdController.clear();
-      categoryIdController.clear();
+      if (response.statusCode == 200) {
+        print('Service added successfully!');
+      } else {
+        print('Failed to add service');
+      }
     } catch (error) {
-      print('Ошибка при добавлении услуги: $error');
+      print('Error: $error');
     }
   }
 
@@ -112,7 +160,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
     try {
       Dio dio = Dio();
 
-      await dio.delete('http://your-api-endpoint/service/$id');
+      await dio.delete('http://localhost:5000/service/$id');
     } catch (error) {
       print('Ошибка при удалении услуги: $error');
     }
@@ -120,13 +168,10 @@ class _WinServicesPageState extends State<WinServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _filteredServices = _selectedCategory == null ||
-            _selectedCategory == 'Все'
-        ? _services
-        : _services
-            .where(
-                (service) => service['service_category'] == _selectedCategory)
-            .toList();
+    final _filteredServices =
+        _selectedCategory == null || _selectedCategory == 'Все'
+            ? _services
+            : _services;
 
     if (_searchQuery != null && _searchQuery!.isNotEmpty) {
       final query = _searchQuery!.toLowerCase();
@@ -147,7 +192,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
               child: Container(
                 color: Colors.blueGrey[100],
                 child: RefreshIndicator(
-                  onRefresh: _refreshNews,
+                  onRefresh: _refreshServices,
                   child: ListView.builder(
                     itemCount: _filteredServices.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -174,7 +219,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text(
+                                                child: SelectableText(
                                                   service['name'],
                                                   style: const TextStyle(
                                                       color:
@@ -184,9 +229,8 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                                               185,
                                                               201),
                                                       fontSize: 22),
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                                  maxLines: 3,
+                                                  minLines: 1,
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
@@ -201,7 +245,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      SelectableText(
                                         service['description'],
                                         style: const TextStyle(fontSize: 18),
                                       ),
@@ -212,13 +256,25 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      SelectableText(
                                         '${service['cost']} руб.',
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
                                   ),
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        deleteService(service['id']);
+                                        _fetchServices();
+                                      },
+                                      icon: const Icon(Icons.delete),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -234,48 +290,76 @@ class _WinServicesPageState extends State<WinServicesPage> {
                 child: Column(
                   children: [
                     Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
+                          color: Colors.blueGrey,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
                               children: [
                                 TextField(
                                   decoration: InputDecoration(
+                                    filled: true,
                                     labelText: 'Название',
                                   ),
+                                  maxLines: 5,
+                                  minLines: 1,
+                                  maxLength: 100,
                                   controller: nameController,
                                 ),
                                 SizedBox(height: 8.0),
                                 TextField(
                                   decoration: InputDecoration(
+                                    filled: true,
                                     labelText: 'Стоимость',
                                   ),
+                                  maxLines: 5,
+                                  minLines: 1,
+                                  maxLength: 5,
                                   controller: costController,
                                   keyboardType: TextInputType.number,
                                 ),
                                 SizedBox(height: 8.0),
                                 TextField(
                                   decoration: InputDecoration(
+                                    filled: true,
                                     labelText: 'Описание',
                                   ),
+                                  maxLines: 5,
+                                  minLines: 1,
+                                  maxLength: 200,
                                   controller: descriptionController,
                                 ),
                                 SizedBox(height: 8.0),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    labelText: 'ID категории',
-                                  ),
-                                  controller: categoryIdController,
-                                  keyboardType: TextInputType.number,
-                                ),
-                                TextButton(
-                                  child: Text('Добавить'),
-                                  onPressed: () {
-                                    addService();
-                                    Navigator.of(context).pop();
+                                DropdownButtonFormField<String>(
+                                  value: _selectedCategory,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedCategory = value!;
+                                    });
                                   },
+                                  items: serviceCategories.map((category) {
+                                    return DropdownMenuItem<String>(
+                                      value: category['ID_Service_category']
+                                          .toString(),
+                                      child: Text(category['Name']),
+                                    );
+                                  }).toList(),
+                                  decoration: InputDecoration(
+                                    labelText: 'Категория',
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                    child: Text('Добавить'),
+                                    onPressed: () {
+                                      addService();
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
@@ -283,13 +367,147 @@ class _WinServicesPageState extends State<WinServicesPage> {
                         ),
                       ),
                     ),
-                    Expanded(child: Container())
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: ListView.builder(
+                                    itemCount: serviceCategories.length,
+                                    itemBuilder: (context, index) {
+                                      var category = serviceCategories[index];
+                                      return Card(
+                                        child: ListTile(
+                                          title: Text(category['Name']),
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                TextEditingController
+                                                    controller =
+                                                    TextEditingController(
+                                                  text: category['Name'],
+                                                );
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'Изменить категорию'),
+                                                  content: TextField(
+                                                    controller: controller,
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      child: Text('Cancel'),
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context),
+                                                    ),
+                                                    TextButton(
+                                                      child: Text('Save'),
+                                                      onPressed: () {
+                                                        updateServiceCategory(
+                                                            category[
+                                                                'ID_Service_category'],
+                                                            controller.text);
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          trailing: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: Icon(Icons.delete),
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                      title: Text(
+                                                          'Удалить категорию'),
+                                                      content:
+                                                          Text('Вы уверены?'),
+                                                      actions: [
+                                                        TextButton(
+                                                          child: Text('Отмена'),
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  context),
+                                                        ),
+                                                        TextButton(
+                                                          child:
+                                                              Text('Удалить'),
+                                                          onPressed: () {
+                                                            deleteServiceCategory(
+                                                                category[
+                                                                    'ID_Service_category']);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
             )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              TextEditingController controller = TextEditingController();
+              return AlertDialog(
+                title: Text('Добавить категорию'),
+                content: TextField(
+                  controller: controller,
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('Отмена'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  TextButton(
+                    child: Text('Добавить'),
+                    onPressed: () {
+                      addServiceCategory(controller.text);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

@@ -37,6 +37,13 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
   String? _searchQuery;
   String? _searchText;
   bool isLoading = false;
+  List<Map<String, dynamic>> groupWorkoutCategories = [];
+
+  final second_nameController = TextEditingController();
+  final first_nameController = TextEditingController();
+  final patronymicController = TextEditingController();
+  final specializationController = TextEditingController();
+  final work_experienceController = TextEditingController();
 
   Future<void> _fetchCoaches() async {
     try {
@@ -64,19 +71,20 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
     return categories;
   }
 
-  Future<void> _addCoach(Map<String, dynamic> coachData) async {
+  Future<void> addCoach() async {
     try {
-      final response =
-          await Dio().post('http://localhost:5000/coach', data: coachData);
-      if (response.statusCode == 200) {
-        _refreshCoaches();
-        // Show success message
-      } else {
-        // Show error message
-      }
-    } catch (e) {
-      // Show error message
-    }
+      final response = await Dio().post('http://localhost:5000/coach', data: {
+        'first_name': first_nameController.text,
+        'patronymic': patronymicController.text,
+        'second_name': second_nameController.text,
+        'specialization': specializationController.text,
+        'work_experience': work_experienceController.text,
+      });
+      print(response.data);
+
+      initState();
+      _refreshCoaches();
+    } catch (e) {}
   }
 
   Future<void> _updateCoach(Map<String, dynamic> coachData) async {
@@ -86,13 +94,8 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
           .put('http://localhost:5000/coach/$coachId', data: coachData);
       if (response.statusCode == 200) {
         _refreshCoaches();
-        // Show success message
-      } else {
-        // Show error message
-      }
-    } catch (e) {
-      // Show error message
-    }
+      } else {}
+    } catch (e) {}
   }
 
   Future<void> _deleteCoach(int coachId) async {
@@ -101,8 +104,11 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
           await Dio().delete('http://localhost:5000/coach/$coachId');
       if (response.statusCode == 200) {
         final message = response.data['message'];
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(message)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Удаление прошло успешно!'),
+          ),
+        );
         await _fetchCoaches();
       } else {
         throw Exception('Failed to delete coach');
@@ -116,6 +122,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
   void initState() {
     super.initState();
     _fetchCoaches().then((_) {});
+    _refreshCoaches();
   }
 
   Future<void> _refreshCoaches() async {
@@ -142,41 +149,22 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Тренировки'),
-            const Text('Тренеры'),
-          ],
-        ),
+        title: Text('Тренеры'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _refreshCoaches();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: Center(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Container(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(child: Container())
-                  ],
-                ),
-              ),
-            ),
             Expanded(
               child: Container(
                 color: Colors.blueGrey[100],
@@ -231,20 +219,29 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                                     ),
                                   ],
                                 ),
-                                Row(
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       coaches['second_name'] + ' ',
                                       style: const TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(
                                       coaches['first_name'] + ' ',
                                       style: const TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(
                                       coaches['patronymic'],
                                       style: const TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
@@ -254,10 +251,16 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                                     const Text(
                                       'Стаж работы: ',
                                       style: TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(
                                       coaches['work_experience'],
                                       style: const TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(
                                       int.parse(coaches['work_experience']) %
@@ -269,6 +272,9 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                                           ? ' год'
                                           : ' лет',
                                       style: const TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
@@ -303,6 +309,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         onPressed: _showAddDialog,
         child: Icon(Icons.add),
       ),
@@ -319,25 +326,20 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
             child: Column(
               children: [
                 TextField(
-                  decoration: InputDecoration(labelText: 'Фамилия'),
-                  controller: TextEditingController(),
-                ),
+                    decoration: InputDecoration(labelText: 'Фамилия'),
+                    controller: second_nameController),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Имя'),
-                  controller: TextEditingController(),
-                ),
+                    decoration: InputDecoration(labelText: 'Имя'),
+                    controller: first_nameController),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Отчество'),
-                  controller: TextEditingController(),
-                ),
+                    decoration: InputDecoration(labelText: 'Отчество'),
+                    controller: patronymicController),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Специализация'),
-                  controller: TextEditingController(),
-                ),
+                    decoration: InputDecoration(labelText: 'Специализация'),
+                    controller: specializationController),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Стаж работы'),
-                  controller: TextEditingController(),
-                ),
+                    decoration: InputDecoration(labelText: 'Стаж работы'),
+                    controller: work_experienceController),
               ],
             ),
           ),
@@ -350,14 +352,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
             ),
             TextButton(
               onPressed: () {
-                final coachData = {
-                  'second_name': TextEditingController().text,
-                  'first_name': TextEditingController().text,
-                  'patronymic': TextEditingController().text,
-                  'specialization': TextEditingController().text,
-                  'work_experience': TextEditingController().text,
-                };
-                _addCoach(coachData);
+                addCoach();
                 Navigator.pop(context);
               },
               child: Text('Добавить'),
@@ -390,11 +385,11 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                controller: secondNameController,
+                controller: second_nameController,
                 decoration: const InputDecoration(labelText: 'Фамилия'),
               ),
               TextField(
-                controller: firstNameController,
+                controller: first_nameController,
                 decoration: const InputDecoration(labelText: 'Имя'),
               ),
               TextField(
@@ -406,7 +401,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                 decoration: const InputDecoration(labelText: 'Специализация'),
               ),
               TextField(
-                controller: workExperienceController,
+                controller: work_experienceController,
                 decoration: const InputDecoration(labelText: 'Стаж работы'),
               ),
             ],

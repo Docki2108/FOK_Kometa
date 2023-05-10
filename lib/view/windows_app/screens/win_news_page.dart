@@ -35,21 +35,18 @@ class WinNewsPage extends StatefulWidget {
 }
 
 class _WinNewsPageState extends State<WinNewsPage> {
-  final Dio _dio = Dio();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   int? _selectedCategoryId;
   List<Map<String, dynamic>> _categories = [];
   List<News> newsList = [];
   List<NewsCategory> categories = [];
-  late int selectedCategoryId;
-  Dio dio = Dio();
 
   List<NewsCategory> newsCategories = [];
 
   Future<void> getNewsCategories() async {
     try {
-      final response = await dio.get('http://localhost:5000/news_categories');
+      final response = await Dio().get('http://localhost:5000/news_categories');
       if (response.statusCode == 200) {
         setState(() {
           newsCategories = (response.data['news_categories'] as List)
@@ -64,7 +61,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
 
   Future<void> addNewsCategory(String name) async {
     try {
-      final response = await dio
+      final response = await Dio()
           .post('http://localhost:5000/news_categories', data: {'name': name});
       if (response.statusCode == 200) {
         final message = response.data['message'];
@@ -78,7 +75,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
 
   Future<void> updateNewsCategory(int id, String name) async {
     try {
-      final response = await dio.put(
+      final response = await Dio().put(
           'http://localhost:5000/news_categories/$id',
           data: {'name': name});
       if (response.statusCode == 200) {
@@ -94,7 +91,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
   Future<void> deleteNewsCategory(int id) async {
     try {
       final response =
-          await dio.delete('http://localhost:5000/news_categories/$id');
+          await Dio().delete('http://localhost:5000/news_categories/$id');
       if (response.statusCode == 200) {
         final message = response.data['message'];
         print(message);
@@ -119,7 +116,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
 
   Future<void> loadCategories() async {
     try {
-      final response = await _dio.get('http://localhost:5000/news_categories');
+      final response = await Dio().get('http://localhost:5000/news_categories');
       final List<dynamic> categoriesJson = response.data['news_categories'];
       setState(() {
         _categories = categoriesJson.cast<Map<String, dynamic>>();
@@ -135,7 +132,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
     }
 
     try {
-      final response = await _dio.post('http://localhost:5000/news', data: {
+      final response = await Dio().post('http://localhost:5000/news', data: {
         'title': _titleController.text,
         'content': _contentController.text,
         'category_id': _selectedCategoryId,
@@ -146,12 +143,22 @@ class _WinNewsPageState extends State<WinNewsPage> {
       _contentController.clear();
       _selectedCategoryId = null;
       initState();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Добавление прошло успешно!'),
+        ),
+      );
     } catch (e) {}
   }
 
   Future<void> deleteNews(int newsId) async {
     try {
-      final response = await _dio.delete('http://localhost:5000/news/$newsId');
+      final response = await Dio().delete('http://localhost:5000/news/$newsId');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Удаление прошло успешно!'),
+        ),
+      );
       log(response.data);
     } catch (e) {}
   }
@@ -254,7 +261,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.center,
                                         children: [
                                           IconButton(
                                             onPressed: () {
@@ -299,12 +306,6 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                             controller: _titleController,
                                             maxLength: 50,
                                             decoration: const InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderSide: BorderSide.none,
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(16.0),
-                                                ),
-                                              ),
                                               filled: true,
                                               hintText: 'Заголовок',
                                             ),
@@ -343,12 +344,6 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                       minLines: 1,
                                       maxLength: 500,
                                       decoration: const InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                        ),
                                         filled: true,
                                         hintText: 'Содержание',
                                       ),
@@ -490,6 +485,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         onPressed: () {
           showDialog(
             context: context,
