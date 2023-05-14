@@ -5,6 +5,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fok_kometa/services/auth_repository.dart';
 import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_profile/options_page.dart';
 import '../../../new_models/user.dart';
@@ -270,9 +271,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                         child: TextFormField(
                                                           controller:
                                                               _emailController,
-                                                          //focusNode: passwordNode,
-                                                          // onEditingComplete: () =>
-                                                          //    btn_contNode.nextFocus(),
                                                           decoration:
                                                               const InputDecoration(
                                                             border:
@@ -432,9 +430,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                                   .number,
                                                           controller:
                                                               _mobileNumberController,
-                                                          //focusNode: passwordNode,
-                                                          // onEditingComplete: () =>
-                                                          //    btn_contNode.nextFocus(),
                                                           decoration:
                                                               const InputDecoration(
                                                             border:
@@ -480,7 +475,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ),
                                                 ),
                                                 OutlinedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    AuthServiceMob.updateUser(
+                                                            _emailController
+                                                                .text,
+                                                            _secondNameController
+                                                                .text,
+                                                            _firstNameController
+                                                                .text,
+                                                            _patronymicController
+                                                                .text,
+                                                            _mobileNumberController
+                                                                .text)
+                                                        .then(
+                                                      (value) => Navigator.pop(
+                                                          context),
+                                                    );
+                                                  },
                                                   child: const Text(
                                                     'Изменить',
                                                   ),
@@ -489,6 +500,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                             ),
                                           ],
                                         ),
+                                      ).then(
+                                        (value) => setState(() {}),
                                       );
                                     },
                                     child: const Text('Изменить'),

@@ -48,6 +48,7 @@ class _RegistrationState extends State<Registration> {
 
   final _loginformKey = GlobalKey<FormState>();
   final _passwordformKey = GlobalKey<FormState>();
+  bool _isAgreed = false;
 
   late String _password;
   double _strength = 0;
@@ -416,6 +417,19 @@ class _RegistrationState extends State<Registration> {
                 Container(
                   height: 16,
                 ),
+                CheckboxListTile(
+                  title:
+                      const Text('Согласие на обработку персональных данных'),
+                  value: _isAgreed,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _isAgreed = value ?? false;
+                    });
+                  },
+                ),
+                Container(
+                  height: 16,
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -423,9 +437,8 @@ class _RegistrationState extends State<Registration> {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: ButtonTheme(
                         child: ElevatedButton(
-                          onPressed: _strength < 1 / 2
-                              ? null
-                              : () {
+                          onPressed: _strength > 1 / 2 && _isAgreed
+                              ? () {
                                   if (_emailController.text.isEmpty ||
                                       _passwordController.text.isEmpty ||
                                       _mobileNumberController.text.isEmpty) {
@@ -447,7 +460,8 @@ class _RegistrationState extends State<Registration> {
                                         .pushNamedAndRemoveUntil(
                                             "/login_page", (_) => false);
                                   }
-                                },
+                                }
+                              : null,
                           focusNode: btn_contNode,
                           child: const Text('Зарегистрироваться'),
                         ),

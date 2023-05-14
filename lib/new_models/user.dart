@@ -2,10 +2,10 @@ import 'personal_data.dart';
 
 class User {
   static User? _context;
-  final int id;
-  final String email;
-  final String role;
-  final PersonalData personalData;
+  int id;
+  String email;
+  String role;
+  PersonalData personalData;
 
   User._(
       {required this.id,

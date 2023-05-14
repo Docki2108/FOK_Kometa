@@ -5,7 +5,6 @@ import 'package:fok_kometa/theme/theme.dart';
 import 'package:fok_kometa/view/android_app/forgot_password_page.dart';
 import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/menu_page.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'view/android_app/registration_page.dart';
@@ -25,26 +24,25 @@ void main() async {
         child: Consumer<ThemeNotifier>(
           builder: (context, ThemeNotifier notifier, child) {
             return MaterialApp(
-                localizationsDelegates: [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                supportedLocales: [
-                  // const Locale('en', 'US'),
-                  const Locale('ru', 'RU'),
-                ],
-                theme: notifier.darkTheme ? dark : light,
-                debugShowCheckedModeBanner: false,
-                initialRoute: login_page.route,
-                routes: {
-                  login_page.route: (BuildContext context) =>
-                      const login_page(),
-                  menu_page.route: (BuildContext context) => const menu_page(),
-                  registration_page.route: (BuildContext context) =>
-                      const registration_page(),
-                  forgot_password_page.route: (BuildContext content) =>
-                      const forgot_password_page()
-                });
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('ru', 'RU'),
+              ],
+              theme: notifier.darkTheme ? dark : light,
+              debugShowCheckedModeBanner: false,
+              initialRoute: login_page.route,
+              routes: {
+                login_page.route: (BuildContext context) => const login_page(),
+                menu_page.route: (BuildContext context) => const menu_page(),
+                registration_page.route: (BuildContext context) =>
+                    const registration_page(),
+                forgot_password_page.route: (BuildContext content) =>
+                    const forgot_password_page(),
+              },
+            );
           },
         ),
       ),
@@ -52,15 +50,18 @@ void main() async {
   } else if (defaultTargetPlatform == TargetPlatform.windows ||
       defaultTargetPlatform == TargetPlatform.linux ||
       defaultTargetPlatform == TargetPlatform.macOS) {
-    runApp(MaterialApp(
+    runApp(
+      MaterialApp(
         theme: ThemeData(useMaterial3: true),
         debugShowCheckedModeBanner: false,
         initialRoute: win_login_page.route,
         routes: {
-          win_login_page.route: (BuildContext context) => //
+          win_login_page.route: (BuildContext context) =>
               const win_login_page(),
-          win_menu_page.route: (BuildContext context) => //win_menu_page
+          win_menu_page.route: (BuildContext context) =>
               win_menu_page(key: UniqueKey()),
-        }));
+        },
+      ),
+    );
   } else {}
 }

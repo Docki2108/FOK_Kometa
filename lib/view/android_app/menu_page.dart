@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/android_app/screens/5_profile_page.dart';
 import 'package:fok_kometa/view/android_app/screens/1_first_page.dart';

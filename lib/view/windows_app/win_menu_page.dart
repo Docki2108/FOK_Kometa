@@ -9,6 +9,8 @@ import 'package:switcher_button/switcher_button.dart';
 import '../../services/auth.dart';
 import '../../theme/theme.dart';
 import 'screens/win_clients_page.dart';
+import 'screens/win_diets_page.dart';
+import 'screens/win_equipments_page.dart';
 import 'screens/win_group_workout_page.dart';
 import 'screens/win_news_page.dart';
 import 'screens/win_services_page.dart';
@@ -95,6 +97,20 @@ class _WinLoginPageState extends State<WinLoginPage> {
                   ),
                 ),
                 NavigationRailDestination(
+                  icon: Icon(Icons.food_bank_outlined),
+                  selectedIcon: Icon(Icons.food_bank),
+                  label: Text(
+                    'Диеты',
+                  ),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.splitscreen_outlined),
+                  selectedIcon: Icon(Icons.splitscreen),
+                  label: Text(
+                    'Тренажеры',
+                  ),
+                ),
+                NavigationRailDestination(
                   icon: Icon(Icons.text_snippet_outlined),
                   selectedIcon: Icon(Icons.text_snippet),
                   label: Text(
@@ -132,6 +148,10 @@ class _WinLoginPageState extends State<WinLoginPage> {
       case 4:
         return win_group_workout_page();
       case 5:
+        return win_diets_page();
+      case 6:
+        return win_equipments_page();
+      case 7:
         return win_test();
       // case 3:
       //   {

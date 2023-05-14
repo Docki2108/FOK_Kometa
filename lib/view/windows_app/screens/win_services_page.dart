@@ -353,7 +353,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: TextButton(
+                                  child: ElevatedButton(
                                     child: Text('Добавить'),
                                     onPressed: () {
                                       addService();

@@ -36,7 +36,7 @@ class _DishesPageState extends State<DishesPage> {
         centerTitle: true,
       ),
       body: _dishes.isEmpty
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(

@@ -21,11 +21,6 @@ class AuthServiceWin {
       final accessToken = response.data['access_token'];
       _dio.options = _dio.options
           .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
-      // if (response.data['role'] == 'Manager') {
-
-      // } else {
-      //   throw Exception('Приложение недоступно');
-      // }
     } catch (error) {
       throw Exception('Failed to login: $error');
     }
@@ -57,13 +52,8 @@ class AuthServiceWin {
     }
   }
 
-  static Future<void> updateUser(
-      String accessToken,
-      String email,
-      String secondName,
-      String firstName,
-      String patronymic,
-      String mobileNumber) async {
+  static Future<void> updateUser(String email, String secondName,
+      String firstName, String patronymic, String mobileNumber) async {
     try {
       await _dio.put(
         '/update_user',
@@ -75,6 +65,11 @@ class AuthServiceWin {
           'mobile_number': mobileNumber
         },
       );
+      User.get().email = email;
+      User.get().personalData.firstName = firstName;
+      User.get().personalData.secondName = secondName;
+      User.get().personalData.patronymic = patronymic;
+      User.get().personalData.mobileNumber = mobileNumber;
     } catch (error) {
       throw Exception('Failed to update user: $error');
     }
@@ -96,6 +91,7 @@ class AuthServiceMob {
       final response = await _dio
           .post('/login', data: {'email': email, 'password': password});
       final accessToken = response.data['access_token'];
+
       _dio.options = _dio.options
           .copyWith(headers: {'Authorization': 'Bearer $accessToken'});
     } catch (error) {
@@ -126,6 +122,29 @@ class AuthServiceMob {
       return user;
     } catch (error) {
       throw Exception('Failed to get current user: $error');
+    }
+  }
+
+  static Future<void> updateUser(String email, String secondName,
+      String firstName, String patronymic, String mobileNumber) async {
+    try {
+      await _dio.put(
+        '/update_user',
+        data: {
+          'email': email,
+          'second_name': secondName,
+          'first_name': firstName,
+          'patronymic': patronymic,
+          'mobile_number': mobileNumber
+        },
+      );
+      User.get().email = email;
+      User.get().personalData.firstName = firstName;
+      User.get().personalData.secondName = secondName;
+      User.get().personalData.patronymic = patronymic;
+      User.get().personalData.mobileNumber = mobileNumber;
+    } catch (error) {
+      throw Exception('Failed to update user: $error');
     }
   }
 }

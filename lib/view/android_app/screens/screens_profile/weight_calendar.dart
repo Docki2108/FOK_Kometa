@@ -63,7 +63,7 @@ class _WeightCalendarState extends State<WeightCalendar> {
   }
 
   void _addWeight(double weight) async {
-    final now = DateTime.now().toUtc().add(const Duration(hours: 5));
+    final now = DateTime.now().toUtc().add(const Duration(hours: 15));
     final date = DateTime(now.year, now.month, now.day);
     final newWeight = Weight(date, weight);
     await HiveService.addWeight(widget.email, newWeight);
@@ -123,7 +123,7 @@ class _WeightCalendarState extends State<WeightCalendar> {
                   return Card(
                     child: ListTile(
                       title: Text('Дата: ' +
-                          '0' +
+                          '' +
                           '${weight.date.day}.' +
                           '0' +
                           '${weight.date.month}.' +

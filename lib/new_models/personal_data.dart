@@ -1,8 +1,8 @@
 class PersonalData {
-  final String? secondName;
-  final String? firstName;
-  final String? patronymic;
-  final String? mobileNumber;
+  String? secondName;
+  String? firstName;
+  String? patronymic;
+  String? mobileNumber;
 
   PersonalData(
       {this.secondName, this.firstName, this.patronymic, this.mobileNumber});

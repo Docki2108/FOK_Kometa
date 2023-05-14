@@ -223,6 +223,15 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
+                                      'Индивидуальный код тренера: ' +
+                                          coaches['id'].toString(),
+                                      style: const TextStyle(fontSize: 18),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(' '),
+                                    Text(
                                       coaches['second_name'] + ' ',
                                       style: const TextStyle(fontSize: 18),
                                       maxLines: 2,

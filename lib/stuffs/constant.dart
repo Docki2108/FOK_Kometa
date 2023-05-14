@@ -52,3 +52,19 @@ var maskTelephone = new MaskTextInputFormatter(
   },
   type: MaskAutoCompletionType.lazy,
 );
+
+var maskDate = new MaskTextInputFormatter(
+  mask: '##.##.####',
+  filter: {
+    "#": RegExp(r'[0-9]'),
+  },
+  type: MaskAutoCompletionType.lazy,
+);
+
+var maskTime = new MaskTextInputFormatter(
+  mask: '##:##',
+  filter: {
+    "#": RegExp(r'[0-9]'),
+  },
+  type: MaskAutoCompletionType.lazy,
+);
