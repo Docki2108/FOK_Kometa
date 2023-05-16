@@ -312,24 +312,40 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: DropdownButton<int>(
-                                          hint: Text('Категория'),
-                                          alignment:
-                                              AlignmentDirectional.centerEnd,
-                                          value: _selectedCategoryId,
-                                          onChanged: (int? value) {
-                                            setState(() {
-                                              _selectedCategoryId = value;
-                                            });
-                                          },
-                                          items: _categories.map((category) {
-                                            return DropdownMenuItem<int>(
-                                              value: category['id'],
-                                              child: Text(category['name']),
-                                            );
-                                          }).toList(),
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child:
+                                                  DropdownButtonFormField<int>(
+                                                decoration: InputDecoration(
+                                                  labelText: 'Категория',
+                                                  filled: true,
+                                                ),
+                                                value: _selectedCategoryId,
+                                                onChanged: (int? value) {
+                                                  setState(() {
+                                                    _selectedCategoryId = value;
+                                                  });
+                                                },
+                                                items:
+                                                    _categories.map((category) {
+                                                  return DropdownMenuItem<int>(
+                                                    value: category['id'],
+                                                    child:
+                                                        Text(category['name']),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 33,
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -341,7 +357,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                     child: TextFormField(
                                       controller: _contentController,
                                       maxLines: 5,
-                                      minLines: 1,
+                                      minLines: 3,
                                       maxLength: 500,
                                       decoration: const InputDecoration(
                                         filled: true,
@@ -362,39 +378,6 @@ class _WinNewsPageState extends State<WinNewsPage> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Категория новости',
-                                      style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 154, 185, 201),
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                   Expanded(

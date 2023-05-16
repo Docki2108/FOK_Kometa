@@ -348,27 +348,83 @@ class _GroupWorkoutCategoriesScreenState
                       child: ListTile(
                         title: Column(
                           children: [
-                            Text(groupWorkout['name']),
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: SelectableText(
+                                              groupWorkout['name'],
+                                              style: const TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 154, 185, 201),
+                                                  fontSize: 22),
+                                              maxLines: 3,
+                                              minLines: 1,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            // Text(groupWorkout['name']),
                           ],
                         ),
                         subtitle: Column(
                           children: [
-                            Text('Дата: ${groupWorkout['event_date']}'),
+                            Text(
+                              'Дата: ${groupWorkout['event_date']}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Время начала: ' +
-                                    groupWorkout['start_time'].substring(0, 5)),
+                                Text(
+                                  'Время начала: ' +
+                                      groupWorkout['start_time']
+                                          .substring(0, 5),
+                                  style: const TextStyle(fontSize: 18),
+                                ),
                                 Text(' '),
-                                Text('Время окончания: ' +
-                                    groupWorkout['end_time'].substring(0, 5)),
+                                Text(
+                                  'Время окончания: ' +
+                                      groupWorkout['end_time'].substring(0, 5),
+                                  style: const TextStyle(fontSize: 18),
+                                ),
                               ],
                             ),
-                            Text('Описание: ${groupWorkout['description']}'),
-                            Text('Нагрузка: ${groupWorkout['load_score']}'),
                             Text(
-                                'Категория: ${groupWorkout['group_workout_category']}'),
-                            Text('Тренер: ${groupWorkout['coach']}'),
+                              ' ',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              'Описание: ${groupWorkout['description']}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              'Нагрузка: ${groupWorkout['load_score']}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              'Категория: ${groupWorkout['group_workout_category']}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              'Тренер: ${groupWorkout['coach']}',
+                              style: const TextStyle(fontSize: 18),
+                            ),
                           ],
                         ),
                         trailing: IconButton(
@@ -656,7 +712,6 @@ class _GroupWorkoutCategoriesScreenState
                                           _deleteGroupWorkoutCategory(
                                               category.id),
                                     ),
-                                    // onTap: () {},
                                   ),
                                 ),
                               );
@@ -670,6 +725,7 @@ class _GroupWorkoutCategoriesScreenState
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         child: const Icon(Icons.add),
         onPressed: () {
           showDialog(

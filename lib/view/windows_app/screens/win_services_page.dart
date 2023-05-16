@@ -297,71 +297,74 @@ class _WinServicesPageState extends State<WinServicesPage> {
                           color: Colors.blueGrey,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                TextField(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    labelText: 'Название',
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      labelText: 'Название',
+                                    ),
+                                    maxLines: 5,
+                                    minLines: 1,
+                                    maxLength: 100,
+                                    controller: nameController,
                                   ),
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  maxLength: 100,
-                                  controller: nameController,
-                                ),
-                                SizedBox(height: 8.0),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    labelText: 'Стоимость',
+                                  SizedBox(height: 8.0),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      labelText: 'Стоимость',
+                                    ),
+                                    maxLines: 5,
+                                    minLines: 1,
+                                    maxLength: 5,
+                                    controller: costController,
+                                    keyboardType: TextInputType.number,
                                   ),
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  maxLength: 5,
-                                  controller: costController,
-                                  keyboardType: TextInputType.number,
-                                ),
-                                SizedBox(height: 8.0),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    labelText: 'Описание',
+                                  SizedBox(height: 8.0),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      labelText: 'Описание',
+                                    ),
+                                    maxLines: 5,
+                                    minLines: 1,
+                                    maxLength: 200,
+                                    controller: descriptionController,
                                   ),
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  maxLength: 200,
-                                  controller: descriptionController,
-                                ),
-                                SizedBox(height: 8.0),
-                                DropdownButtonFormField<String>(
-                                  value: _selectedCategory,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedCategory = value!;
-                                    });
-                                  },
-                                  items: serviceCategories.map((category) {
-                                    return DropdownMenuItem<String>(
-                                      value: category['ID_Service_category']
-                                          .toString(),
-                                      child: Text(category['Name']),
-                                    );
-                                  }).toList(),
-                                  decoration: InputDecoration(
-                                    labelText: 'Категория',
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    child: Text('Добавить'),
-                                    onPressed: () {
-                                      addService();
-                                      Navigator.of(context).pop();
+                                  SizedBox(height: 8.0),
+                                  DropdownButtonFormField<String>(
+                                    value: _selectedCategory,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedCategory = value!;
+                                      });
                                     },
+                                    items: serviceCategories.map((category) {
+                                      return DropdownMenuItem<String>(
+                                        value: category['ID_Service_category']
+                                            .toString(),
+                                        child: Text(category['Name']),
+                                      );
+                                    }).toList(),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      labelText: 'Категория',
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      child: Text('Добавить'),
+                                      onPressed: () {
+                                        addService();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

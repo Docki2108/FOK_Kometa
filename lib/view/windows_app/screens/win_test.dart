@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fok_kometa/new_models/user.dart';
 import 'package:provider/provider.dart';
 import '../../../new_models/diet_category.dart';
+import '../../../new_models/person_workout.dart';
 import '../../../new_models/service_category.dart';
 import '../../../theme/theme.dart';
 
@@ -19,7 +20,7 @@ class win_test extends StatelessWidget {
         builder: (context, ThemeNotifier notifier, child) {
           return MaterialApp(
             theme: notifier.darkTheme ? dark : light,
-            home: DietCategoryPage(),
+            home: ExercisePage(),
             debugShowCheckedModeBanner: false,
           );
         },
@@ -28,147 +29,82 @@ class win_test extends StatelessWidget {
   }
 }
 
-const String baseUrl = 'http://localhost:5000';
-
-Future<List<DietCategory>> getDietCategories() async {
-  final response = await Dio().get('$baseUrl/diet_categories');
-  final data = response.data['diet_categories'] as List;
-  return data.map((json) => DietCategory.fromJson(json)).toList();
-}
-
-Future<void> addDietCategory(String name) async {
-  final data = {'name': name};
-  await Dio().post('$baseUrl/diet_categories', data: data);
-}
-
-Future<void> updateDietCategory(int id, String name) async {
-  final data = {'name': name};
-  await Dio().put('$baseUrl/diet_categories/$id', data: data);
-}
-
-Future<void> deleteDietCategory(int id) async {
-  await Dio().delete('$baseUrl/diet_categories/$id');
-}
-
-class DietCategoryPage extends StatefulWidget {
+class ExercisePage extends StatefulWidget {
   @override
-  _DietCategoryPageState createState() => _DietCategoryPageState();
+  _ExercisePageState createState() => _ExercisePageState();
 }
 
-class _DietCategoryPageState extends State<DietCategoryPage> {
-  List<DietCategory> _dietCategories = [];
+class _ExercisePageState extends State<ExercisePage> {
+  List<dynamic> exercises = [];
+  TextEditingController exerciseNameController = TextEditingController();
+  TextEditingController exerciseDescriptionController = TextEditingController();
+  TextEditingController loadScoreController = TextEditingController();
+  TextEditingController exerciseCategoryIdController = TextEditingController();
+  TextEditingController exercisePlanIdController = TextEditingController();
+  TextEditingController personWorkoutIdController = TextEditingController();
+
+  final dio = Dio();
 
   @override
   void initState() {
     super.initState();
-    _loadDietCategories();
+    getExercises();
   }
 
-  Future<void> _loadDietCategories() async {
+  void getExercises() async {
     try {
-      final dietCategories = await getDietCategories();
+      final response = await dio.get('http://localhost:5000/exercise');
       setState(() {
-        _dietCategories = dietCategories;
+        exercises = response.data;
       });
-    } on DioError catch (e) {
-      print('Error loading diet categories: ${e.message}');
+    } catch (e) {
+      print('Error: $e');
     }
   }
 
-  Future<void> _addDietCategory() async {
-    final nameController = TextEditingController();
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Добавить категорию диеты'),
-        content: TextField(
-          controller: nameController,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Отмена'),
-          ),
-          TextButton(
-            onPressed: () async {
-              final name = nameController.text;
-              if (name.isNotEmpty) {
-                try {
-                  await addDietCategory(name);
-                  await _loadDietCategories();
-                } on DioError catch (e) {
-                  print('Error adding diet category: ${e.message}');
-                }
-              }
-              Navigator.pop(context);
-            },
-            child: Text('Добавить'),
-          ),
-        ],
-      ),
-    );
+  void addExercise() async {
+    try {
+      final response = await dio.post('http://localhost:5000/exercise', data: {
+        'name': exerciseNameController.text,
+        'description': exerciseDescriptionController.text,
+        'load_score': int.parse(loadScoreController.text),
+        'exercise_category_id': int.parse(exerciseCategoryIdController.text),
+        'exercise_plan_id': int.parse(exercisePlanIdController.text),
+        'person_workout_id': int.parse(personWorkoutIdController.text),
+      });
+      print(response.data);
+      getExercises(); // Refresh the exercises list
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
-  Future<void> _editDietCategory(DietCategory dietCategory) async {
-    final nameController = TextEditingController(text: dietCategory.name);
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Редактировать категорию диеты'),
-        content: TextField(
-          controller: nameController,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Отмена'),
-          ),
-          TextButton(
-            onPressed: () async {
-              final name = nameController.text;
-              if (name.isNotEmpty) {
-                try {
-                  await updateDietCategory(dietCategory.id, name);
-                  await _loadDietCategories();
-                } on DioError catch (e) {
-                  print('Error updating diet category: ${e.message}');
-                }
-              }
-              Navigator.pop(context);
-            },
-            child: Text('Сохранить'),
-          ),
-        ],
-      ),
-    );
+  void updateExercise(int id, String name, String description, int loadScore,
+      int exerciseCategoryId, int exercisePlanId, int personWorkoutId) async {
+    try {
+      final response =
+          await dio.put('http://localhost:5000/exercise/$id', data: {
+        'name': name,
+        'description': description,
+        'load_score': loadScore,
+        'exercise_category_id': exerciseCategoryId,
+        'exercise_plan_id': exercisePlanId,
+        'person_workout_id': personWorkoutId,
+      });
+      print(response.data);
+      getExercises(); // Refresh the exercises list
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
-  Future<void> _deleteDietCategory(DietCategory dietCategory) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Удалить категорию диеты?'),
-        content: Text(
-            'Вы уверены, что хотите удалить категорию "${dietCategory.name}"?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text('Отмена'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text('Удалить'),
-          ),
-        ],
-      ),
-    );
-    if (confirmed == true) {
-      try {
-        await deleteDietCategory(dietCategory.id);
-        await _loadDietCategories();
-      } on DioError catch (e) {
-        print('Error deleting diet category: ${e.message}');
-      }
+  void deleteExercise(int id) async {
+    try {
+      final response = await dio.delete('http://localhost:5000/exercise/$id');
+      print(response.data);
+      getExercises(); // Refresh the exercises list
+    } catch (e) {
+      print('Error: $e');
     }
   }
 
@@ -176,25 +112,156 @@ class _DietCategoryPageState extends State<DietCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Категории диет'),
+        title: Text('Exercise Page'),
       ),
       body: ListView.builder(
-        itemCount: _dietCategories.length,
+        itemCount: exercises.length,
         itemBuilder: (context, index) {
-          final dietCategory = _dietCategories[index];
+          var exercise = exercises[index];
           return ListTile(
-            title: Text(dietCategory.name),
+            title: Text(exercise['Name']),
+            subtitle: Text(exercise['Description']),
             trailing: IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () => _deleteDietCategory(dietCategory),
+              onPressed: () {
+                deleteExercise(exercise['ID_Exercise']);
+              },
             ),
-            onTap: () => _editDietCategory(dietCategory),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Edit Exercise'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: exerciseNameController,
+                          decoration: InputDecoration(labelText: 'Name'),
+                        ),
+                        TextField(
+                          controller: exerciseDescriptionController,
+                          decoration: InputDecoration(labelText: 'Description'),
+                        ),
+                        TextField(
+                          controller: loadScoreController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(labelText: 'Load Score'),
+                        ),
+                        TextField(
+                          controller: exerciseCategoryIdController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Exercise Category ID'),
+                        ),
+                        TextField(
+                          controller: exercisePlanIdController,
+                          keyboardType: TextInputType.number,
+                          decoration:
+                              InputDecoration(labelText: 'Exercise Plan ID'),
+                        ),
+                        TextField(
+                          controller: personWorkoutIdController,
+                          keyboardType: TextInputType.number,
+                          decoration:
+                              InputDecoration(labelText: 'Person Workout ID'),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text('Update'),
+                        onPressed: () {
+                          updateExercise(
+                            exercise['ID_Exercise'],
+                            exerciseNameController.text,
+                            exerciseDescriptionController.text,
+                            int.parse(loadScoreController.text),
+                            int.parse(exerciseCategoryIdController.text),
+                            int.parse(exercisePlanIdController.text),
+                            int.parse(personWorkoutIdController.text),
+                          );
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addDietCategory,
         child: Icon(Icons.add),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Add Exercise'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: exerciseNameController,
+                      decoration: InputDecoration(labelText: 'Name'),
+                    ),
+                    TextField(
+                      controller: exerciseDescriptionController,
+                      decoration: InputDecoration(labelText: 'Description'),
+                    ),
+                    TextField(
+                      controller: loadScoreController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'Load Score'),
+                    ),
+                    TextField(
+                      controller: exerciseCategoryIdController,
+                      keyboardType: TextInputType.number,
+                      decoration:
+                          InputDecoration(labelText: 'Exercise Category ID'),
+                    ),
+                    TextField(
+                      controller: exercisePlanIdController,
+                      keyboardType: TextInputType.number,
+                      decoration:
+                          InputDecoration(labelText: 'Exercise Plan ID'),
+                    ),
+                    TextField(
+                      controller: personWorkoutIdController,
+                      keyboardType: TextInputType.number,
+                      decoration:
+                          InputDecoration(labelText: 'Person Workout ID'),
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text('Add'),
+                    onPressed: () {
+                      addExercise();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }

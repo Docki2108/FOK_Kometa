@@ -7,6 +7,7 @@ import 'package:fok_kometa/view/android_app/screens/screens_main/services_page.d
 import 'package:url_launcher/url_launcher.dart';
 import 'screens_main/bioritm_page.dart';
 import 'screens_main/diets_page.dart';
+import 'screens_main/exercise_equipment_page.dart';
 import 'screens_main/sleep_page.dart';
 import 'screens_main/calculators_page.dart';
 
@@ -62,9 +63,12 @@ class _MainPageState extends State<MainPage> {
                                     children: const [
                                       Icon(
                                         Icons.shopping_bag_outlined,
-                                        size: 98,
+                                        size: 60,
                                       ),
-                                      Text('Витрина'),
+                                      Text(
+                                        'Витрина',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -89,9 +93,12 @@ class _MainPageState extends State<MainPage> {
                                     children: const [
                                       Icon(
                                         Icons.apple_outlined,
-                                        size: 98,
+                                        size: 60,
                                       ),
-                                      Text('Диеты'),
+                                      Text(
+                                        'Диеты',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -116,9 +123,12 @@ class _MainPageState extends State<MainPage> {
                                     children: const [
                                       Icon(
                                         Icons.people_outlined,
-                                        size: 98,
+                                        size: 60,
                                       ),
-                                      Text('Тренеры'),
+                                      Text(
+                                        'Тренеры',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -128,6 +138,37 @@ class _MainPageState extends State<MainPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => CoachesPage(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: const [
+                                      Icon(
+                                        Icons.splitscreen_outlined,
+                                        size: 60,
+                                      ),
+                                      Text(
+                                        'Тренажеры',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ExerciseEquipmentPage(),
                                   ),
                                 );
                               },
@@ -161,7 +202,10 @@ class _MainPageState extends State<MainPage> {
                                         Icons.calculate_outlined,
                                         size: 42,
                                       ),
-                                      Text('Калькуляторы'),
+                                      Text(
+                                        'Калькуляторы',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -189,7 +233,10 @@ class _MainPageState extends State<MainPage> {
                                         Icons.border_inner_rounded,
                                         size: 42,
                                       ),
-                                      Text('Биоритмы'),
+                                      Text(
+                                        'Биоритмы',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -216,7 +263,10 @@ class _MainPageState extends State<MainPage> {
                                         Icons.bedtime_outlined,
                                         size: 42,
                                       ),
-                                      Text('Сон'),
+                                      Text(
+                                        'Сон',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
                                   ),
                                 ),

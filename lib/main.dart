@@ -14,6 +14,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'view/windows_app/win_menu_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Hive.initFlutter();
   Hive.registerAdapter(WeightAdapter());
   if (defaultTargetPlatform == TargetPlatform.android ||
@@ -58,10 +60,11 @@ void main() async {
         routes: {
           win_login_page.route: (BuildContext context) =>
               const win_login_page(),
-          win_menu_page.route: (BuildContext context) =>
-              win_menu_page(key: UniqueKey()),
+          win_menu_page.route: (BuildContext context) => win_menu_page(
+                key: UniqueKey(),
+              ),
         },
       ),
     );
-  } else {}
+  }
 }

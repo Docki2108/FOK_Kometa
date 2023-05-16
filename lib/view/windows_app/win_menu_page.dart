@@ -1,20 +1,17 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fok_kometa/view/windows_app/screens/win_coachs_page.dart';
 import 'package:fok_kometa/view/windows_app/win_login_page.dart';
 import 'package:provider/provider.dart';
-import 'package:switcher_button/switcher_button.dart';
-
 import '../../services/auth.dart';
 import '../../theme/theme.dart';
+import 'screens/win_personal_workout.dart';
 import 'screens/win_clients_page.dart';
 import 'screens/win_diets_page.dart';
 import 'screens/win_equipments_page.dart';
 import 'screens/win_group_workout_page.dart';
 import 'screens/win_news_page.dart';
 import 'screens/win_services_page.dart';
-import 'screens/win_test.dart';
 
 class win_menu_page extends StatelessWidget {
   const win_menu_page({super.key});
@@ -111,16 +108,15 @@ class _WinLoginPageState extends State<WinLoginPage> {
                   ),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.text_snippet_outlined),
-                  selectedIcon: Icon(Icons.text_snippet),
+                  icon: Icon(Icons.accessibility_new_outlined),
+                  selectedIcon: Icon(Icons.accessibility_new_rounded),
                   label: Text(
-                    'Тест',
+                    'Тренировки',
                   ),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.exit_to_app),
                   label: Text(
-                    style: TextStyle(color: Colors.red),
                     'Выход',
                   ),
                 ),
@@ -138,26 +134,28 @@ class _WinLoginPageState extends State<WinLoginPage> {
   Widget buildPages() {
     switch (index) {
       case 0:
-        return win_news_page();
+        return const win_news_page();
       case 1:
-        return win_services_page();
+        return const win_services_page();
       case 2:
-        return win_coachs_page();
+        return const win_coachs_page();
       case 3:
-        return win_clients_page();
+        return const win_clients_page();
       case 4:
-        return win_group_workout_page();
+        return const win_group_workout_page();
       case 5:
-        return win_diets_page();
+        return const win_diets_page();
       case 6:
-        return win_equipments_page();
+        return const win_equipments_page();
       case 7:
-        return win_test();
-      // case 3:
-      //   {
-      //     AuthServiceWin.winLogout();
-      //     Navigator.pushReplacementNamed(context, win_login_page.route);
-      //   }
+        return const personal_workout_page();
+      case 8:
+        AuthServiceWin.winLogout();
+        Future.delayed(Duration.zero).then(
+          (value) => Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (ctx) => const win_login_page())),
+        );
+        break;
     }
     return Container();
   }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../../new_models/exercise_equipment.dart';
+import '../../../new_models/exercise_equipment_category.dart';
 import '../../../new_models/news.dart';
 import '../../../new_models/news_category.dart';
 import '../../../theme/theme.dart';
@@ -37,290 +39,378 @@ class ExerciseEquipmentCategoryPage extends StatefulWidget {
 
 class _ExerciseEquipmentCategoryPageState
     extends State<ExerciseEquipmentCategoryPage> {
-  List<dynamic> categories = [];
-  List<dynamic> equipment = [];
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  int? selectedCategoryId;
+  final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
 
-  Future<void> _getCategories() async {
-    try {
-      final response =
-          await Dio().get('http://localhost:5000/exercise_equipment_category');
-
-      setState(() {
-        categories = response.data;
-      });
-    } catch (e) {
-      throw Exception('Failed to load categories');
-    }
-  }
-
-  Future<void> _createCategory(String name) async {
-    try {
-      final response = await Dio().post(
-        'http://localhost:5000/exercise_equipment_category',
-        data: {'Name': name},
-      );
-
-      _getCategories();
-    } catch (e) {
-      throw Exception('Ошибка в добавлении');
-    }
-  }
-
-  Future<void> _updateCategory(int id, String name) async {
-    try {
-      final response = await Dio().put(
-        'http://localhost:5000/exercise_equipment_category/$id',
-        data: {'Name': name},
-      );
-
-      _getCategories();
-    } catch (e) {
-      throw Exception('Ошибка в изменении');
-    }
-  }
-
-  Future<void> _deleteCategory(int id) async {
-    try {
-      final response = await Dio().delete(
-        'http://localhost:5000/exercise_equipment_category/$id',
-      );
-
-      _getCategories();
-    } catch (e) {
-      throw Exception('Ошибка в удалении');
-    }
-  }
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _dio = Dio();
+  List<dynamic> _equipmentList = [];
+  List<dynamic> _categoryList = [];
+  int? _selectedCategoryId;
+  int? _selectedEquipmentId;
+  String _name = '';
+  String _description = '';
+  final TextEditingController _nameController = TextEditingController();
+  List<ExerciseEquipmentCategory> _categories = [];
 
   @override
   void initState() {
     super.initState();
+    _getEquipmentList();
+    _getCategoryList();
     _getCategories();
-    _getEquipment();
   }
 
-  Future<void> _getEquipment() async {
+  Future<void> _getCategories() async {
     try {
       final response =
-          await Dio().get('http://localhost:5000/exercise_equipment');
-
+          await _dio.get('http://localhost:5000/exercise_equipment_category');
+      final List<dynamic> data = response.data;
       setState(() {
-        equipment = response.data;
+        _categories = data
+            .map((category) => ExerciseEquipmentCategory.fromJson(category))
+            .toList();
       });
     } catch (e) {
-      throw Exception('Failed to load equipment');
+      print(e);
+    }
+  }
+
+  Future<void> _addCategory() async {
+    try {
+      final response = await _dio
+          .post('http://localhost:5000/exercise_equipment_category', data: {
+        'Name': _nameController.text,
+      });
+      print(response.data);
+      _getCategories();
+      _nameController.clear();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _updateCategory(ExerciseEquipmentCategory category) async {
+    try {
+      final response = await _dio.put(
+          'http://localhost:5000/exercise_equipment_category/${category.id}',
+          data: {
+            'Name': _nameController.text,
+          });
+      print(response.data);
+      _getCategories();
+      _nameController.clear();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _deleteCategory(ExerciseEquipmentCategory category) async {
+    try {
+      final response = await _dio.delete(
+          'http://localhost:5000/exercise_equipment_category/${category.id}');
+      print(response.data);
+      _getCategories();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _getEquipmentList() async {
+    try {
+      final response =
+          await _dio.get('http://localhost:5000/exercise_equipment');
+      setState(() {
+        _equipmentList = response.data;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _getCategoryList() async {
+    try {
+      final response =
+          await _dio.get('http://localhost:5000/exercise_equipment_category');
+      setState(() {
+        _categoryList = response.data;
+      });
+    } catch (e) {
+      print(e);
     }
   }
 
   Future<void> _createEquipment() async {
     try {
-      final response = await Dio().post(
+      final response = await _dio.post(
         'http://localhost:5000/exercise_equipment',
         data: {
-          'Name': nameController.text,
-          'Description': descriptionController.text,
-          'Exercise_equipment_category_ID': selectedCategoryId,
+          'Name': _name,
+          'Description': _description,
+          'Exercise_equipment_category_ID': _selectedCategoryId,
         },
       );
 
-      _getEquipment();
-      nameController.clear();
-      descriptionController.clear();
-      selectedCategoryId = null;
+      _getEquipmentList();
     } catch (e) {
-      throw Exception('Failed to create equipment');
+      print(e);
     }
   }
 
-  Future<void> _updateEquipment(int id) async {
+  Future<void> _updateEquipment() async {
     try {
-      final response = await Dio().put(
-        'http://localhost:5000/exercise_equipment/$id',
+      final response = await _dio.put(
+        'http://localhost:5000/exercise_equipment/$_selectedEquipmentId',
         data: {
-          'Name': nameController.text,
-          'Description': descriptionController.text,
-          'Exercise_equipment_category_ID': selectedCategoryId,
+          'Name': _name,
+          'Description': _description,
+          'Exercise_equipment_category_ID': _selectedCategoryId,
         },
       );
 
-      _getEquipment();
-      nameController.clear();
-      descriptionController.clear();
-      selectedCategoryId = null;
+      _getEquipmentList();
     } catch (e) {
-      throw Exception('Failed to update equipment');
+      print(e);
     }
   }
 
-  Future<void> _deleteEquipment(int id) async {
+  Future<void> _deleteEquipment() async {
     try {
-      final response =
-          await Dio().delete('http://localhost:5000/exercise_equipment/$id');
-
-      _getEquipment();
+      final response = await _dio.delete(
+          'http://localhost:5000/exercise_equipment/$_selectedEquipmentId');
+      _getEquipmentList();
     } catch (e) {
-      throw Exception('Failed to delete equipment');
+      print(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Тренажеры'),
-          centerTitle: true,
-        ),
-        body: Row(
-          children: [
-            Expanded(
-              child: Container(),
-            ),
-            Expanded(
-              child: Container(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        child: Column(
+      appBar: AppBar(
+        title: const Text('Тренажеры'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _getEquipmentList();
+              _getCategoryList();
+              _getCategories();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.blueGrey[100],
+              child: ListView.builder(
+                itemCount: _equipmentList.length,
+                itemBuilder: (context, index) {
+                  final equipment = _equipmentList[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      child: ListTile(
+                        title: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                controller: nameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Name',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                controller: descriptionController,
-                                decoration: InputDecoration(
-                                  labelText: 'Description',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DropdownButtonFormField(
-                                value: selectedCategoryId,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedCategoryId = value as int?;
-                                  });
-                                },
-                                items: categories.map((category) {
-                                  return DropdownMenuItem(
-                                    value: category[
-                                        'ID_Exercise_equipment_category'],
-                                    child: Text(category['Name']),
-                                  );
-                                }).toList(),
-                                decoration: InputDecoration(
-                                  labelText: 'Категория',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            Stack(
                               children: [
-                                ElevatedButton(
-                                  child: Text('Add'),
-                                  onPressed: () {
-                                    _createEquipment();
-                                  },
-                                ),
-                                ElevatedButton(
-                                  child: Text('Update'),
-                                  onPressed: () {
-                                    _updateEquipment(
-                                        equipment[selectedCategoryId!]
-                                            ['ID_Exercise_equipment']);
-                                  },
-                                ),
-                                ElevatedButton(
-                                  child: Text('Delete'),
-                                  onPressed: () {
-                                    _deleteEquipment(
-                                        equipment[selectedCategoryId!]
-                                            ['ID_Exercise_equipment']);
-                                  },
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: SelectableText(
+                                              equipment['Name'],
+                                              style: const TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 154, 185, 201),
+                                                  fontSize: 22),
+                                              maxLines: 3,
+                                              minLines: 1,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: equipment.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Card(
-                                      child: ListTile(
-                                        onTap: () {
-                                          _updateEquipment(
-                                              equipment[selectedCategoryId!]
-                                                  ['ID_Exercise_equipment']);
-                                        },
-                                        title: Text(equipment[index]['Name']),
-                                        subtitle: Text(
-                                            equipment[index]['Description']),
-                                        trailing: Text(equipment[index][
-                                                'Exercise_equipment_category_ID']
-                                            .toString()),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
                           ],
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            equipment['Description'],
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            setState(() {
+                              _selectedEquipmentId =
+                                  equipment['ID_Exercise_equipment'];
+                            });
+                            _deleteEquipment();
+                          },
+                        ),
+                        onTap: () {
+                          setState(
+                            () {
+                              _selectedEquipmentId =
+                                  equipment['ID_Exercise_equipment'];
+                              _name = equipment['Name'];
+                              _description = equipment['Description'];
+                              _selectedCategoryId =
+                                  equipment['Exercise_equipment_category_ID'];
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: Colors.blueGrey,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  minLines: 1,
+                                  maxLines: 5,
+                                  maxLength: 100,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    labelText: 'Название',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Введите название';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _name = value!;
+                                  },
+                                ),
+                                TextFormField(
+                                  minLines: 1,
+                                  maxLines: 5,
+                                  maxLength: 300,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    labelText: 'Описание',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Введите описание';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _description = value!;
+                                  },
+                                ),
+                                DropdownButtonFormField(
+                                  value: _selectedCategoryId,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedCategoryId = value as int?;
+                                    });
+                                  },
+                                  items: _categoryList.map((category) {
+                                    return DropdownMenuItem(
+                                      value: category[
+                                          'ID_Exercise_equipment_category'],
+                                      child: Text(category['Name']),
+                                    );
+                                  }).toList(),
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    labelText: 'Категория',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                      _createEquipment();
+                                    }
+                                  },
+                                  child: Text('Добавить'),
+                                ),
+                                SizedBox(height: 16),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Container(
+                  ),
+                  // child: Stack(
+                  //   children: [],
+                  // ),
+                ),
+                Expanded(
+                  child: Stack(children: [
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: ListView.builder(
-                          itemCount: categories.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                child: ListTile(
-                                  title: Text(categories[index]['Name']),
-                                  onTap: () {
+                          itemCount: _categories.length,
+                          itemBuilder: (context, index) {
+                            final category = _categories[index];
+                            return Card(
+                              child: ListTile(
+                                title: Text(category.name),
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        final TextEditingController controller =
-                                            TextEditingController(
-                                                text: categories[index]
-                                                    ['Name']);
                                         return AlertDialog(
-                                          title: Text(
-                                              'Изменение категории тренажера'),
-                                          content: TextField(
-                                            controller: controller,
-                                          ),
-                                          actions: [
-                                            TextButton(
+                                          title: Text('Удалить категорию?'),
+                                          content: Text(
+                                              'Вы уверены, что хотите удалить категорию "${category.name}"?'),
+                                          actions: <Widget>[
+                                            OutlinedButton(
                                               child: Text('Отмена'),
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
                                             ),
-                                            TextButton(
-                                              child: Text('Изменить'),
+                                            OutlinedButton(
+                                              child: Text('Удалить'),
                                               onPressed: () {
-                                                _updateCategory(
-                                                    categories[index][
-                                                        'ID_Exercise_equipment_category'],
-                                                    controller.text);
+                                                _deleteCategory(category);
                                                 Navigator.of(context).pop();
                                               },
                                             ),
@@ -329,92 +419,86 @@ class _ExerciseEquipmentCategoryPageState
                                       },
                                     );
                                   },
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        icon: Icon(Icons.delete),
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text(
-                                                    'Удаление категории тренажера'),
-                                                content: Text(
-                                                    'Вы уверены, что хотите удалить ${categories[index]['Name']}?'),
-                                                actions: [
-                                                  TextButton(
-                                                    child: Text('Отмена'),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                  ),
-                                                  TextButton(
-                                                    child: Text('Удалить'),
-                                                    onPressed: () {
-                                                      _deleteCategory(categories[
-                                                              index][
-                                                          'ID_Exercise_equipment_category']);
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
                                 ),
+                                onTap: () {
+                                  _nameController.text = category.name;
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Изменить категорию'),
+                                        content: TextField(
+                                          controller: _nameController,
+                                          decoration: InputDecoration(
+                                              hintText: 'Название категории'),
+                                        ),
+                                        actions: <Widget>[
+                                          OutlinedButton(
+                                            child: Text('Отмена'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              _nameController.clear();
+                                            },
+                                          ),
+                                          OutlinedButton(
+                                            child: Text('Сохранить'),
+                                            onPressed: () {
+                                              _updateCategory(category);
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             );
                           },
                         ),
                       ),
                     ),
-                  ],
+                  ]),
                 ),
-              ),
+              ],
             ),
-          ],
-        )
-
-        // floatingActionButton: FloatingActionButton(
-        //   child: Icon(Icons.add),
-        //   onPressed: () {
-        //     showDialog(
-        //       context: context,
-        //       builder: (BuildContext context) {
-        //         final TextEditingController controller = TextEditingController();
-        //         return AlertDialog(
-        //           title: Text('Добавление категории тренажера'),
-        //           content: TextField(
-        //             controller: controller,
-        //           ),
-        //           actions: [
-        //             TextButton(
-        //               child: Text('Отмена'),
-        //               onPressed: () {
-        //                 Navigator.of(context).pop();
-        //               },
-        //             ),
-        //             TextButton(
-        //               child: Text('Добавить'),
-        //               onPressed: () {
-        //                 _createCategory(controller.text);
-        //                 Navigator.of(context).pop();
-        //               },
-        //             ),
-        //           ],
-        //         );
-        //       },
-        //     );
-        //   },
-        // ),
-        );
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Добавить категорию'),
+                content: TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(hintText: 'Название категории'),
+                ),
+                actions: <Widget>[
+                  OutlinedButton(
+                    child: Text('Отмена'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      _nameController.clear();
+                    },
+                  ),
+                  OutlinedButton(
+                    child: Text('Добавить'),
+                    onPressed: () {
+                      _addCategory();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
