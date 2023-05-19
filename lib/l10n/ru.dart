@@ -13,6 +13,5 @@ class AppLocalizations {
     'month10': 'Октябрь',
     'month11': 'Ноябрь',
     'month12': 'Декабрь',
-    // и т.д.
   };
 }

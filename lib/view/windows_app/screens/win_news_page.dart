@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../new_models/news.dart';
-import '../../../new_models/news_category.dart';
+import '../../../models/news.dart';
+import '../../../models/news_category.dart';
 import '../../../theme/theme.dart';
 
 class win_news_page extends StatelessWidget {
@@ -143,22 +143,13 @@ class _WinNewsPageState extends State<WinNewsPage> {
       _contentController.clear();
       _selectedCategoryId = null;
       initState();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Добавление прошло успешно!'),
-        ),
-      );
     } catch (e) {}
   }
 
   Future<void> deleteNews(int newsId) async {
     try {
       final response = await Dio().delete('http://localhost:5000/news/$newsId');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Удаление прошло успешно!'),
-        ),
-      );
+
       log(response.data);
     } catch (e) {}
   }
@@ -322,7 +313,8 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                                   const EdgeInsets.all(8.0),
                                               child:
                                                   DropdownButtonFormField<int>(
-                                                decoration: InputDecoration(
+                                                decoration:
+                                                    const InputDecoration(
                                                   labelText: 'Категория',
                                                   filled: true,
                                                 ),
@@ -342,7 +334,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                                 }).toList(),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 33,
                                             ),
                                           ],
@@ -503,7 +495,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

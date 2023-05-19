@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
 import '../../../../theme/theme.dart';
 

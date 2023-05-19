@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
-import '../../../new_models/diet_category.dart';
-import '../../../new_models/dish_category.dart';
-import '../../../new_models/pfc.dart';
-import '../../../new_models/service_category.dart';
+import '../../../models/diet_category.dart';
+import '../../../models/dish_category.dart';
+import '../../../models/pfc.dart';
+import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 
 class win_diets_page extends StatelessWidget {
@@ -203,7 +203,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Добавить диету'),
+          title: const Text('Добавить диету'),
           content: Form(
             key: _dietFormKey,
             child: Column(
@@ -211,7 +211,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               children: [
                 TextFormField(
                   controller: _dietNameController,
-                  decoration: InputDecoration(labelText: 'Название'),
+                  decoration: const InputDecoration(labelText: 'Название'),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите название';
@@ -221,7 +221,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                 ),
                 TextFormField(
                   controller: _dietDurationController,
-                  decoration: InputDecoration(labelText: 'Продолжительность'),
+                  decoration:
+                      const InputDecoration(labelText: 'Продолжительность'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -235,7 +236,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                 ),
                 TextFormField(
                   controller: _dietCategoryController,
-                  decoration: InputDecoration(labelText: 'Код категории'),
+                  decoration: const InputDecoration(labelText: 'Код категории'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -255,7 +256,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Отмена'),
+              child: const Text('Отмена'),
             ),
             OutlinedButton(
               onPressed: () {
@@ -264,7 +265,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Добавить'),
+              child: const Text('Добавить'),
             ),
           ],
         );
@@ -280,7 +281,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Изменить диету'),
+          title: const Text('Изменить диету'),
           content: Form(
             key: _dietFormKey,
             child: Column(
@@ -288,7 +289,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               children: [
                 TextFormField(
                   controller: _dietNameController,
-                  decoration: InputDecoration(labelText: 'Название'),
+                  decoration: const InputDecoration(labelText: 'Название'),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите название';
@@ -298,7 +299,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                 ),
                 TextFormField(
                   controller: _dietDurationController,
-                  decoration: InputDecoration(labelText: 'Продолжительность'),
+                  decoration:
+                      const InputDecoration(labelText: 'Продолжительность'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -312,7 +314,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                 ),
                 TextFormField(
                   controller: _dietCategoryController,
-                  decoration: InputDecoration(labelText: 'Код категории'),
+                  decoration: const InputDecoration(labelText: 'Код категории'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -332,7 +334,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Отмена'),
+              child: const Text('Отмена'),
             ),
             OutlinedButton(
               onPressed: () {
@@ -341,7 +343,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Сохранить'),
+              child: const Text('Сохранить'),
             ),
           ],
         );
@@ -354,7 +356,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Удалить диету'),
+          title: const Text('Удалить диету'),
           content:
               Text('Вы действительно хотите удалить диету "${diet['name']}"?'),
           actions: [
@@ -362,14 +364,14 @@ class _WinDietsPageState extends State<WinDietsPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Отмена'),
+              child: const Text('Отмена'),
             ),
             OutlinedButton(
               onPressed: () {
                 _deleteDiet(diet['id']);
                 Navigator.pop(context);
               },
-              child: Text('Удалить'),
+              child: const Text('Удалить'),
             ),
           ],
         );
@@ -886,7 +888,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                     ],
                                   ),
                                   leading: IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete),
                                     onPressed: () => _deleteDish(dish['id']),
                                   ),
                                   onTap: () {
@@ -894,7 +896,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: Text('Изменить блюдо'),
+                                          title: const Text('Изменить блюдо'),
                                           content: Form(
                                             key: _dishFormKey,
                                             child: Column(
@@ -902,7 +904,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               children: [
                                                 TextFormField(
                                                   initialValue: dish['name'],
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     labelText: 'Название',
                                                   ),
                                                   validator: (value) {
@@ -918,7 +921,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                 TextFormField(
                                                   initialValue:
                                                       dish['kcal'].toString(),
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     labelText: 'Калории',
                                                   ),
                                                   keyboardType:
@@ -936,7 +940,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                 TextFormField(
                                                   initialValue:
                                                       dish['pfc_id'].toString(),
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     labelText: 'ID PFC',
                                                   ),
                                                   keyboardType:
@@ -954,7 +959,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                 TextFormField(
                                                   initialValue: dish['diet_id']
                                                       .toString(),
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     labelText: 'ID диеты',
                                                   ),
                                                   keyboardType:
@@ -974,7 +980,8 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                   initialValue:
                                                       dish['dish_category_id']
                                                           .toString(),
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     labelText:
                                                         'ID категории блюда',
                                                   ),
@@ -996,12 +1003,12 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                           ),
                                           actions: [
                                             OutlinedButton(
-                                              child: Text('Отмена'),
+                                              child: const Text('Отмена'),
                                               onPressed: () =>
                                                   Navigator.pop(context),
                                             ),
                                             OutlinedButton(
-                                              child: Text('Сохранить'),
+                                              child: const Text('Сохранить'),
                                               onPressed: () {
                                                 if (_dishFormKey.currentState!
                                                     .validate()) {
@@ -1047,14 +1054,14 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Text('Добавить блюдо'),
+                                      title: const Text('Добавить блюдо'),
                                       content: Form(
                                         key: _dishFormKey,
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             TextFormField(
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Название',
                                               ),
                                               validator: (value) {
@@ -1068,7 +1075,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               },
                                             ),
                                             TextFormField(
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Калории',
                                               ),
                                               keyboardType:
@@ -1084,7 +1091,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               },
                                             ),
                                             TextFormField(
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Код БЖУ',
                                               ),
                                               keyboardType:
@@ -1100,7 +1107,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               },
                                             ),
                                             TextFormField(
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Код диеты',
                                               ),
                                               keyboardType:
@@ -1116,7 +1123,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               },
                                             ),
                                             TextFormField(
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText:
                                                     'Код категории блюда',
                                               ),
@@ -1138,12 +1145,12 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                       ),
                                       actions: [
                                         OutlinedButton(
-                                          child: Text('Отмена'),
+                                          child: const Text('Отмена'),
                                           onPressed: () =>
                                               Navigator.pop(context),
                                         ),
                                         OutlinedButton(
-                                          child: Text('Добавить'),
+                                          child: const Text('Добавить'),
                                           onPressed: () {
                                             if (_dishFormKey.currentState!
                                                 .validate()) {
@@ -1186,7 +1193,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                             subtitle: Text(
                                 'Продолжительность: ${diet['duration']} дней'),
                             trailing: IconButton(
-                              icon: Icon(Icons.delete),
+                              icon: const Icon(Icons.delete),
                               onPressed: () {
                                 _showDeleteDialog(diet);
                               },

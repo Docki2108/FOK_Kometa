@@ -96,30 +96,6 @@ class _OptionsPageState extends State<OptionsPage> {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Flexible(
-                      //       flex: 1,
-                      //       child: ElevatedButton(
-                      //         style: ButtonStyle(
-                      //           elevation: MaterialStateProperty.all(0),
-                      //         ),
-                      //         onPressed: () {
-                      //           Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //               builder: (context) => const AboutAppPage(),
-                      //             ),
-                      //           );
-                      //         },
-                      //         child: const Text(
-                      //           'Изменить пароль',
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ],

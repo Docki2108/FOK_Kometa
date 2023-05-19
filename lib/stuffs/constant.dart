@@ -1,13 +1,8 @@
 // ignore_for_file: constant_identifier_names
+
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-const String GRAPHQL_LINK = "https://flexible-weevil-94.hasura.app/v1/graphql";
-const String HASURA_PASSWORD =
-    "4VXSAFspYjXb03dYm276UGq1DKO5IiKCW21NCWfyatYV98n8InfgxcZzTDUAdLMp";
 const String FOK_KOMETA_MAP_URL = "https://goo.gl/maps/ZpJ4QfqU8UJB2GsA7";
-
-const String SUPABASE_LINK = "";
-const String SUPABASE_ANONKEY = "";
 
 const String DESCRIPTION_OF_GROUP_TRAINING = '''
 

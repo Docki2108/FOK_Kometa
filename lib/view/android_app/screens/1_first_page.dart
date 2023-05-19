@@ -103,7 +103,7 @@ class _FirstPageState extends State<FirstPage> {
             onSelected: (category) {
               setState(() {
                 _selectedCategory = category;
-                _searchText = null; // Clear search text
+                _searchText = null;
               });
             },
             itemBuilder: (BuildContext context) {

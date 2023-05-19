@@ -8,6 +8,12 @@ version: 1.0.0+1
 environment:
   sdk: '>=2.19.0 <3.0.0'
 
+msix_config:
+  publisher_display_name: Dumilin Vadim
+  display_name: FOK_Kometa
+  msix_version: 1.0.0.0
+  logo_path: C:\FLUTTER PROJECTS\fok_kometa\lib\theme\images\fok_logo.png
+
 dependencies:
   build_runner:
   calendar_timeline: ^1.1.2
@@ -56,6 +62,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.0
+  msix: ^3.12.2
 
 flutter:
 
@@ -71,6 +78,7 @@ flutter:
     - lib/theme/images/logo2.png
     - lib/theme/images/logosvg.svg
     - lib/theme/images/background/Rectangle.jpg
+    
   # fonts:
   #   - asset: packages/food_icons/Food.ttf
   #   - family: Schyler

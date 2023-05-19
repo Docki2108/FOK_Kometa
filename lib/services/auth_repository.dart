@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:fok_kometa/services/auth.dart';
 
 abstract class AuthRepository {

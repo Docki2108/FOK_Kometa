@@ -132,10 +132,6 @@ class _ExercisePageState extends State<ExercisePage> {
                                   ],
                                 ),
                                 children: [
-                                  // ListTile(
-                                  //   title: Text(
-                                  //       'Exercise Plan Description: ${exerciseData[index]['Exercise_plan_Description']}'),
-                                  // ),
                                   ListTile(
                                     title: Center(
                                       child: Text(
@@ -146,7 +142,6 @@ class _ExercisePageState extends State<ExercisePage> {
                                           'Время отдыха между подходами: ${exerciseData[index]['Rest_time']}'),
                                     ),
                                   ),
-
                                   ListTile(
                                     subtitle: Text(
                                         '${exerciseData[index]['Description']}'),

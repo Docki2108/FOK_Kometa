@@ -5,14 +5,13 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/services/auth_repository.dart';
 import 'package:fok_kometa/view/android_app/login_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_profile/options_page.dart';
-import '../../../new_models/user.dart';
+import '../../../models/user.dart';
 import '../../../services/auth.dart';
 import '../../../stuffs/constant.dart';
 import 'screens_profile/feedback_page.dart';
-import 'screens_profile/weight_calendar.dart';
+import 'screens_profile/weight_calendar_page.dart';
 
 class profile_page extends StatelessWidget {
   const profile_page({
@@ -307,9 +306,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                         child: TextFormField(
                                                           controller:
                                                               _firstNameController,
-                                                          //focusNode: passwordNode,
-                                                          // onEditingComplete: () =>
-                                                          //    btn_contNode.nextFocus(),
                                                           decoration:
                                                               const InputDecoration(
                                                             border:
@@ -346,9 +342,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                         child: TextFormField(
                                                           controller:
                                                               _secondNameController,
-                                                          //focusNode: passwordNode,
-                                                          // onEditingComplete: () =>
-                                                          //    btn_contNode.nextFocus(),
                                                           decoration:
                                                               const InputDecoration(
                                                             border:
@@ -385,9 +378,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                         child: TextFormField(
                                                           controller:
                                                               _patronymicController,
-                                                          //focusNode: passwordNode,
-                                                          // onEditingComplete: () =>
-                                                          //    btn_contNode.nextFocus(),
                                                           decoration:
                                                               const InputDecoration(
                                                             border:
@@ -526,9 +516,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      // style: ButtonStyle(
-                      //   elevation: MaterialStateProperty.all(3),
-                      // ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -547,9 +534,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      // style: ButtonStyle(
-                      //   elevation: MaterialStateProperty.all(3),
-                      // ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -566,9 +550,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      // style: ButtonStyle(
-                      //   elevation: MaterialStateProperty.all(3),
-                      // ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -585,9 +566,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      // style: ButtonStyle(
-                      //   elevation: MaterialStateProperty.all(3),
-                      // ),
                       onPressed: () {
                         showDialog(
                           context: context,

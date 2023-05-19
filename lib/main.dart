@@ -15,7 +15,6 @@ import 'view/windows_app/win_menu_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Hive.initFlutter();
   Hive.registerAdapter(WeightAdapter());
   if (defaultTargetPlatform == TargetPlatform.android ||

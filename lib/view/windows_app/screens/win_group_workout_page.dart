@@ -2,11 +2,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:fok_kometa/stuffs/constant.dart';
 import 'package:provider/provider.dart';
-import '../../../new_models/group_workout_category.dart';
-import '../../../new_models/service_category.dart';
+import '../../../models/group_workout_category.dart';
+import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 import 'package:intl/intl.dart';
 
@@ -397,7 +397,7 @@ class _GroupWorkoutCategoriesScreenState
                                           .substring(0, 5),
                                   style: const TextStyle(fontSize: 18),
                                 ),
-                                Text(' '),
+                                const Text(' '),
                                 Text(
                                   'Время окончания: ' +
                                       groupWorkout['end_time'].substring(0, 5),
@@ -405,9 +405,9 @@ class _GroupWorkoutCategoriesScreenState
                                 ),
                               ],
                             ),
-                            Text(
+                            const Text(
                               ' ',
-                              style: const TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 18),
                             ),
                             Text(
                               'Описание: ${groupWorkout['description']}',
@@ -467,7 +467,7 @@ class _GroupWorkoutCategoriesScreenState
                                         maxLines: 5,
                                         minLines: 1,
                                         maxLength: 10,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText: 'Дата события'),
                                         validator: (value) {
@@ -488,7 +488,7 @@ class _GroupWorkoutCategoriesScreenState
                                         minLines: 1,
                                         maxLength: 5,
                                         controller: _startTimeController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText: 'Время начала'),
                                         validator: (value) {
@@ -509,7 +509,7 @@ class _GroupWorkoutCategoriesScreenState
                                         minLines: 1,
                                         maxLength: 5,
                                         controller: _endTimeController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText: 'Время окончания'),
                                         validator: (value) {
@@ -528,7 +528,7 @@ class _GroupWorkoutCategoriesScreenState
                                 minLines: 1,
                                 maxLength: 50,
                                 controller: _nameController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     filled: true, labelText: 'Название'),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -542,7 +542,7 @@ class _GroupWorkoutCategoriesScreenState
                                 minLines: 1,
                                 maxLength: 50,
                                 controller: _descriptionController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     filled: true, labelText: 'Описание'),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -561,7 +561,7 @@ class _GroupWorkoutCategoriesScreenState
                                         minLines: 1,
                                         maxLength: 2,
                                         controller: _loadScoreController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText: 'Нагрузка'),
                                         keyboardType: TextInputType.number,
@@ -584,7 +584,7 @@ class _GroupWorkoutCategoriesScreenState
                                       child: TextFormField(
                                         maxLength: 2,
                                         controller: _recommendedAgeController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText: 'Рекомендуемый возраст'),
                                         keyboardType: TextInputType.number,
@@ -632,7 +632,7 @@ class _GroupWorkoutCategoriesScreenState
                                         maxLength: 3,
                                         controller:
                                             _groupWorkoutCategoryIdController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText: 'Код категории'),
                                         keyboardType: TextInputType.number,
@@ -655,7 +655,7 @@ class _GroupWorkoutCategoriesScreenState
                                       child: TextFormField(
                                         maxLength: 3,
                                         controller: _coachIdController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             filled: true,
                                             labelText:
                                                 'Индивидуальный код тренера'),

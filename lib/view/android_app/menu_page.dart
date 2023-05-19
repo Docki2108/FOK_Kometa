@@ -4,7 +4,7 @@ import 'package:fok_kometa/view/android_app/screens/5_profile_page.dart';
 import 'package:fok_kometa/view/android_app/screens/1_first_page.dart';
 import 'package:fok_kometa/view/android_app/screens/2_schedule_page.dart';
 import 'package:provider/provider.dart';
-import '../../../new_models/user.dart' as User;
+import '../../models/user.dart' as User;
 import '../../theme/theme.dart';
 import 'screens/3_main_page.dart';
 import 'screens/4_workout_page.dart';

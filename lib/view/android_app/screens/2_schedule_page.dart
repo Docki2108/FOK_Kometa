@@ -97,7 +97,7 @@ class _SchedulePageState extends State<SchedulePage> {
             onSelected: (group_workout_category) {
               setState(() {
                 _selectedCategory = group_workout_category;
-                _searchText = null; // Clear search text
+                _searchText = null;
               });
             },
             itemBuilder: (BuildContext context) {
@@ -116,8 +116,6 @@ class _SchedulePageState extends State<SchedulePage> {
               }).toList();
             },
           ),
-
-          // Добавляем строку поиска
         ],
       ),
       body: filteredGroup_workouts.isEmpty

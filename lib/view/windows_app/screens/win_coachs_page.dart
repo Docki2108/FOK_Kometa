@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
-import '../../../new_models/service_category.dart';
+import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 
 class win_coachs_page extends StatelessWidget {
@@ -105,7 +105,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
       if (response.statusCode == 200) {
         final message = response.data['message'];
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Удаление прошло успешно!'),
           ),
         );
@@ -149,7 +149,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Тренеры'),
+        title: const Text('Тренеры'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -230,7 +230,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                     ),
-                                    Text(' '),
+                                    const Text(' '),
                                     Text(
                                       coaches['second_name'] + ' ',
                                       style: const TextStyle(fontSize: 18),
@@ -291,13 +291,13 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                      icon: Icon(Icons.edit),
+                                      icon: const Icon(Icons.edit),
                                       onPressed: () {
                                         _showEditCoachDialog(coaches);
                                       },
                                     ),
                                     IconButton(
-                                      icon: Icon(Icons.delete),
+                                      icon: const Icon(Icons.delete),
                                       onPressed: () {
                                         _deleteCoach(coaches['id']);
                                       },
@@ -320,7 +320,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: _showAddDialog,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -330,24 +330,25 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Добавить тренера'),
+          title: const Text('Добавить тренера'),
           content: SingleChildScrollView(
             child: Column(
               children: [
                 TextField(
-                    decoration: InputDecoration(labelText: 'Фамилия'),
+                    decoration: const InputDecoration(labelText: 'Фамилия'),
                     controller: second_nameController),
                 TextField(
-                    decoration: InputDecoration(labelText: 'Имя'),
+                    decoration: const InputDecoration(labelText: 'Имя'),
                     controller: first_nameController),
                 TextField(
-                    decoration: InputDecoration(labelText: 'Отчество'),
+                    decoration: const InputDecoration(labelText: 'Отчество'),
                     controller: patronymicController),
                 TextField(
-                    decoration: InputDecoration(labelText: 'Специализация'),
+                    decoration:
+                        const InputDecoration(labelText: 'Специализация'),
                     controller: specializationController),
                 TextField(
-                    decoration: InputDecoration(labelText: 'Стаж работы'),
+                    decoration: const InputDecoration(labelText: 'Стаж работы'),
                     controller: work_experienceController),
               ],
             ),
@@ -357,14 +358,14 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Отмена'),
+              child: const Text('Отмена'),
             ),
             TextButton(
               onPressed: () {
                 addCoach();
                 Navigator.pop(context);
               },
-              child: Text('Добавить'),
+              child: const Text('Добавить'),
             ),
           ],
         );

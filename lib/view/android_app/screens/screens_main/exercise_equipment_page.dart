@@ -78,31 +78,9 @@ class _ExerciseEquipmentPageState extends State<ExerciseEquipmentPage> {
         centerTitle: true,
         elevation: 3,
         title: const Text('Тренажеры'),
-        actions: [],
       ),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: DropdownButtonFormField<String>(
-              value: _selectedCategory,
-              items: _categories.map((category) {
-                return DropdownMenuItem<String>(
-                  value: category['ID_Exercise_equipment_category.Name']
-                      .toString(),
-                  child: Text(category['Name']),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCategory = value;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Select Category',
-              ),
-            ),
-          ),
           Expanded(
             child: ListView.builder(
               itemCount: _filterByCategory(_selectedCategory).length,
@@ -112,11 +90,37 @@ class _ExerciseEquipmentPageState extends State<ExerciseEquipmentPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                     child: ListTile(
-                      title: Text(equipment['Name']),
-                      subtitle: Text(equipment['Description']),
-                      trailing: Text(
-                        'Category: ${equipment['Exercise_equipment_category_ID.Name']}',
+                      title: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        equipment['Name'],
+                                        style: const TextStyle(
+                                            color: const Color.fromARGB(
+                                                255, 154, 185, 201),
+                                            fontSize: 22),
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      subtitle: Text(equipment['Description']),
                     ),
                   ),
                 );

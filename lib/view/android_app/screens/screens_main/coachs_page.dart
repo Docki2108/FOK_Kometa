@@ -80,35 +80,17 @@ class _CoachesPageState extends State<CoachesPage> {
       filteredCoaches.retainWhere((coaches) =>
           coaches['work_experience'].toString().toLowerCase().contains(query));
     }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 3,
         title: const Text('Тренеры'),
         actions: [
-          // Padding(
-          //   padding:
-          //       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          //   child: SizedBox(
-          //     width: 200.0,
-          //     child: TextField(
-          //       decoration: const InputDecoration(
-          //         hintText: 'Поиск по заголовку',
-          //       ),
-          //       onChanged: (text) {
-          //         setState(() {
-          //           _searchQuery = text;
-          //         });
-          //       },
-          //     ),
-          //   ),
-          // ),
           PopupMenuButton(
             onSelected: (work_experience) {
               setState(() {
                 _work_experience = work_experience;
-                _searchText = null; // Clear search text
+                _searchText = null;
               });
             },
             itemBuilder: (BuildContext context) {

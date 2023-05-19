@@ -90,7 +90,7 @@ class _ServicesPageState extends State<ServicesPage> {
             onSelected: (service_category) {
               setState(() {
                 _selectedCategory = service_category;
-                _searchText = null; // Clear search text
+                _searchText = null;
               });
             },
             itemBuilder: (BuildContext context) {
@@ -108,8 +108,6 @@ class _ServicesPageState extends State<ServicesPage> {
               }).toList();
             },
           ),
-
-          // Добавляем строку поиска
         ],
       ),
       body: _filteredServices.isEmpty

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../hive/weight_model.dart';
-import '../../../../new_models/user.dart';
+import '../../../../models/user.dart';
 import '../../../../services/hive_weight.dart';
 import '../../../../theme/theme.dart';
 import 'package:fok_kometa/l10n/ru.dart';
@@ -112,9 +112,6 @@ class _WeightCalendarState extends State<WeightCalendar> {
                 ),
               ),
             ),
-            // Expanded(
-            //   child: WeightChart(weights: _weights),
-            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: _weights.length,

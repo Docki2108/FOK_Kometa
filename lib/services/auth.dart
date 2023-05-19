@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../new_models/user.dart';
+import '../models/user.dart';
 
 class AuthServiceWin {
   static const winBaseUrl = 'http://localhost:5000';

@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
-import '../../../new_models/service_category.dart';
+import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 
 class win_services_page extends StatelessWidget {
@@ -301,7 +301,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                               child: Column(
                                 children: [
                                   TextField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       filled: true,
                                       labelText: 'Название',
                                     ),
@@ -310,9 +310,9 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                     maxLength: 100,
                                     controller: nameController,
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       filled: true,
                                       labelText: 'Стоимость',
                                     ),
@@ -322,9 +322,9 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                     controller: costController,
                                     keyboardType: TextInputType.number,
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   TextField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       filled: true,
                                       labelText: 'Описание',
                                     ),
@@ -333,7 +333,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                     maxLength: 200,
                                     controller: descriptionController,
                                   ),
-                                  SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   DropdownButtonFormField<String>(
                                     value: _selectedCategory,
                                     onChanged: (value) {
@@ -348,7 +348,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                         child: Text(category['Name']),
                                       );
                                     }).toList(),
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       filled: true,
                                       labelText: 'Категория',
                                     ),
@@ -356,7 +356,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: ElevatedButton(
-                                      child: Text('Добавить'),
+                                      child: const Text('Добавить'),
                                       onPressed: () {
                                         addService();
                                         Navigator.of(context).pop();
@@ -397,20 +397,21 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                                   text: category['Name'],
                                                 );
                                                 return AlertDialog(
-                                                  title: Text(
+                                                  title: const Text(
                                                       'Изменить категорию'),
                                                   content: TextField(
                                                     controller: controller,
                                                   ),
                                                   actions: [
                                                     TextButton(
-                                                      child: Text('Cancel'),
+                                                      child:
+                                                          const Text('Cancel'),
                                                       onPressed: () =>
                                                           Navigator.pop(
                                                               context),
                                                     ),
                                                     TextButton(
-                                                      child: Text('Save'),
+                                                      child: const Text('Save'),
                                                       onPressed: () {
                                                         updateServiceCategory(
                                                             category[
@@ -428,26 +429,27 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               IconButton(
-                                                icon: Icon(Icons.delete),
+                                                icon: const Icon(Icons.delete),
                                                 onPressed: () {
                                                   showDialog(
                                                     context: context,
                                                     builder: (context) =>
                                                         AlertDialog(
-                                                      title: Text(
+                                                      title: const Text(
                                                           'Удалить категорию'),
-                                                      content:
-                                                          Text('Вы уверены?'),
+                                                      content: const Text(
+                                                          'Вы уверены?'),
                                                       actions: [
                                                         TextButton(
-                                                          child: Text('Отмена'),
+                                                          child: const Text(
+                                                              'Отмена'),
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   context),
                                                         ),
                                                         TextButton(
-                                                          child:
-                                                              Text('Удалить'),
+                                                          child: const Text(
+                                                              'Удалить'),
                                                           onPressed: () {
                                                             deleteServiceCategory(
                                                                 category[
@@ -489,17 +491,17 @@ class _WinServicesPageState extends State<WinServicesPage> {
             builder: (context) {
               TextEditingController controller = TextEditingController();
               return AlertDialog(
-                title: Text('Добавить категорию'),
+                title: const Text('Добавить категорию'),
                 content: TextField(
                   controller: controller,
                 ),
                 actions: [
                   TextButton(
-                    child: Text('Отмена'),
+                    child: const Text('Отмена'),
                     onPressed: () => Navigator.pop(context),
                   ),
                   TextButton(
-                    child: Text('Добавить'),
+                    child: const Text('Добавить'),
                     onPressed: () {
                       addServiceCategory(controller.text);
                       Navigator.pop(context);
@@ -510,7 +512,7 @@ class _WinServicesPageState extends State<WinServicesPage> {
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

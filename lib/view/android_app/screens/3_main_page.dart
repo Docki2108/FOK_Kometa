@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/stuffs/constant.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_main/coachs_page.dart';
 import 'package:fok_kometa/view/android_app/screens/screens_main/services_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'screens_main/bioritm_page.dart';
 import 'screens_main/diets_page.dart';
 import 'screens_main/exercise_equipment_page.dart';
@@ -297,23 +295,6 @@ class _MainPageState extends State<MainPage> {
                       children: [
                         Image.asset(
                           'lib/theme/images/kometa-map.png',
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(230, 260, 0, 0),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              try {
-                                if (await canLaunch(FOK_KOMETA_MAP_URL)) {
-                                  await launch(FOK_KOMETA_MAP_URL);
-                                } else {
-                                  throw 'Ошибка перехода на URL: $FOK_KOMETA_MAP_URL';
-                                }
-                              } catch (e) {
-                                log('Ошибка: $e');
-                              }
-                            },
-                            child: const Text('Открыть карту'),
-                          ),
                         ),
                       ],
                     ),

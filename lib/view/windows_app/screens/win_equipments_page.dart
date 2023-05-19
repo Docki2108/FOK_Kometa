@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../new_models/exercise_equipment.dart';
-import '../../../new_models/exercise_equipment_category.dart';
-import '../../../new_models/news.dart';
-import '../../../new_models/news_category.dart';
+import '../../../models/exercise_equipment.dart';
+import '../../../models/exercise_equipment_category.dart';
+import '../../../models/news.dart';
+import '../../../models/news_category.dart';
 import '../../../theme/theme.dart';
 
 class win_equipments_page extends StatelessWidget {
@@ -257,7 +257,7 @@ class _ExerciseEquipmentCategoryPageState
                           ),
                         ),
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           onPressed: () {
                             setState(() {
                               _selectedEquipmentId =
@@ -304,7 +304,7 @@ class _ExerciseEquipmentCategoryPageState
                                   minLines: 1,
                                   maxLines: 5,
                                   maxLength: 100,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     filled: true,
                                     labelText: 'Название',
                                   ),
@@ -322,7 +322,7 @@ class _ExerciseEquipmentCategoryPageState
                                   minLines: 1,
                                   maxLines: 5,
                                   maxLength: 300,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     filled: true,
                                     labelText: 'Описание',
                                   ),
@@ -350,13 +350,13 @@ class _ExerciseEquipmentCategoryPageState
                                       child: Text(category['Name']),
                                     );
                                   }).toList(),
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     filled: true,
                                     labelText: 'Категория',
                                     border: OutlineInputBorder(),
                                   ),
                                 ),
-                                SizedBox(height: 16),
+                                const SizedBox(height: 16),
                                 ElevatedButton(
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
@@ -364,9 +364,9 @@ class _ExerciseEquipmentCategoryPageState
                                       _createEquipment();
                                     }
                                   },
-                                  child: Text('Добавить'),
+                                  child: const Text('Добавить'),
                                 ),
-                                SizedBox(height: 16),
+                                const SizedBox(height: 16),
                               ],
                             ),
                           ),
@@ -397,18 +397,19 @@ class _ExerciseEquipmentCategoryPageState
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text('Удалить категорию?'),
+                                          title:
+                                              const Text('Удалить категорию?'),
                                           content: Text(
                                               'Вы уверены, что хотите удалить категорию "${category.name}"?'),
                                           actions: <Widget>[
                                             OutlinedButton(
-                                              child: Text('Отмена'),
+                                              child: const Text('Отмена'),
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
                                             ),
                                             OutlinedButton(
-                                              child: Text('Удалить'),
+                                              child: const Text('Удалить'),
                                               onPressed: () {
                                                 _deleteCategory(category);
                                                 Navigator.of(context).pop();
@@ -426,22 +427,22 @@ class _ExerciseEquipmentCategoryPageState
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Изменить категорию'),
+                                        title: const Text('Изменить категорию'),
                                         content: TextField(
                                           controller: _nameController,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               hintText: 'Название категории'),
                                         ),
                                         actions: <Widget>[
                                           OutlinedButton(
-                                            child: Text('Отмена'),
+                                            child: const Text('Отмена'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                               _nameController.clear();
                                             },
                                           ),
                                           OutlinedButton(
-                                            child: Text('Сохранить'),
+                                            child: const Text('Сохранить'),
                                             onPressed: () {
                                               _updateCategory(category);
                                               Navigator.of(context).pop();
@@ -472,21 +473,22 @@ class _ExerciseEquipmentCategoryPageState
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Добавить категорию'),
+                title: const Text('Добавить категорию'),
                 content: TextField(
                   controller: _nameController,
-                  decoration: InputDecoration(hintText: 'Название категории'),
+                  decoration:
+                      const InputDecoration(hintText: 'Название категории'),
                 ),
                 actions: <Widget>[
                   OutlinedButton(
-                    child: Text('Отмена'),
+                    child: const Text('Отмена'),
                     onPressed: () {
                       Navigator.of(context).pop();
                       _nameController.clear();
                     },
                   ),
                   OutlinedButton(
-                    child: Text('Добавить'),
+                    child: const Text('Добавить'),
                     onPressed: () {
                       _addCategory();
                       Navigator.of(context).pop();
@@ -497,7 +499,7 @@ class _ExerciseEquipmentCategoryPageState
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

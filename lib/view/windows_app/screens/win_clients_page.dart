@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/new_models/user.dart';
+import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
-import '../../../new_models/service_category.dart';
+import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 
 class win_clients_page extends StatelessWidget {

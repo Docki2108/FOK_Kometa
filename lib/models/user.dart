@@ -17,8 +17,7 @@ class User {
 
   factory User.get() {
     if (_context == null) {
-      throw UnimplementedError(
-          "Мы не сделали конструктор для юзера нормально. Используй User.fromJson");
+      throw UnimplementedError("используй User.fromJson");
     } else {
       return _context!;
     }
