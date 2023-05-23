@@ -1,0 +1,1161 @@
+<?xml version="1.0" encoding="UTF-8"?><XMI xmlns:UML="href://org.omg/UML/1.3" xmi.version="1.1">
+    <XMI.header>
+        <XMI.metamodel xmi.name="UML" xmi.version="1.3"/>
+    </XMI.header>
+    <XMI.content>
+        <UML:Model name="PlantUML" xmi.id="model1">
+            <UML:Namespace.ownedElement>
+                <UML:Class name="Weight" namespace="fok_kometa.hive.weight_model.dart" xmi.id="cl0003">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="DateTime date" visibility="public" xmi.id="att340"/>
+                        <UML:Attribute name="double weight" visibility="public" xmi.id="att341"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="HiveObject" namespace="hive.src.object.hive_object.dart" xmi.id="cl0005">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="WeightAdapter" namespace="fok_kometa.hive.weight_model.dart" xmi.id="cl0007">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int typeId" visibility="public" xmi.id="att342"/>
+                        <UML:Attribute name="int hashCode" visibility="public" xmi.id="att343"/>
+                        <UML:Operation name="Weight read()" visibility="public" xmi.id="att344"/>
+                        <UML:Operation name="void write()" visibility="public" xmi.id="att345"/>
+                        <UML:Operation name="bool ==()" visibility="public" xmi.id="att346"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="TypeAdapter" namespace="hive.hive.dart" xmi.id="cl0009">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="AppLocalizations" namespace="fok_kometa.l10n.ru.dart" xmi.id="cl0012">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="Map&lt;String, String&gt; ru" visibility="public" xmi.id="att347"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="Diet" namespace="fok_kometa.models.diet.dart" xmi.id="cl0014">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att348"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att349"/>
+                        <UML:Attribute name="int duration" visibility="public" xmi.id="att350"/>
+                        <UML:Attribute name="int dietCategoryId" visibility="public" xmi.id="att351"/>
+                        <UML:Operation name="Map&lt;String, dynamic&gt; toJson()" visibility="public" xmi.id="att352"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="DietCategory" namespace="fok_kometa.models.diet_category.dart" xmi.id="cl0016">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att353"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att354"/>
+                        <UML:Operation name="Map&lt;String, dynamic&gt; toJson()" visibility="public" xmi.id="att355"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="Dish" namespace="fok_kometa.models.dish.dart" xmi.id="cl0018">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att356"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att357"/>
+                        <UML:Attribute name="int kcal" visibility="public" xmi.id="att358"/>
+                        <UML:Attribute name="String pfc" visibility="public" xmi.id="att359"/>
+                        <UML:Attribute name="String diet" visibility="public" xmi.id="att360"/>
+                        <UML:Attribute name="String category" visibility="public" xmi.id="att361"/>
+                        <UML:Operation name="Map&lt;String, dynamic&gt; toJson()" visibility="public" xmi.id="att362"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="DishCategory" namespace="fok_kometa.models.dish_category.dart" xmi.id="cl0020">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att363"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att364"/>
+                        <UML:Operation name="Map&lt;String, dynamic&gt; toJson()" visibility="public" xmi.id="att365"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ExerciseEquipment" namespace="fok_kometa.models.exercise_equipment.dart" xmi.id="cl0022">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att366"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att367"/>
+                        <UML:Attribute name="String description" visibility="public" xmi.id="att368"/>
+                        <UML:Attribute name="int categoryId" visibility="public" xmi.id="att369"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ExerciseEquipmentCategory" namespace="fok_kometa.models.exercise_equipment_category.dart" xmi.id="cl0024">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att370"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att371"/>
+                        <UML:Operation name="List&lt;ExerciseEquipmentCategory&gt; parseCategories()" visibility="public" xmi.id="att372"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="GroupWorkoutCategory" namespace="fok_kometa.models.group_workout_category.dart" xmi.id="cl0026">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att373"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att374"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="News" namespace="fok_kometa.models.news.dart" xmi.id="cl0028">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att375"/>
+                        <UML:Attribute name="String title" visibility="public" xmi.id="att376"/>
+                        <UML:Attribute name="String content" visibility="public" xmi.id="att377"/>
+                        <UML:Attribute name="int categoryId" visibility="public" xmi.id="att378"/>
+                        <UML:Attribute name="String createDate" visibility="public" xmi.id="att379"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="NewsCategory" namespace="fok_kometa.models.news_category.dart" xmi.id="cl0030">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att380"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att381"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="PersonalData" namespace="fok_kometa.models.personal_data.dart" xmi.id="cl0032">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String? secondName" visibility="public" xmi.id="att382"/>
+                        <UML:Attribute name="String? firstName" visibility="public" xmi.id="att383"/>
+                        <UML:Attribute name="String? patronymic" visibility="public" xmi.id="att384"/>
+                        <UML:Attribute name="String? mobileNumber" visibility="public" xmi.id="att385"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="PersonWorkout" namespace="fok_kometa.models.person_workout.dart" xmi.id="cl0034">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att386"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att387"/>
+                        <UML:Attribute name="String description" visibility="public" xmi.id="att388"/>
+                        <UML:Attribute name="int userId" visibility="public" xmi.id="att389"/>
+                        <UML:Operation name="Map&lt;String, dynamic&gt; toJson()" visibility="public" xmi.id="att390"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="PersonWorkoutApiService" namespace="fok_kometa.models.person_workout.dart" xmi.id="cl0035">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att391"/>
+                        <UML:Operation name="Future&lt;List&lt;PersonWorkout&gt;&gt; getPersonWorkouts()" visibility="public" xmi.id="att392"/>
+                        <UML:Operation name="Future&lt;void&gt; addPersonWorkout()" visibility="public" xmi.id="att393"/>
+                        <UML:Operation name="Future&lt;void&gt; updatePersonWorkout()" visibility="public" xmi.id="att394"/>
+                        <UML:Operation name="Future&lt;void&gt; deletePersonWorkout()" visibility="public" xmi.id="att395"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="Dio" namespace="dio.src.dio.dart" xmi.id="cl0037">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="PFC" namespace="fok_kometa.models.pfc.dart" xmi.id="cl0040">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att396"/>
+                        <UML:Attribute name="int proteins" visibility="public" xmi.id="att397"/>
+                        <UML:Attribute name="int fats" visibility="public" xmi.id="att398"/>
+                        <UML:Attribute name="int carbohydrates" visibility="public" xmi.id="att399"/>
+                        <UML:Operation name="Map&lt;String, dynamic&gt; toJson()" visibility="public" xmi.id="att400"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="Service" namespace="fok_kometa.models.service.dart" xmi.id="cl0042">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att401"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att402"/>
+                        <UML:Attribute name="int cost" visibility="public" xmi.id="att403"/>
+                        <UML:Attribute name="String description" visibility="public" xmi.id="att404"/>
+                        <UML:Attribute name="int userId" visibility="public" xmi.id="att405"/>
+                        <UML:Attribute name="String category" visibility="public" xmi.id="att406"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ServiceCategory" namespace="fok_kometa.models.service_category.dart" xmi.id="cl0044">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att407"/>
+                        <UML:Attribute name="String name" visibility="public" xmi.id="att408"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="User" namespace="fok_kometa.models.user.dart" xmi.id="cl0046">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="User? _context" visibility="private" xmi.id="att409"/>
+                        <UML:Attribute name="int id" visibility="public" xmi.id="att410"/>
+                        <UML:Attribute name="String email" visibility="public" xmi.id="att411"/>
+                        <UML:Attribute name="String role" visibility="public" xmi.id="att412"/>
+                        <UML:Attribute name="PersonalData personalData" visibility="public" xmi.id="att413"/>
+                        <UML:Operation name="void logout()" visibility="public" xmi.id="att414"/>
+                        <UML:Operation name="bool isAnon()" visibility="public" xmi.id="att415"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="AuthServiceWin" namespace="fok_kometa.services.auth.dart" xmi.id="cl0050">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String winBaseUrl" visibility="public" xmi.id="att416"/>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att417"/>
+                        <UML:Operation name="Future&lt;void&gt; winLogin()" visibility="public" xmi.id="att418"/>
+                        <UML:Operation name="Future&lt;void&gt; winLogout()" visibility="public" xmi.id="att419"/>
+                        <UML:Operation name="Future&lt;User&gt; getCurrentUser()" visibility="public" xmi.id="att420"/>
+                        <UML:Operation name="Future&lt;void&gt; updateUser()" visibility="public" xmi.id="att421"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="AuthServiceMob" namespace="fok_kometa.services.auth.dart" xmi.id="cl0052">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String mobBaseUrl" visibility="public" xmi.id="att422"/>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att423"/>
+                        <UML:Operation name="Future&lt;void&gt; mobLogin()" visibility="public" xmi.id="att424"/>
+                        <UML:Operation name="Future&lt;void&gt; mobLogout()" visibility="public" xmi.id="att425"/>
+                        <UML:Operation name="Future&lt;User&gt; mobGetCurrentUser()" visibility="public" xmi.id="att426"/>
+                        <UML:Operation name="Future&lt;void&gt; updateUser()" visibility="public" xmi.id="att427"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class isAbstract="true" name="AuthRepository" namespace="fok_kometa.services.auth_repository.dart" xmi.id="cl0055">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Future&lt;User?&gt; winLogin()" visibility="public" xmi.id="att428"/>
+                        <UML:Operation name="Future&lt;User?&gt; mobLogin()" visibility="public" xmi.id="att429"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="HiveService" namespace="fok_kometa.services.hive_weight.dart" xmi.id="cl0057">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String _boxName" visibility="private" xmi.id="att430"/>
+                        <UML:Operation name="Future&lt;Box&lt;Weight&gt;&gt; openBox()" visibility="public" xmi.id="att431"/>
+                        <UML:Operation name="Future&lt;void&gt; addWeight()" visibility="public" xmi.id="att432"/>
+                        <UML:Operation name="Future&lt;List&lt;Weight&gt;&gt; getWeights()" visibility="public" xmi.id="att433"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteWeight()" visibility="public" xmi.id="att434"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ThemeNotifier" namespace="fok_kometa.theme.theme.dart" xmi.id="cl0059">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="bool _useMaterial3" visibility="private" xmi.id="att435"/>
+                        <UML:Attribute name="String key" visibility="public" xmi.id="att436"/>
+                        <UML:Attribute name="bool _darkTheme" visibility="private" xmi.id="att437"/>
+                        <UML:Attribute name="bool useMaterial3" visibility="public" xmi.id="att438"/>
+                        <UML:Attribute name="bool darkTheme" visibility="public" xmi.id="att439"/>
+                        <UML:Operation name="dynamic toggleTheme()" visibility="public" xmi.id="att440"/>
+                        <UML:Operation name="dynamic _initPrefs()" visibility="private" xmi.id="att441"/>
+                        <UML:Operation name="dynamic _loadFromPrefs()" visibility="private" xmi.id="att442"/>
+                        <UML:Operation name="dynamic _saveToPrefs()" visibility="private" xmi.id="att443"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ChangeNotifier" namespace="flutter.src.foundation.change_notifier.dart" xmi.id="cl0061">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="forgot_password_page" namespace="fok_kometa.view.android_app.forgot_password_page.dart" xmi.id="cl0064">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att444"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att445"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="StatelessWidget" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0066">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="ForgotPassword" namespace="fok_kometa.view.android_app.forgot_password_page.dart" xmi.id="cl0068">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;ForgotPassword&gt; createState()" visibility="public" xmi.id="att446"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="StatefulWidget" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0069">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="_ForgotPasswordState" namespace="fok_kometa.view.android_app.forgot_password_page.dart" xmi.id="cl0071">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="FocusNode loginNode" visibility="public" xmi.id="att447"/>
+                        <UML:Attribute name="FocusNode passwordNode" visibility="public" xmi.id="att448"/>
+                        <UML:Attribute name="FocusNode btn_contNode" visibility="public" xmi.id="att449"/>
+                        <UML:Attribute name="TextEditingController _emailController" visibility="private" xmi.id="att450"/>
+                        <UML:Attribute name="TextEditingController _newPasswordController" visibility="private" xmi.id="att451"/>
+                        <UML:Attribute name="TextEditingController _codeController" visibility="private" xmi.id="att452"/>
+                        <UML:Attribute name="String _password" visibility="private" xmi.id="att453"/>
+                        <UML:Attribute name="double _strength" visibility="private" xmi.id="att454"/>
+                        <UML:Attribute name="RegExp numReg" visibility="public" xmi.id="att455"/>
+                        <UML:Attribute name="RegExp letterReg" visibility="public" xmi.id="att456"/>
+                        <UML:Attribute name="String _displayText" visibility="private" xmi.id="att457"/>
+                        <UML:Attribute name="bool _onEditing" visibility="private" xmi.id="att458"/>
+                        <UML:Attribute name="String? _code" visibility="private" xmi.id="att459"/>
+                        <UML:Operation name="void _sendCode()" visibility="private" xmi.id="att460"/>
+                        <UML:Operation name="void _changePassword()" visibility="private" xmi.id="att461"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att462"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att463"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att464"/>
+                        <UML:Operation name="void _checkPassword()" visibility="private" xmi.id="att465"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="FocusNode" namespace="flutter.src.widgets.focus_manager.dart" xmi.id="cl0073">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="TextEditingController" namespace="flutter.src.widgets.editable_text.dart" xmi.id="cl0076">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="State" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0078">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="login_page" namespace="fok_kometa.view.android_app.login_page.dart" xmi.id="cl0081">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att466"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att467"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="LoginPage" namespace="fok_kometa.view.android_app.login_page.dart" xmi.id="cl0083">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;LoginPage&gt; createState()" visibility="public" xmi.id="att468"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_LoginPageState" namespace="fok_kometa.view.android_app.login_page.dart" xmi.id="cl0085">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="FocusNode loginNode" visibility="public" xmi.id="att469"/>
+                        <UML:Attribute name="FocusNode passwordNode" visibility="public" xmi.id="att470"/>
+                        <UML:Attribute name="FocusNode btn_contNode" visibility="public" xmi.id="att471"/>
+                        <UML:Attribute name="TextEditingController _emailController" visibility="private" xmi.id="att472"/>
+                        <UML:Attribute name="TextEditingController _passwordController" visibility="private" xmi.id="att473"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _loginformKey" visibility="private" xmi.id="att474"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _passwordformKey" visibility="private" xmi.id="att475"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _fokformKey" visibility="private" xmi.id="att476"/>
+                        <UML:Attribute name="String _email" visibility="private" xmi.id="att477"/>
+                        <UML:Attribute name="String _password" visibility="private" xmi.id="att478"/>
+                        <UML:Attribute name="bool _isAllExist" visibility="private" xmi.id="att479"/>
+                        <UML:Attribute name="bool _isPasswordExist" visibility="private" xmi.id="att480"/>
+                        <UML:Attribute name="bool _isEmailExist" visibility="private" xmi.id="att481"/>
+                        <UML:Attribute name="bool _isLoading" visibility="private" xmi.id="att482"/>
+                        <UML:Attribute name="bool light0" visibility="public" xmi.id="att483"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att484"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att485"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att486"/>
+                        <UML:Operation name="void _checkPassword()" visibility="private" xmi.id="att487"/>
+                        <UML:Operation name="void _checkEmail()" visibility="private" xmi.id="att488"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="GlobalKey&lt;FormState&gt;" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0088">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="menu_page" namespace="fok_kometa.view.android_app.menu_page.dart" xmi.id="cl0092">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att489"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att490"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="Menu" namespace="fok_kometa.view.android_app.menu_page.dart" xmi.id="cl0094">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;Menu&gt; createState()" visibility="public" xmi.id="att491"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_MenuState" namespace="fok_kometa.view.android_app.menu_page.dart" xmi.id="cl0096">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int index" visibility="public" xmi.id="att492"/>
+                        <UML:Attribute name="List&lt;Widget&gt; listiki" visibility="public" xmi.id="att493"/>
+                        <UML:Attribute name="List&lt;Widget&gt; destinations" visibility="public" xmi.id="att494"/>
+                        <UML:Attribute name="List&lt;StatefulWidget&gt; screens" visibility="public" xmi.id="att495"/>
+                        <UML:Attribute name="StreamSubscription&lt;dynamic&gt;? sub" visibility="public" xmi.id="att496"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att497"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att498"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att499"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="StreamSubscription&lt;dynamic&gt;" namespace="dart.async" xmi.id="cl0098">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="registration_page" namespace="fok_kometa.view.android_app.registration_page.dart" xmi.id="cl0102">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att500"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att501"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="Registration" namespace="fok_kometa.view.android_app.registration_page.dart" xmi.id="cl0104">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;Registration&gt; createState()" visibility="public" xmi.id="att502"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_RegistrationState" namespace="fok_kometa.view.android_app.registration_page.dart" xmi.id="cl0106">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="FocusNode loginNode" visibility="public" xmi.id="att503"/>
+                        <UML:Attribute name="FocusNode passwordNode" visibility="public" xmi.id="att504"/>
+                        <UML:Attribute name="FocusNode btn_contNode" visibility="public" xmi.id="att505"/>
+                        <UML:Attribute name="TextEditingController _emailController" visibility="private" xmi.id="att506"/>
+                        <UML:Attribute name="TextEditingController _passwordController" visibility="private" xmi.id="att507"/>
+                        <UML:Attribute name="TextEditingController _roleController" visibility="private" xmi.id="att508"/>
+                        <UML:Attribute name="TextEditingController _secondNameController" visibility="private" xmi.id="att509"/>
+                        <UML:Attribute name="TextEditingController _firstNameController" visibility="private" xmi.id="att510"/>
+                        <UML:Attribute name="TextEditingController _patronymicController" visibility="private" xmi.id="att511"/>
+                        <UML:Attribute name="TextEditingController _mobileNumberController" visibility="private" xmi.id="att512"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _loginformKey" visibility="private" xmi.id="att513"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _passwordformKey" visibility="private" xmi.id="att514"/>
+                        <UML:Attribute name="bool _isAgreed" visibility="private" xmi.id="att515"/>
+                        <UML:Attribute name="String _password" visibility="private" xmi.id="att516"/>
+                        <UML:Attribute name="double _strength" visibility="private" xmi.id="att517"/>
+                        <UML:Attribute name="RegExp numReg" visibility="public" xmi.id="att518"/>
+                        <UML:Attribute name="RegExp letterReg" visibility="public" xmi.id="att519"/>
+                        <UML:Attribute name="String _displayText" visibility="private" xmi.id="att520"/>
+                        <UML:Operation name="void _submitForm()" visibility="private" xmi.id="att521"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att522"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att523"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att524"/>
+                        <UML:Operation name="void _checkPassword()" visibility="private" xmi.id="att525"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="first_page" namespace="fok_kometa.view.android_app.screens.1_first_page.dart" xmi.id="cl0112">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att526"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="FirstPage" namespace="fok_kometa.view.android_app.screens.1_first_page.dart" xmi.id="cl0114">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;FirstPage&gt; createState()" visibility="public" xmi.id="att527"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_FirstPageState" namespace="fok_kometa.view.android_app.screens.1_first_page.dart" xmi.id="cl0116">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String? _selectedCategory" visibility="private" xmi.id="att528"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _news" visibility="private" xmi.id="att529"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att530"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att531"/>
+                        <UML:Operation name="Future&lt;List&lt;dynamic&gt;&gt; _fetchNews()" visibility="private" xmi.id="att532"/>
+                        <UML:Operation name="List&lt;String&gt; _getCategories()" visibility="private" xmi.id="att533"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshNews()" visibility="private" xmi.id="att534"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att535"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att536"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="schedule_page" namespace="fok_kometa.view.android_app.screens.2_schedule_page.dart" xmi.id="cl0119">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att537"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="SchedulePage" namespace="fok_kometa.view.android_app.screens.2_schedule_page.dart" xmi.id="cl0121">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;SchedulePage&gt; createState()" visibility="public" xmi.id="att538"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_SchedulePageState" namespace="fok_kometa.view.android_app.screens.2_schedule_page.dart" xmi.id="cl0123">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String? _selectedCategory" visibility="private" xmi.id="att539"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _group_workouts" visibility="private" xmi.id="att540"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att541"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att542"/>
+                        <UML:Operation name="Future&lt;List&lt;dynamic&gt;&gt; _fetchNews()" visibility="private" xmi.id="att543"/>
+                        <UML:Operation name="List&lt;String&gt; _getCategories()" visibility="private" xmi.id="att544"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshNews()" visibility="private" xmi.id="att545"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att546"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att547"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="main_page" namespace="fok_kometa.view.android_app.screens.3_main_page.dart" xmi.id="cl0126">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att548"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="MainPage" namespace="fok_kometa.view.android_app.screens.3_main_page.dart" xmi.id="cl0128">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;MainPage&gt; createState()" visibility="public" xmi.id="att549"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_MainPageState" namespace="fok_kometa.view.android_app.screens.3_main_page.dart" xmi.id="cl0130">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att550"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="workout_page" namespace="fok_kometa.view.android_app.screens.4_workout_page.dart" xmi.id="cl0133">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att551"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WorkoutPage" namespace="fok_kometa.view.android_app.screens.4_workout_page.dart" xmi.id="cl0135">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att552"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ExercisePage" namespace="fok_kometa.view.android_app.screens.4_workout_page.dart" xmi.id="cl0137">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_ExercisePageState createState()" visibility="public" xmi.id="att553"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_ExercisePageState" namespace="fok_kometa.view.android_app.screens.4_workout_page.dart" xmi.id="cl0139">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;dynamic&gt; exerciseData" visibility="public" xmi.id="att554"/>
+                        <UML:Operation name="Future&lt;void&gt; getExerciseData()" visibility="public" xmi.id="att555"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att556"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att557"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="profile_page" namespace="fok_kometa.view.android_app.screens.5_profile_page.dart" xmi.id="cl0142">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att558"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ProfilePage" namespace="fok_kometa.view.android_app.screens.5_profile_page.dart" xmi.id="cl0144">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="BuildContext? parentNavigatorContext" visibility="public" xmi.id="att559"/>
+                        <UML:Operation name="State&lt;ProfilePage&gt; createState()" visibility="public" xmi.id="att560"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="BuildContext" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0145">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="_ProfilePageState" namespace="fok_kometa.view.android_app.screens.5_profile_page.dart" xmi.id="cl0148">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="FocusNode _emailNode" visibility="private" xmi.id="att561"/>
+                        <UML:Attribute name="FocusNode _firstNameNode" visibility="private" xmi.id="att562"/>
+                        <UML:Attribute name="FocusNode _secondNameNode" visibility="private" xmi.id="att563"/>
+                        <UML:Attribute name="FocusNode _patronymicNameNode" visibility="private" xmi.id="att564"/>
+                        <UML:Attribute name="FocusNode _mobileNumberNameNode" visibility="private" xmi.id="att565"/>
+                        <UML:Attribute name="TextEditingController _emailController" visibility="private" xmi.id="att566"/>
+                        <UML:Attribute name="TextEditingController _firstNameController" visibility="private" xmi.id="att567"/>
+                        <UML:Attribute name="TextEditingController _secondNameController" visibility="private" xmi.id="att568"/>
+                        <UML:Attribute name="TextEditingController _patronymicController" visibility="private" xmi.id="att569"/>
+                        <UML:Attribute name="TextEditingController _mobileNumberController" visibility="private" xmi.id="att570"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att571"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att572"/>
+                        <UML:Operation name="void _updateUser()" visibility="private" xmi.id="att573"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att574"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="BiorhythmCalculator" namespace="fok_kometa.view.android_app.screens.screens_main.bioritm_page.dart" xmi.id="cl0153">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_BiorhythmCalculatorState createState()" visibility="public" xmi.id="att575"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_BiorhythmCalculatorState" namespace="fok_kometa.view.android_app.screens.screens_main.bioritm_page.dart" xmi.id="cl0155">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _formKey" visibility="private" xmi.id="att576"/>
+                        <UML:Attribute name="TextEditingController _birthDateController" visibility="private" xmi.id="att577"/>
+                        <UML:Attribute name="DateTime _birthDate" visibility="private" xmi.id="att578"/>
+                        <UML:Attribute name="DateTime _startDate" visibility="private" xmi.id="att579"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att580"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="BiorhythmChart" namespace="fok_kometa.view.android_app.screens.screens_main.bioritm_page.dart" xmi.id="cl0159">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="DateTime birthDate" visibility="public" xmi.id="att581"/>
+                        <UML:Attribute name="DateTime startDate" visibility="public" xmi.id="att582"/>
+                        <UML:Operation name="_BiorhythmChartState createState()" visibility="public" xmi.id="att583"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_BiorhythmChartState" namespace="fok_kometa.view.android_app.screens.screens_main.bioritm_page.dart" xmi.id="cl0161">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int _days" visibility="private" xmi.id="att584"/>
+                        <UML:Attribute name="List&lt;List&lt;double&gt;&gt; _values" visibility="private" xmi.id="att585"/>
+                        <UML:Attribute name="GlobalKey&lt;State&lt;StatefulWidget&gt;&gt; _chartKey" visibility="private" xmi.id="att586"/>
+                        <UML:Operation name="Map&lt;String, double Function(dynamic, dynamic)&gt; _bioRhythms" visibility="private" xmi.id="att587"/>
+                        <UML:Operation name="void _calculateValues()" visibility="private" xmi.id="att588"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att589"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att590"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="GlobalKey&lt;State&lt;StatefulWidget&gt;&gt;" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0162">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="CalculatorsPage" namespace="fok_kometa.view.android_app.screens.screens_main.calculators_page.dart" xmi.id="cl0166">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;CalculatorsPage&gt; createState()" visibility="public" xmi.id="att591"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_CalculatorsPageState" namespace="fok_kometa.view.android_app.screens.screens_main.calculators_page.dart" xmi.id="cl0168">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="TextEditingController _weightController" visibility="private" xmi.id="att592"/>
+                        <UML:Attribute name="TextEditingController _heightController" visibility="private" xmi.id="att593"/>
+                        <UML:Attribute name="double bmi" visibility="public" xmi.id="att594"/>
+                        <UML:Attribute name="int _activity" visibility="private" xmi.id="att595"/>
+                        <UML:Attribute name="double _result" visibility="private" xmi.id="att596"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att597"/>
+                        <UML:Operation name="void calculateBmi()" visibility="public" xmi.id="att598"/>
+                        <UML:Operation name="void clearBmi()" visibility="public" xmi.id="att599"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att600"/>
+                        <UML:Operation name="void _calculateWaterIntake()" visibility="private" xmi.id="att601"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="coaches_page" namespace="fok_kometa.view.android_app.screens.screens_main.coachs_page.dart" xmi.id="cl0172">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att602"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="CoachesPage" namespace="fok_kometa.view.android_app.screens.screens_main.coachs_page.dart" xmi.id="cl0174">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;CoachesPage&gt; createState()" visibility="public" xmi.id="att603"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_CoachesPageState" namespace="fok_kometa.view.android_app.screens.screens_main.coachs_page.dart" xmi.id="cl0176">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String? _work_experience" visibility="private" xmi.id="att604"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _coaches" visibility="private" xmi.id="att605"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att606"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att607"/>
+                        <UML:Attribute name="bool isLoading" visibility="public" xmi.id="att608"/>
+                        <UML:Operation name="Future&lt;void&gt; _fetchCoaches()" visibility="private" xmi.id="att609"/>
+                        <UML:Operation name="List&lt;String&gt; _getWork_experience()" visibility="private" xmi.id="att610"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att611"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshCoaches()" visibility="private" xmi.id="att612"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att613"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="DishesPage" namespace="fok_kometa.view.android_app.screens.screens_main.diets_page.dart" xmi.id="cl0179">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_DishesPageState createState()" visibility="public" xmi.id="att614"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_DishesPageState" namespace="fok_kometa.view.android_app.screens.screens_main.diets_page.dart" xmi.id="cl0181">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;dynamic&gt; _dishes" visibility="private" xmi.id="att615"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att616"/>
+                        <UML:Operation name="void _getDishes()" visibility="private" xmi.id="att617"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att618"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="exercise_equipment_page" namespace="fok_kometa.view.android_app.screens.screens_main.exercise_equipment_page.dart" xmi.id="cl0184">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att619"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ExerciseEquipmentPage" namespace="fok_kometa.view.android_app.screens.screens_main.exercise_equipment_page.dart" xmi.id="cl0186">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;ExerciseEquipmentPage&gt; createState()" visibility="public" xmi.id="att620"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_ExerciseEquipmentPageState" namespace="fok_kometa.view.android_app.screens.screens_main.exercise_equipment_page.dart" xmi.id="cl0188">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;dynamic&gt; _categories" visibility="private" xmi.id="att621"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _exerciseEquipment" visibility="private" xmi.id="att622"/>
+                        <UML:Attribute name="String? _selectedCategory" visibility="private" xmi.id="att623"/>
+                        <UML:Attribute name="Map&lt;String, String&gt; _categoryNameMap" visibility="private" xmi.id="att624"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att625"/>
+                        <UML:Operation name="Future&lt;void&gt; _loadCategories()" visibility="private" xmi.id="att626"/>
+                        <UML:Operation name="Future&lt;void&gt; _loadExerciseEquipment()" visibility="private" xmi.id="att627"/>
+                        <UML:Operation name="List&lt;dynamic&gt; _filterByCategory()" visibility="private" xmi.id="att628"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att629"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="services_page" namespace="fok_kometa.view.android_app.screens.screens_main.services_page.dart" xmi.id="cl0191">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att630"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ServicesPage" namespace="fok_kometa.view.android_app.screens.screens_main.services_page.dart" xmi.id="cl0193">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;ServicesPage&gt; createState()" visibility="public" xmi.id="att631"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_ServicesPageState" namespace="fok_kometa.view.android_app.screens.screens_main.services_page.dart" xmi.id="cl0195">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String? _selectedCategory" visibility="private" xmi.id="att632"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _services" visibility="private" xmi.id="att633"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att634"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att635"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _filteredServices" visibility="private" xmi.id="att636"/>
+                        <UML:Operation name="Future&lt;void&gt; _fetchServices()" visibility="private" xmi.id="att637"/>
+                        <UML:Operation name="List&lt;String&gt; _getCategories()" visibility="private" xmi.id="att638"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshNews()" visibility="private" xmi.id="att639"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att640"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att641"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="SleepCycleCalculator" namespace="fok_kometa.view.android_app.screens.screens_main.sleep_page.dart" xmi.id="cl0198">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_SleepCycleCalculatorState createState()" visibility="public" xmi.id="att642"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_SleepCycleCalculatorState" namespace="fok_kometa.view.android_app.screens.screens_main.sleep_page.dart" xmi.id="cl0200">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="TextEditingController _sleepTimeController" visibility="private" xmi.id="att643"/>
+                        <UML:Attribute name="TextEditingController _wakeUpTimeController" visibility="private" xmi.id="att644"/>
+                        <UML:Attribute name="String _sleepAtTime" visibility="private" xmi.id="att645"/>
+                        <UML:Attribute name="String _wakeUpAtTime" visibility="private" xmi.id="att646"/>
+                        <UML:Operation name="Future&lt;void&gt; _selectSleepTime()" visibility="private" xmi.id="att647"/>
+                        <UML:Operation name="Future&lt;void&gt; _selectWakeUpTime()" visibility="private" xmi.id="att648"/>
+                        <UML:Operation name="void _calculateSleepAtTime()" visibility="private" xmi.id="att649"/>
+                        <UML:Operation name="void _calculateWakeUpTime()" visibility="private" xmi.id="att650"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att651"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="feedback_page" namespace="fok_kometa.view.android_app.screens.screens_profile.feedback_page.dart" xmi.id="cl0204">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att652"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="FeedbackPage" namespace="fok_kometa.view.android_app.screens.screens_profile.feedback_page.dart" xmi.id="cl0206">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;FeedbackPage&gt; createState()" visibility="public" xmi.id="att653"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_FeedbackPageState" namespace="fok_kometa.view.android_app.screens.screens_profile.feedback_page.dart" xmi.id="cl0208">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="TextEditingController _feedbackController" visibility="private" xmi.id="att654"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att655"/>
+                        <UML:Operation name="void _sendFeedback()" visibility="private" xmi.id="att656"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att657"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="options_page" namespace="fok_kometa.view.android_app.screens.screens_profile.options_page.dart" xmi.id="cl0212">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att658"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="OptionsPage" namespace="fok_kometa.view.android_app.screens.screens_profile.options_page.dart" xmi.id="cl0214">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;OptionsPage&gt; createState()" visibility="public" xmi.id="att659"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_OptionsPageState" namespace="fok_kometa.view.android_app.screens.screens_profile.options_page.dart" xmi.id="cl0216">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att660"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="about_app_page" namespace="fok_kometa.view.android_app.screens.screens_profile.screens_options.about_app_page.dart" xmi.id="cl0219">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att661"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="AboutAppPage" namespace="fok_kometa.view.android_app.screens.screens_profile.screens_options.about_app_page.dart" xmi.id="cl0221">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="State&lt;AboutAppPage&gt; createState()" visibility="public" xmi.id="att662"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_AboutAppPageState" namespace="fok_kometa.view.android_app.screens.screens_profile.screens_options.about_app_page.dart" xmi.id="cl0223">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att663"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="weight_calendar_page" namespace="fok_kometa.view.android_app.screens.screens_profile.weight_calendar_page.dart" xmi.id="cl0226">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att664"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WeightCalendar" namespace="fok_kometa.view.android_app.screens.screens_profile.weight_calendar_page.dart" xmi.id="cl0228">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String email" visibility="public" xmi.id="att665"/>
+                        <UML:Operation name="_WeightCalendarState createState()" visibility="public" xmi.id="att666"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WeightCalendarState" namespace="fok_kometa.view.android_app.screens.screens_profile.weight_calendar_page.dart" xmi.id="cl0230">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="TextEditingController _weightController" visibility="private" xmi.id="att667"/>
+                        <UML:Attribute name="List&lt;Weight&gt; _weights" visibility="private" xmi.id="att668"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att669"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att670"/>
+                        <UML:Operation name="void _loadWeights()" visibility="private" xmi.id="att671"/>
+                        <UML:Operation name="void _addWeight()" visibility="private" xmi.id="att672"/>
+                        <UML:Operation name="void _deleteWeight()" visibility="private" xmi.id="att673"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att674"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_clients_page" namespace="fok_kometa.view.windows_app.screens.win_clients_page.dart" xmi.id="cl0234">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att675"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinClientsPage" namespace="fok_kometa.view.windows_app.screens.win_clients_page.dart" xmi.id="cl0236">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinClientsPageState createState()" visibility="public" xmi.id="att676"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinClientsPageState" namespace="fok_kometa.view.windows_app.screens.win_clients_page.dart" xmi.id="cl0238">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;dynamic&gt; clients" visibility="public" xmi.id="att677"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att678"/>
+                        <UML:Operation name="Future&lt;void&gt; fetchClients()" visibility="public" xmi.id="att679"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att680"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_coachs_page" namespace="fok_kometa.view.windows_app.screens.win_coachs_page.dart" xmi.id="cl0241">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att681"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinCoachsPage" namespace="fok_kometa.view.windows_app.screens.win_coachs_page.dart" xmi.id="cl0243">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinCoachsPageState createState()" visibility="public" xmi.id="att682"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinCoachsPageState" namespace="fok_kometa.view.windows_app.screens.win_coachs_page.dart" xmi.id="cl0245">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String? _work_experience" visibility="private" xmi.id="att683"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _coaches" visibility="private" xmi.id="att684"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att685"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att686"/>
+                        <UML:Attribute name="bool isLoading" visibility="public" xmi.id="att687"/>
+                        <UML:Attribute name="List&lt;Map&lt;String, dynamic&gt;&gt; groupWorkoutCategories" visibility="public" xmi.id="att688"/>
+                        <UML:Attribute name="TextEditingController second_nameController" visibility="public" xmi.id="att689"/>
+                        <UML:Attribute name="TextEditingController first_nameController" visibility="public" xmi.id="att690"/>
+                        <UML:Attribute name="TextEditingController patronymicController" visibility="public" xmi.id="att691"/>
+                        <UML:Attribute name="TextEditingController specializationController" visibility="public" xmi.id="att692"/>
+                        <UML:Attribute name="TextEditingController work_experienceController" visibility="public" xmi.id="att693"/>
+                        <UML:Operation name="Future&lt;void&gt; _fetchCoaches()" visibility="private" xmi.id="att694"/>
+                        <UML:Operation name="List&lt;String&gt; _getWork_experience()" visibility="private" xmi.id="att695"/>
+                        <UML:Operation name="Future&lt;void&gt; addCoach()" visibility="public" xmi.id="att696"/>
+                        <UML:Operation name="Future&lt;void&gt; _updateCoach()" visibility="private" xmi.id="att697"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteCoach()" visibility="private" xmi.id="att698"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att699"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshCoaches()" visibility="private" xmi.id="att700"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att701"/>
+                        <UML:Operation name="void _showAddDialog()" visibility="private" xmi.id="att702"/>
+                        <UML:Operation name="dynamic _showEditCoachDialog()" visibility="private" xmi.id="att703"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_diets_page" namespace="fok_kometa.view.windows_app.screens.win_diets_page.dart" xmi.id="cl0249">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att704"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinDietsPage" namespace="fok_kometa.view.windows_app.screens.win_diets_page.dart" xmi.id="cl0251">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinDietsPageState createState()" visibility="public" xmi.id="att705"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinDietsPageState" namespace="fok_kometa.view.windows_app.screens.win_diets_page.dart" xmi.id="cl0253">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;DietCategory&gt; _dietCategories" visibility="private" xmi.id="att706"/>
+                        <UML:Attribute name="List&lt;PFC&gt; _pfc" visibility="private" xmi.id="att707"/>
+                        <UML:Attribute name="List&lt;DishCategory&gt; _dishCategories" visibility="private" xmi.id="att708"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _dietFormKey" visibility="private" xmi.id="att709"/>
+                        <UML:Attribute name="GlobalKey&lt;ScaffoldState&gt; _scaffoldKey" visibility="private" xmi.id="att710"/>
+                        <UML:Attribute name="TextEditingController _dietNameController" visibility="private" xmi.id="att711"/>
+                        <UML:Attribute name="TextEditingController _dietDurationController" visibility="private" xmi.id="att712"/>
+                        <UML:Attribute name="TextEditingController _dietCategoryController" visibility="private" xmi.id="att713"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _dishFormKey" visibility="private" xmi.id="att714"/>
+                        <UML:Attribute name="GlobalKey&lt;ScaffoldState&gt; _dishScaffoldKey" visibility="private" xmi.id="att715"/>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att716"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _dishes" visibility="private" xmi.id="att717"/>
+                        <UML:Attribute name="String? _dishName" visibility="private" xmi.id="att718"/>
+                        <UML:Attribute name="int? _kcal" visibility="private" xmi.id="att719"/>
+                        <UML:Attribute name="int? _pfcId" visibility="private" xmi.id="att720"/>
+                        <UML:Attribute name="int? _dishdietId" visibility="private" xmi.id="att721"/>
+                        <UML:Attribute name="int? _dishdishCategoryId" visibility="private" xmi.id="att722"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _diets" visibility="private" xmi.id="att723"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att724"/>
+                        <UML:Operation name="void _getDishes()" visibility="private" xmi.id="att725"/>
+                        <UML:Operation name="Future&lt;void&gt; _addDish()" visibility="private" xmi.id="att726"/>
+                        <UML:Operation name="Future&lt;void&gt; _updateDish()" visibility="private" xmi.id="att727"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteDish()" visibility="private" xmi.id="att728"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att729"/>
+                        <UML:Operation name="Future&lt;void&gt; _getDiets()" visibility="private" xmi.id="att730"/>
+                        <UML:Operation name="Future&lt;void&gt; _addDiet()" visibility="private" xmi.id="att731"/>
+                        <UML:Operation name="Future&lt;void&gt; _updateDiet()" visibility="private" xmi.id="att732"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteDiet()" visibility="private" xmi.id="att733"/>
+                        <UML:Operation name="void _showAddDialog()" visibility="private" xmi.id="att734"/>
+                        <UML:Operation name="void _showEditDialog()" visibility="private" xmi.id="att735"/>
+                        <UML:Operation name="void _showDeleteDialog()" visibility="private" xmi.id="att736"/>
+                        <UML:Operation name="Future&lt;void&gt; _loadPFC()" visibility="private" xmi.id="att737"/>
+                        <UML:Operation name="Future&lt;void&gt; _addPFC()" visibility="private" xmi.id="att738"/>
+                        <UML:Operation name="Future&lt;void&gt; _editPFC()" visibility="private" xmi.id="att739"/>
+                        <UML:Operation name="Future&lt;void&gt; _deletePFC()" visibility="private" xmi.id="att740"/>
+                        <UML:Operation name="Future&lt;void&gt; _loadDietCategories()" visibility="private" xmi.id="att741"/>
+                        <UML:Operation name="Future&lt;void&gt; _addDietCategory()" visibility="private" xmi.id="att742"/>
+                        <UML:Operation name="Future&lt;void&gt; _editDietCategory()" visibility="private" xmi.id="att743"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteDietCategory()" visibility="private" xmi.id="att744"/>
+                        <UML:Operation name="Future&lt;List&lt;PFC&gt;&gt; getPFC()" visibility="public" xmi.id="att745"/>
+                        <UML:Operation name="Future&lt;void&gt; addPFC()" visibility="public" xmi.id="att746"/>
+                        <UML:Operation name="Future&lt;void&gt; updatePFC()" visibility="public" xmi.id="att747"/>
+                        <UML:Operation name="Future&lt;void&gt; deletePFC()" visibility="public" xmi.id="att748"/>
+                        <UML:Operation name="Future&lt;List&lt;DishCategory&gt;&gt; getDishCategories()" visibility="public" xmi.id="att749"/>
+                        <UML:Operation name="Future&lt;void&gt; addDishCategory()" visibility="public" xmi.id="att750"/>
+                        <UML:Operation name="Future&lt;void&gt; updateDishCategory()" visibility="public" xmi.id="att751"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteDishCategory()" visibility="public" xmi.id="att752"/>
+                        <UML:Operation name="Future&lt;void&gt; _loadDishCategories()" visibility="private" xmi.id="att753"/>
+                        <UML:Operation name="Future&lt;void&gt; _addDishCategory()" visibility="private" xmi.id="att754"/>
+                        <UML:Operation name="Future&lt;void&gt; _editDishCategory()" visibility="private" xmi.id="att755"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteDishCategory()" visibility="private" xmi.id="att756"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att757"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="GlobalKey&lt;ScaffoldState&gt;" namespace="flutter.src.widgets.framework.dart" xmi.id="cl0255">
+                    <UML:Classifier.feature/>
+                </UML:Class>
+                <UML:Class name="win_equipments_page" namespace="fok_kometa.view.windows_app.screens.win_equipments_page.dart" xmi.id="cl0261">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att758"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="ExerciseEquipmentCategoryPage" namespace="fok_kometa.view.windows_app.screens.win_equipments_page.dart" xmi.id="cl0263">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_ExerciseEquipmentCategoryPageState createState()" visibility="public" xmi.id="att759"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_ExerciseEquipmentCategoryPageState" namespace="fok_kometa.view.windows_app.screens.win_equipments_page.dart" xmi.id="cl0265">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _formKey" visibility="private" xmi.id="att760"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _formKey2" visibility="private" xmi.id="att761"/>
+                        <UML:Attribute name="GlobalKey&lt;ScaffoldState&gt; _scaffoldKey" visibility="private" xmi.id="att762"/>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att763"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _equipmentList" visibility="private" xmi.id="att764"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _categoryList" visibility="private" xmi.id="att765"/>
+                        <UML:Attribute name="int? _selectedCategoryId" visibility="private" xmi.id="att766"/>
+                        <UML:Attribute name="int? _selectedEquipmentId" visibility="private" xmi.id="att767"/>
+                        <UML:Attribute name="String _name" visibility="private" xmi.id="att768"/>
+                        <UML:Attribute name="String _description" visibility="private" xmi.id="att769"/>
+                        <UML:Attribute name="TextEditingController _nameController" visibility="private" xmi.id="att770"/>
+                        <UML:Attribute name="List&lt;ExerciseEquipmentCategory&gt; _categories" visibility="private" xmi.id="att771"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att772"/>
+                        <UML:Operation name="Future&lt;void&gt; _getCategories()" visibility="private" xmi.id="att773"/>
+                        <UML:Operation name="Future&lt;void&gt; _addCategory()" visibility="private" xmi.id="att774"/>
+                        <UML:Operation name="Future&lt;void&gt; _updateCategory()" visibility="private" xmi.id="att775"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteCategory()" visibility="private" xmi.id="att776"/>
+                        <UML:Operation name="Future&lt;void&gt; _getEquipmentList()" visibility="private" xmi.id="att777"/>
+                        <UML:Operation name="Future&lt;void&gt; _getCategoryList()" visibility="private" xmi.id="att778"/>
+                        <UML:Operation name="Future&lt;void&gt; _createEquipment()" visibility="private" xmi.id="att779"/>
+                        <UML:Operation name="Future&lt;void&gt; _updateEquipment()" visibility="private" xmi.id="att780"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteEquipment()" visibility="private" xmi.id="att781"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att782"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_feedback_page" namespace="fok_kometa.view.windows_app.screens.win_feedback_page.dart" xmi.id="cl0272">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att783"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="FeedbackPage" namespace="fok_kometa.view.windows_app.screens.win_feedback_page.dart" xmi.id="cl0274">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_FeedbackPageState createState()" visibility="public" xmi.id="att784"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_FeedbackPageState" namespace="fok_kometa.view.windows_app.screens.win_feedback_page.dart" xmi.id="cl0276">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;dynamic&gt; _feedbackMessages" visibility="private" xmi.id="att785"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att786"/>
+                        <UML:Operation name="Future&lt;void&gt; _fetchFeedbackMessages()" visibility="private" xmi.id="att787"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att788"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="FeedbackDetailsPage" namespace="fok_kometa.view.windows_app.screens.win_feedback_page.dart" xmi.id="cl0278">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="dynamic feedback" visibility="public" xmi.id="att789"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att790"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_group_workout_page" namespace="fok_kometa.view.windows_app.screens.win_group_workout_page.dart" xmi.id="cl0281">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att791"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="GroupWorkoutCategoryApi" namespace="fok_kometa.view.windows_app.screens.win_group_workout_page.dart" xmi.id="cl0283">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att792"/>
+                        <UML:Operation name="Future&lt;List&lt;GroupWorkoutCategory&gt;&gt; getGroupWorkoutCategories()" visibility="public" xmi.id="att793"/>
+                        <UML:Operation name="Future&lt;void&gt; addGroupWorkoutCategory()" visibility="public" xmi.id="att794"/>
+                        <UML:Operation name="Future&lt;void&gt; updateGroupWorkoutCategory()" visibility="public" xmi.id="att795"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteGroupWorkoutCategory()" visibility="public" xmi.id="att796"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="GroupWorkoutCategoriesScreen" namespace="fok_kometa.view.windows_app.screens.win_group_workout_page.dart" xmi.id="cl0285">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_GroupWorkoutCategoriesScreenState createState()" visibility="public" xmi.id="att797"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_GroupWorkoutCategoriesScreenState" namespace="fok_kometa.view.windows_app.screens.win_group_workout_page.dart" xmi.id="cl0287">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="GroupWorkoutCategoryApi _api" visibility="private" xmi.id="att798"/>
+                        <UML:Attribute name="List&lt;GroupWorkoutCategory&gt; _categories" visibility="private" xmi.id="att799"/>
+                        <UML:Attribute name="bool _isLoading" visibility="private" xmi.id="att800"/>
+                        <UML:Attribute name="String apiUrl" visibility="public" xmi.id="att801"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _formKey" visibility="private" xmi.id="att802"/>
+                        <UML:Attribute name="GlobalKey&lt;ScaffoldState&gt; _scaffoldKey" visibility="private" xmi.id="att803"/>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att804"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _groupWorkouts" visibility="private" xmi.id="att805"/>
+                        <UML:Attribute name="bool _isEditing" visibility="private" xmi.id="att806"/>
+                        <UML:Attribute name="int? _selectedId" visibility="private" xmi.id="att807"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _coaches" visibility="private" xmi.id="att808"/>
+                        <UML:Attribute name="TextEditingController _eventDateController" visibility="private" xmi.id="att809"/>
+                        <UML:Attribute name="TextEditingController _startTimeController" visibility="private" xmi.id="att810"/>
+                        <UML:Attribute name="TextEditingController _endTimeController" visibility="private" xmi.id="att811"/>
+                        <UML:Attribute name="TextEditingController _nameController" visibility="private" xmi.id="att812"/>
+                        <UML:Attribute name="TextEditingController _descriptionController" visibility="private" xmi.id="att813"/>
+                        <UML:Attribute name="TextEditingController _loadScoreController" visibility="private" xmi.id="att814"/>
+                        <UML:Attribute name="TextEditingController _recommendedAgeController" visibility="private" xmi.id="att815"/>
+                        <UML:Attribute name="TextEditingController _groupWorkoutCategoryIdController" visibility="private" xmi.id="att816"/>
+                        <UML:Attribute name="TextEditingController _coachIdController" visibility="private" xmi.id="att817"/>
+                        <UML:Attribute name="TextEditingController eventDateController" visibility="public" xmi.id="att818"/>
+                        <UML:Attribute name="TextEditingController startTimeController" visibility="public" xmi.id="att819"/>
+                        <UML:Attribute name="TextEditingController endTimeController" visibility="public" xmi.id="att820"/>
+                        <UML:Attribute name="TextEditingController nameController" visibility="public" xmi.id="att821"/>
+                        <UML:Attribute name="TextEditingController descriptionController" visibility="public" xmi.id="att822"/>
+                        <UML:Attribute name="TextEditingController loadScoreController" visibility="public" xmi.id="att823"/>
+                        <UML:Attribute name="TextEditingController recommendedAgeController" visibility="public" xmi.id="att824"/>
+                        <UML:Attribute name="TextEditingController categoryController" visibility="public" xmi.id="att825"/>
+                        <UML:Attribute name="TextEditingController coachController" visibility="public" xmi.id="att826"/>
+                        <UML:Attribute name="Dio dio" visibility="public" xmi.id="att827"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; groupWorkouts" visibility="public" xmi.id="att828"/>
+                        <UML:Attribute name="DateTime? selectedDate" visibility="public" xmi.id="att829"/>
+                        <UML:Attribute name="DateTime selectedStartTime" visibility="public" xmi.id="att830"/>
+                        <UML:Attribute name="int? _selectedCategoryId" visibility="private" xmi.id="att831"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; categories" visibility="public" xmi.id="att832"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att833"/>
+                        <UML:Operation name="Future&lt;void&gt; getGroupWorkouts()" visibility="public" xmi.id="att834"/>
+                        <UML:Operation name="Future&lt;void&gt; _getCategories()" visibility="private" xmi.id="att835"/>
+                        <UML:Operation name="Future&lt;void&gt; addGroupWorkout()" visibility="public" xmi.id="att836"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteGroupWorkout()" visibility="private" xmi.id="att837"/>
+                        <UML:Operation name="Future&lt;void&gt; updateGroupWorkout()" visibility="public" xmi.id="att838"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteGroupWorkout()" visibility="public" xmi.id="att839"/>
+                        <UML:Operation name="void clearTextFields()" visibility="public" xmi.id="att840"/>
+                        <UML:Operation name="Future&lt;void&gt; _loadGroupWorkoutCategories()" visibility="private" xmi.id="att841"/>
+                        <UML:Operation name="Future&lt;void&gt; _addGroupWorkoutCategory()" visibility="private" xmi.id="att842"/>
+                        <UML:Operation name="Future&lt;void&gt; updateGroupWorkoutCategory()" visibility="public" xmi.id="att843"/>
+                        <UML:Operation name="Future&lt;void&gt; _addOrUpdateGroupWorkout()" visibility="private" xmi.id="att844"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteGroupWorkoutCategory()" visibility="private" xmi.id="att845"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att846"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_news_page" namespace="fok_kometa.view.windows_app.screens.win_news_page.dart" xmi.id="cl0295">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att847"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinNewsPage" namespace="fok_kometa.view.windows_app.screens.win_news_page.dart" xmi.id="cl0297">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinNewsPageState createState()" visibility="public" xmi.id="att848"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinNewsPageState" namespace="fok_kometa.view.windows_app.screens.win_news_page.dart" xmi.id="cl0299">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="TextEditingController _titleController" visibility="private" xmi.id="att849"/>
+                        <UML:Attribute name="TextEditingController _contentController" visibility="private" xmi.id="att850"/>
+                        <UML:Attribute name="int? _selectedCategoryId" visibility="private" xmi.id="att851"/>
+                        <UML:Attribute name="List&lt;Map&lt;String, dynamic&gt;&gt; _categories" visibility="private" xmi.id="att852"/>
+                        <UML:Attribute name="List&lt;News&gt; newsList" visibility="public" xmi.id="att853"/>
+                        <UML:Attribute name="List&lt;NewsCategory&gt; categories" visibility="public" xmi.id="att854"/>
+                        <UML:Attribute name="List&lt;NewsCategory&gt; newsCategories" visibility="public" xmi.id="att855"/>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att856"/>
+                        <UML:Attribute name="String? _selectedCategory" visibility="private" xmi.id="att857"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _news" visibility="private" xmi.id="att858"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att859"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att860"/>
+                        <UML:Operation name="Future&lt;void&gt; getNewsCategories()" visibility="public" xmi.id="att861"/>
+                        <UML:Operation name="Future&lt;void&gt; addNewsCategory()" visibility="public" xmi.id="att862"/>
+                        <UML:Operation name="Future&lt;void&gt; updateNewsCategory()" visibility="public" xmi.id="att863"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteNewsCategory()" visibility="public" xmi.id="att864"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att865"/>
+                        <UML:Operation name="Future&lt;void&gt; loadCategories()" visibility="public" xmi.id="att866"/>
+                        <UML:Operation name="Future&lt;void&gt; addNews()" visibility="public" xmi.id="att867"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteNews()" visibility="public" xmi.id="att868"/>
+                        <UML:Operation name="Future&lt;List&lt;dynamic&gt;&gt; _fetchNews()" visibility="private" xmi.id="att869"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshNews()" visibility="private" xmi.id="att870"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att871"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="personal_workout_page" namespace="fok_kometa.view.windows_app.screens.win_personal_workout.dart" xmi.id="cl0303">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att872"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="PersonalWorkoutPage" namespace="fok_kometa.view.windows_app.screens.win_personal_workout.dart" xmi.id="cl0305">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_PersonalWorkoutPageState createState()" visibility="public" xmi.id="att873"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_PersonalWorkoutPageState" namespace="fok_kometa.view.windows_app.screens.win_personal_workout.dart" xmi.id="cl0307">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _formKey" visibility="private" xmi.id="att874"/>
+                        <UML:Attribute name="GlobalKey&lt;ScaffoldState&gt; _scaffoldKey" visibility="private" xmi.id="att875"/>
+                        <UML:Attribute name="TextEditingController _nameController" visibility="private" xmi.id="att876"/>
+                        <UML:Attribute name="TextEditingController _idController" visibility="private" xmi.id="att877"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _categories" visibility="private" xmi.id="att878"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _exercisePlanFormKey" visibility="private" xmi.id="att879"/>
+                        <UML:Attribute name="GlobalKey&lt;ScaffoldState&gt; _exercisePlanScaffoldKey" visibility="private" xmi.id="att880"/>
+                        <UML:Attribute name="TextEditingController _exercisePlanNameController" visibility="private" xmi.id="att881"/>
+                        <UML:Attribute name="TextEditingController _exercisePlanDescriptionController" visibility="private" xmi.id="att882"/>
+                        <UML:Attribute name="TextEditingController _numRepetitionsController" visibility="private" xmi.id="att883"/>
+                        <UML:Attribute name="TextEditingController _numApproachesController" visibility="private" xmi.id="att884"/>
+                        <UML:Attribute name="TextEditingController _restTimeController" visibility="private" xmi.id="att885"/>
+                        <UML:Attribute name="Dio _dio" visibility="private" xmi.id="att886"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _plans" visibility="private" xmi.id="att887"/>
+                        <UML:Attribute name="List&lt;Map&lt;String, dynamic&gt;&gt; _personWorkouts" visibility="private" xmi.id="att888"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; exerciseData" visibility="public" xmi.id="att889"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; exercises" visibility="public" xmi.id="att890"/>
+                        <UML:Attribute name="TextEditingController exerciseNameController" visibility="public" xmi.id="att891"/>
+                        <UML:Attribute name="TextEditingController exerciseDescriptionController" visibility="public" xmi.id="att892"/>
+                        <UML:Attribute name="TextEditingController loadScoreController" visibility="public" xmi.id="att893"/>
+                        <UML:Attribute name="TextEditingController exerciseCategoryIdController" visibility="public" xmi.id="att894"/>
+                        <UML:Attribute name="TextEditingController exercisePlanIdController" visibility="public" xmi.id="att895"/>
+                        <UML:Attribute name="TextEditingController personWorkoutIdController" visibility="public" xmi.id="att896"/>
+                        <UML:Attribute name="Dio dio" visibility="public" xmi.id="att897"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att898"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att899"/>
+                        <UML:Operation name="Future&lt;void&gt; getExerciseData()" visibility="public" xmi.id="att900"/>
+                        <UML:Operation name="void getExercises()" visibility="public" xmi.id="att901"/>
+                        <UML:Operation name="void addExercise()" visibility="public" xmi.id="att902"/>
+                        <UML:Operation name="void updateExercise()" visibility="public" xmi.id="att903"/>
+                        <UML:Operation name="void deleteExercise()" visibility="public" xmi.id="att904"/>
+                        <UML:Operation name="Future&lt;void&gt; _fetchPersonWorkouts()" visibility="private" xmi.id="att905"/>
+                        <UML:Operation name="Future&lt;void&gt; _addPersonWorkout()" visibility="private" xmi.id="att906"/>
+                        <UML:Operation name="Future&lt;void&gt; _updatePersonWorkout()" visibility="private" xmi.id="att907"/>
+                        <UML:Operation name="Future&lt;void&gt; _deletePersonWorkout()" visibility="private" xmi.id="att908"/>
+                        <UML:Operation name="void _getPlans()" visibility="private" xmi.id="att909"/>
+                        <UML:Operation name="void _addPlan()" visibility="private" xmi.id="att910"/>
+                        <UML:Operation name="void _updatePlan()" visibility="private" xmi.id="att911"/>
+                        <UML:Operation name="void _deletePlan()" visibility="private" xmi.id="att912"/>
+                        <UML:Operation name="void _showAddDialog()" visibility="private" xmi.id="att913"/>
+                        <UML:Operation name="void _showEditDialog()" visibility="private" xmi.id="att914"/>
+                        <UML:Operation name="void _showDeleteDialog()" visibility="private" xmi.id="att915"/>
+                        <UML:Operation name="Future&lt;void&gt; _getCategories()" visibility="private" xmi.id="att916"/>
+                        <UML:Operation name="Future&lt;void&gt; _addCategory()" visibility="private" xmi.id="att917"/>
+                        <UML:Operation name="Future&lt;void&gt; _updateCategory()" visibility="private" xmi.id="att918"/>
+                        <UML:Operation name="Future&lt;void&gt; _deleteCategory()" visibility="private" xmi.id="att919"/>
+                        <UML:Operation name="void _showAddCategoryDialog()" visibility="private" xmi.id="att920"/>
+                        <UML:Operation name="void _showEditCategoryDialog()" visibility="private" xmi.id="att921"/>
+                        <UML:Operation name="void _showDeleteCategoryDialog()" visibility="private" xmi.id="att922"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att923"/>
+                        <UML:Operation name="Future&lt;void&gt; _showAddDialog2()" visibility="private" xmi.id="att924"/>
+                        <UML:Operation name="Future&lt;void&gt; _showEditDialog2()" visibility="private" xmi.id="att925"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_services_page" namespace="fok_kometa.view.windows_app.screens.win_services_page.dart" xmi.id="cl0314">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att926"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinServicesPage" namespace="fok_kometa.view.windows_app.screens.win_services_page.dart" xmi.id="cl0316">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinServicesPageState createState()" visibility="public" xmi.id="att927"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinServicesPageState" namespace="fok_kometa.view.windows_app.screens.win_services_page.dart" xmi.id="cl0318">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="List&lt;dynamic&gt; services" visibility="public" xmi.id="att928"/>
+                        <UML:Attribute name="TextEditingController nameController" visibility="public" xmi.id="att929"/>
+                        <UML:Attribute name="TextEditingController costController" visibility="public" xmi.id="att930"/>
+                        <UML:Attribute name="TextEditingController descriptionController" visibility="public" xmi.id="att931"/>
+                        <UML:Attribute name="TextEditingController userIdController" visibility="public" xmi.id="att932"/>
+                        <UML:Attribute name="TextEditingController categoryIdController" visibility="public" xmi.id="att933"/>
+                        <UML:Attribute name="List&lt;Map&lt;String, dynamic&gt;&gt; serviceCategories" visibility="public" xmi.id="att934"/>
+                        <UML:Attribute name="String? _selectedCategory" visibility="private" xmi.id="att935"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _services" visibility="private" xmi.id="att936"/>
+                        <UML:Attribute name="String? _searchQuery" visibility="private" xmi.id="att937"/>
+                        <UML:Attribute name="String? _searchText" visibility="private" xmi.id="att938"/>
+                        <UML:Attribute name="List&lt;dynamic&gt; _filteredServices" visibility="private" xmi.id="att939"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att940"/>
+                        <UML:Operation name="Future&lt;void&gt; fetchServiceCategories()" visibility="public" xmi.id="att941"/>
+                        <UML:Operation name="void addServiceCategory()" visibility="public" xmi.id="att942"/>
+                        <UML:Operation name="void updateServiceCategory()" visibility="public" xmi.id="att943"/>
+                        <UML:Operation name="void deleteServiceCategory()" visibility="public" xmi.id="att944"/>
+                        <UML:Operation name="Future&lt;void&gt; _fetchServices()" visibility="private" xmi.id="att945"/>
+                        <UML:Operation name="Future&lt;void&gt; _refreshServices()" visibility="private" xmi.id="att946"/>
+                        <UML:Operation name="Future&lt;void&gt; addService()" visibility="public" xmi.id="att947"/>
+                        <UML:Operation name="Future&lt;void&gt; deleteService()" visibility="public" xmi.id="att948"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att949"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_login_page" namespace="fok_kometa.view.windows_app.win_login_page.dart" xmi.id="cl0322">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att950"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att951"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinLoginPage" namespace="fok_kometa.view.windows_app.win_login_page.dart" xmi.id="cl0324">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinLoginPageState createState()" visibility="public" xmi.id="att952"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinLoginPageState" namespace="fok_kometa.view.windows_app.win_login_page.dart" xmi.id="cl0326">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att953"/>
+                        <UML:Attribute name="FocusNode emailNode" visibility="public" xmi.id="att954"/>
+                        <UML:Attribute name="FocusNode passwordNode" visibility="public" xmi.id="att955"/>
+                        <UML:Attribute name="FocusNode btnNode" visibility="public" xmi.id="att956"/>
+                        <UML:Attribute name="TextEditingController _emailController" visibility="private" xmi.id="att957"/>
+                        <UML:Attribute name="TextEditingController _passwordController" visibility="private" xmi.id="att958"/>
+                        <UML:Attribute name="bool _isPasswordObscured" visibility="private" xmi.id="att959"/>
+                        <UML:Attribute name="bool _isLoading" visibility="private" xmi.id="att960"/>
+                        <UML:Attribute name="GlobalKey&lt;FormState&gt; _formKey" visibility="private" xmi.id="att961"/>
+                        <UML:Attribute name="Dio dio" visibility="public" xmi.id="att962"/>
+                        <UML:Attribute name="AuthServiceWin _authService" visibility="private" xmi.id="att963"/>
+                        <UML:Attribute name="String _errorMessage" visibility="private" xmi.id="att964"/>
+                        <UML:Attribute name="String? _accessToken" visibility="private" xmi.id="att965"/>
+                        <UML:Operation name="void initState()" visibility="public" xmi.id="att966"/>
+                        <UML:Operation name="void dispose()" visibility="public" xmi.id="att967"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att968"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="win_menu_page" namespace="fok_kometa.view.windows_app.win_menu_page.dart" xmi.id="cl0334">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="String route" visibility="public" xmi.id="att969"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att970"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="WinLoginPage" namespace="fok_kometa.view.windows_app.win_menu_page.dart" xmi.id="cl0336">
+                    <UML:Classifier.feature>
+                        <UML:Operation name="_WinLoginPageState createState()" visibility="public" xmi.id="att971"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+                <UML:Class name="_WinLoginPageState" namespace="fok_kometa.view.windows_app.win_menu_page.dart" xmi.id="cl0338">
+                    <UML:Classifier.feature>
+                        <UML:Attribute name="int index" visibility="public" xmi.id="att972"/>
+                        <UML:Attribute name="bool isSmallScreen" visibility="public" xmi.id="att973"/>
+                        <UML:Operation name="Widget build()" visibility="public" xmi.id="att974"/>
+                        <UML:Operation name="Widget buildPages()" visibility="public" xmi.id="att975"/>
+                    </UML:Classifier.feature>
+                </UML:Class>
+            </UML:Namespace.ownedElement>
+        </UML:Model>
+    </XMI.content>
+</XMI>

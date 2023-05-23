@@ -1,0 +1,1245 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+@startuml
+set namespaceSeparator ::
+
+class "fok_kometa::hive::weight_model.dart::Weight" {
+  +DateTime date
+  +double weight
+}
+
+"hive::src::object::hive_object.dart::HiveObject" <|-- "fok_kometa::hive::weight_model.dart::Weight"
+
+class "fok_kometa::hive::weight_model.dart::WeightAdapter" {
+  +int typeId
+  +int hashCode
+  +Weight read()
+  +void write()
+  +bool ==()
+}
+
+"hive::hive.dart::TypeAdapter" <|-- "fok_kometa::hive::weight_model.dart::WeightAdapter"
+
+class "fok_kometa::l10n::ru.dart::AppLocalizations" {
+  {static} +Map<String, String> ru
+}
+
+class "fok_kometa::models::diet.dart::Diet" {
+  +int id
+  +String name
+  +int duration
+  +int dietCategoryId
+  +Map<String, dynamic> toJson()
+}
+
+class "fok_kometa::models::diet_category.dart::DietCategory" {
+  +int id
+  +String name
+  +Map<String, dynamic> toJson()
+}
+
+class "fok_kometa::models::dish.dart::Dish" {
+  +int id
+  +String name
+  +int kcal
+  +String pfc
+  +String diet
+  +String category
+  +Map<String, dynamic> toJson()
+}
+
+class "fok_kometa::models::dish_category.dart::DishCategory" {
+  +int id
+  +String name
+  +Map<String, dynamic> toJson()
+}
+
+class "fok_kometa::models::exercise_equipment.dart::ExerciseEquipment" {
+  +int id
+  +String name
+  +String description
+  +int categoryId
+}
+
+class "fok_kometa::models::exercise_equipment_category.dart::ExerciseEquipmentCategory" {
+  +int id
+  +String name
+  +List<ExerciseEquipmentCategory> parseCategories()
+}
+
+class "fok_kometa::models::group_workout_category.dart::GroupWorkoutCategory" {
+  +int id
+  +String name
+}
+
+class "fok_kometa::models::news.dart::News" {
+  +int id
+  +String title
+  +String content
+  +int categoryId
+  +String createDate
+}
+
+class "fok_kometa::models::news_category.dart::NewsCategory" {
+  +int id
+  +String name
+}
+
+class "fok_kometa::models::personal_data.dart::PersonalData" {
+  +String? secondName
+  +String? firstName
+  +String? patronymic
+  +String? mobileNumber
+}
+
+class "fok_kometa::models::person_workout.dart::PersonWorkout" {
+  +int id
+  +String name
+  +String description
+  +int userId
+  +Map<String, dynamic> toJson()
+}
+
+class "fok_kometa::models::person_workout.dart::PersonWorkoutApiService" {
+  -Dio _dio
+  +Future<List<PersonWorkout>> getPersonWorkouts()
+  +Future<void> addPersonWorkout()
+  +Future<void> updatePersonWorkout()
+  +Future<void> deletePersonWorkout()
+}
+
+"fok_kometa::models::person_workout.dart::PersonWorkoutApiService" o-- "dio::src::dio.dart::Dio"
+
+class "fok_kometa::models::pfc.dart::PFC" {
+  +int id
+  +int proteins
+  +int fats
+  +int carbohydrates
+  +Map<String, dynamic> toJson()
+}
+
+class "fok_kometa::models::service.dart::Service" {
+  +int id
+  +String name
+  +int cost
+  +String description
+  +int userId
+  +String category
+}
+
+class "fok_kometa::models::service_category.dart::ServiceCategory" {
+  +int id
+  +String name
+}
+
+class "fok_kometa::models::user.dart::User" {
+  {static} -User? _context
+  +int id
+  +String email
+  +String role
+  +PersonalData personalData
+  +void logout()
+  {static} +bool isAnon()
+}
+
+"fok_kometa::models::user.dart::User" o-- "fok_kometa::models::user.dart::User"
+"fok_kometa::models::user.dart::User" o-- "fok_kometa::models::personal_data.dart::PersonalData"
+
+class "fok_kometa::services::auth.dart::AuthServiceWin" {
+  {static} +String winBaseUrl
+  {static} -Dio _dio
+  {static} +Future<void> winLogin()
+  {static} +Future<void> winLogout()
+  {static} +Future<User> getCurrentUser()
+  {static} +Future<void> updateUser()
+}
+
+"fok_kometa::services::auth.dart::AuthServiceWin" o-- "dio::src::dio.dart::Dio"
+
+class "fok_kometa::services::auth.dart::AuthServiceMob" {
+  {static} +String mobBaseUrl
+  {static} -Dio _dio
+  {static} +Future<void> mobLogin()
+  {static} +Future<void> mobLogout()
+  {static} +Future<User> mobGetCurrentUser()
+  {static} +Future<void> updateUser()
+}
+
+"fok_kometa::services::auth.dart::AuthServiceMob" o-- "dio::src::dio.dart::Dio"
+
+abstract class "fok_kometa::services::auth_repository.dart::AuthRepository" {
+  {static} +Future<User?> winLogin()
+  {static} +Future<User?> mobLogin()
+}
+
+class "fok_kometa::services::hive_weight.dart::HiveService" {
+  {static} -String _boxName
+  {static} +Future<Box<Weight>> openBox()
+  {static} +Future<void> addWeight()
+  {static} +Future<List<Weight>> getWeights()
+  {static} +Future<void> deleteWeight()
+}
+
+class "fok_kometa::theme::theme.dart::ThemeNotifier" {
+  -bool _useMaterial3
+  +String key
+  -bool _darkTheme
+  +bool useMaterial3
+  +bool darkTheme
+  +dynamic toggleTheme()
+  -dynamic _initPrefs()
+  -dynamic _loadFromPrefs()
+  -dynamic _saveToPrefs()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "fok_kometa::theme::theme.dart::ThemeNotifier"
+
+class "fok_kometa::view::android_app::forgot_password_page.dart::forgot_password_page" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::forgot_password_page.dart::forgot_password_page"
+
+class "fok_kometa::view::android_app::forgot_password_page.dart::ForgotPassword" {
+  +State<ForgotPassword> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::forgot_password_page.dart::ForgotPassword"
+
+class "fok_kometa::view::android_app::forgot_password_page.dart::_ForgotPasswordState" {
+  +FocusNode loginNode
+  +FocusNode passwordNode
+  +FocusNode btn_contNode
+  -TextEditingController _emailController
+  -TextEditingController _newPasswordController
+  -TextEditingController _codeController
+  -String _password
+  -double _strength
+  +RegExp numReg
+  +RegExp letterReg
+  -String _displayText
+  -bool _onEditing
+  -String? _code
+  -void _sendCode()
+  -void _changePassword()
+  +void initState()
+  +void dispose()
+  +Widget build()
+  -void _checkPassword()
+}
+
+"fok_kometa::view::android_app::forgot_password_page.dart::_ForgotPasswordState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"fok_kometa::view::android_app::forgot_password_page.dart::_ForgotPasswordState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::forgot_password_page.dart::_ForgotPasswordState"
+
+class "fok_kometa::view::android_app::login_page.dart::login_page" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::login_page.dart::login_page"
+
+class "fok_kometa::view::android_app::login_page.dart::LoginPage" {
+  +State<LoginPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::login_page.dart::LoginPage"
+
+class "fok_kometa::view::android_app::login_page.dart::_LoginPageState" {
+  +FocusNode loginNode
+  +FocusNode passwordNode
+  +FocusNode btn_contNode
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -GlobalKey<FormState> _loginformKey
+  -GlobalKey<FormState> _passwordformKey
+  -GlobalKey<FormState> _fokformKey
+  -String _email
+  -String _password
+  -bool _isAllExist
+  -bool _isPasswordExist
+  -bool _isEmailExist
+  -bool _isLoading
+  +bool light0
+  +void initState()
+  +void dispose()
+  +Widget build()
+  -void _checkPassword()
+  -void _checkEmail()
+}
+
+"fok_kometa::view::android_app::login_page.dart::_LoginPageState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"fok_kometa::view::android_app::login_page.dart::_LoginPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fok_kometa::view::android_app::login_page.dart::_LoginPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::login_page.dart::_LoginPageState"
+
+class "fok_kometa::view::android_app::menu_page.dart::menu_page" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::menu_page.dart::menu_page"
+
+class "fok_kometa::view::android_app::menu_page.dart::Menu" {
+  +State<Menu> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::menu_page.dart::Menu"
+
+class "fok_kometa::view::android_app::menu_page.dart::_MenuState" {
+  +int index
+  +List<Widget> listiki
+  +List<Widget> destinations
+  +List<StatefulWidget> screens
+  +StreamSubscription<dynamic>? sub
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::menu_page.dart::_MenuState" o-- "dart::async::StreamSubscription<dynamic>"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::menu_page.dart::_MenuState"
+
+class "fok_kometa::view::android_app::registration_page.dart::registration_page" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::registration_page.dart::registration_page"
+
+class "fok_kometa::view::android_app::registration_page.dart::Registration" {
+  +State<Registration> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::registration_page.dart::Registration"
+
+class "fok_kometa::view::android_app::registration_page.dart::_RegistrationState" {
+  +FocusNode loginNode
+  +FocusNode passwordNode
+  +FocusNode btn_contNode
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -TextEditingController _roleController
+  -TextEditingController _secondNameController
+  -TextEditingController _firstNameController
+  -TextEditingController _patronymicController
+  -TextEditingController _mobileNumberController
+  -GlobalKey<FormState> _loginformKey
+  -GlobalKey<FormState> _passwordformKey
+  -bool _isAgreed
+  -String _password
+  -double _strength
+  +RegExp numReg
+  +RegExp letterReg
+  -String _displayText
+  -void _submitForm()
+  +void initState()
+  +void dispose()
+  +Widget build()
+  -void _checkPassword()
+}
+
+"fok_kometa::view::android_app::registration_page.dart::_RegistrationState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"fok_kometa::view::android_app::registration_page.dart::_RegistrationState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fok_kometa::view::android_app::registration_page.dart::_RegistrationState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::registration_page.dart::_RegistrationState"
+
+class "fok_kometa::view::android_app::screens::1_first_page.dart::first_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::1_first_page.dart::first_page"
+
+class "fok_kometa::view::android_app::screens::1_first_page.dart::FirstPage" {
+  +State<FirstPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::1_first_page.dart::FirstPage"
+
+class "fok_kometa::view::android_app::screens::1_first_page.dart::_FirstPageState" {
+  -String? _selectedCategory
+  -List<dynamic> _news
+  -String? _searchQuery
+  -String? _searchText
+  -Future<List<dynamic>> _fetchNews()
+  -List<String> _getCategories()
+  -Future<void> _refreshNews()
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::1_first_page.dart::_FirstPageState"
+
+class "fok_kometa::view::android_app::screens::2_schedule_page.dart::schedule_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::2_schedule_page.dart::schedule_page"
+
+class "fok_kometa::view::android_app::screens::2_schedule_page.dart::SchedulePage" {
+  +State<SchedulePage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::2_schedule_page.dart::SchedulePage"
+
+class "fok_kometa::view::android_app::screens::2_schedule_page.dart::_SchedulePageState" {
+  -String? _selectedCategory
+  -List<dynamic> _group_workouts
+  -String? _searchQuery
+  -String? _searchText
+  -Future<List<dynamic>> _fetchNews()
+  -List<String> _getCategories()
+  -Future<void> _refreshNews()
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::2_schedule_page.dart::_SchedulePageState"
+
+class "fok_kometa::view::android_app::screens::3_main_page.dart::main_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::3_main_page.dart::main_page"
+
+class "fok_kometa::view::android_app::screens::3_main_page.dart::MainPage" {
+  +State<MainPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::3_main_page.dart::MainPage"
+
+class "fok_kometa::view::android_app::screens::3_main_page.dart::_MainPageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::3_main_page.dart::_MainPageState"
+
+class "fok_kometa::view::android_app::screens::4_workout_page.dart::workout_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::4_workout_page.dart::workout_page"
+
+class "fok_kometa::view::android_app::screens::4_workout_page.dart::WorkoutPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::4_workout_page.dart::WorkoutPage"
+
+class "fok_kometa::view::android_app::screens::4_workout_page.dart::ExercisePage" {
+  +_ExercisePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::4_workout_page.dart::ExercisePage"
+
+class "fok_kometa::view::android_app::screens::4_workout_page.dart::_ExercisePageState" {
+  +List<dynamic> exerciseData
+  +Future<void> getExerciseData()
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::4_workout_page.dart::_ExercisePageState"
+
+class "fok_kometa::view::android_app::screens::5_profile_page.dart::profile_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::5_profile_page.dart::profile_page"
+
+class "fok_kometa::view::android_app::screens::5_profile_page.dart::ProfilePage" {
+  +BuildContext? parentNavigatorContext
+  +State<ProfilePage> createState()
+}
+
+"fok_kometa::view::android_app::screens::5_profile_page.dart::ProfilePage" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::5_profile_page.dart::ProfilePage"
+
+class "fok_kometa::view::android_app::screens::5_profile_page.dart::_ProfilePageState" {
+  -FocusNode _emailNode
+  -FocusNode _firstNameNode
+  -FocusNode _secondNameNode
+  -FocusNode _patronymicNameNode
+  -FocusNode _mobileNumberNameNode
+  -TextEditingController _emailController
+  -TextEditingController _firstNameController
+  -TextEditingController _secondNameController
+  -TextEditingController _patronymicController
+  -TextEditingController _mobileNumberController
+  +void initState()
+  +void dispose()
+  -void _updateUser()
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::screens::5_profile_page.dart::_ProfilePageState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"fok_kometa::view::android_app::screens::5_profile_page.dart::_ProfilePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::5_profile_page.dart::_ProfilePageState"
+
+class "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::BiorhythmCalculator" {
+  +_BiorhythmCalculatorState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::BiorhythmCalculator"
+
+class "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmCalculatorState" {
+  -GlobalKey<FormState> _formKey
+  -TextEditingController _birthDateController
+  -DateTime _birthDate
+  -DateTime _startDate
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmCalculatorState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmCalculatorState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmCalculatorState"
+
+class "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::BiorhythmChart" {
+  +DateTime birthDate
+  +DateTime startDate
+  +_BiorhythmChartState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::BiorhythmChart"
+
+class "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmChartState" {
+  -Map<String, double Function(dynamic, dynamic)> _bioRhythms
+  -int _days
+  -List<List<double>> _values
+  -GlobalKey<State<StatefulWidget>> _chartKey
+  -void _calculateValues()
+  +void initState()
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmChartState" o-- "flutter::src::widgets::framework.dart::GlobalKey<State<StatefulWidget>>"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::bioritm_page.dart::_BiorhythmChartState"
+
+class "fok_kometa::view::android_app::screens::screens_main::calculators_page.dart::CalculatorsPage" {
+  +State<CalculatorsPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::calculators_page.dart::CalculatorsPage"
+
+class "fok_kometa::view::android_app::screens::screens_main::calculators_page.dart::_CalculatorsPageState" {
+  -TextEditingController _weightController
+  -TextEditingController _heightController
+  +double bmi
+  -int _activity
+  -double _result
+  +void dispose()
+  +void calculateBmi()
+  +void clearBmi()
+  +Widget build()
+  -void _calculateWaterIntake()
+}
+
+"fok_kometa::view::android_app::screens::screens_main::calculators_page.dart::_CalculatorsPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::calculators_page.dart::_CalculatorsPageState"
+
+class "fok_kometa::view::android_app::screens::screens_main::coachs_page.dart::coaches_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::coachs_page.dart::coaches_page"
+
+class "fok_kometa::view::android_app::screens::screens_main::coachs_page.dart::CoachesPage" {
+  +State<CoachesPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::coachs_page.dart::CoachesPage"
+
+class "fok_kometa::view::android_app::screens::screens_main::coachs_page.dart::_CoachesPageState" {
+  -String? _work_experience
+  -List<dynamic> _coaches
+  -String? _searchQuery
+  -String? _searchText
+  +bool isLoading
+  -Future<void> _fetchCoaches()
+  -List<String> _getWork_experience()
+  +void initState()
+  -Future<void> _refreshCoaches()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::coachs_page.dart::_CoachesPageState"
+
+class "fok_kometa::view::android_app::screens::screens_main::diets_page.dart::DishesPage" {
+  +_DishesPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::diets_page.dart::DishesPage"
+
+class "fok_kometa::view::android_app::screens::screens_main::diets_page.dart::_DishesPageState" {
+  -List<dynamic> _dishes
+  +void initState()
+  -void _getDishes()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::diets_page.dart::_DishesPageState"
+
+class "fok_kometa::view::android_app::screens::screens_main::exercise_equipment_page.dart::exercise_equipment_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::exercise_equipment_page.dart::exercise_equipment_page"
+
+class "fok_kometa::view::android_app::screens::screens_main::exercise_equipment_page.dart::ExerciseEquipmentPage" {
+  +State<ExerciseEquipmentPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::exercise_equipment_page.dart::ExerciseEquipmentPage"
+
+class "fok_kometa::view::android_app::screens::screens_main::exercise_equipment_page.dart::_ExerciseEquipmentPageState" {
+  -List<dynamic> _categories
+  -List<dynamic> _exerciseEquipment
+  -String? _selectedCategory
+  -Map<String, String> _categoryNameMap
+  +void initState()
+  -Future<void> _loadCategories()
+  -Future<void> _loadExerciseEquipment()
+  -List<dynamic> _filterByCategory()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::exercise_equipment_page.dart::_ExerciseEquipmentPageState"
+
+class "fok_kometa::view::android_app::screens::screens_main::services_page.dart::services_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::services_page.dart::services_page"
+
+class "fok_kometa::view::android_app::screens::screens_main::services_page.dart::ServicesPage" {
+  +State<ServicesPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::services_page.dart::ServicesPage"
+
+class "fok_kometa::view::android_app::screens::screens_main::services_page.dart::_ServicesPageState" {
+  -String? _selectedCategory
+  -List<dynamic> _services
+  -String? _searchQuery
+  -String? _searchText
+  -List<dynamic> _filteredServices
+  -Future<void> _fetchServices()
+  -List<String> _getCategories()
+  -Future<void> _refreshNews()
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::services_page.dart::_ServicesPageState"
+
+class "fok_kometa::view::android_app::screens::screens_main::sleep_page.dart::SleepCycleCalculator" {
+  +_SleepCycleCalculatorState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_main::sleep_page.dart::SleepCycleCalculator"
+
+class "fok_kometa::view::android_app::screens::screens_main::sleep_page.dart::_SleepCycleCalculatorState" {
+  -TextEditingController _sleepTimeController
+  -TextEditingController _wakeUpTimeController
+  -String _sleepAtTime
+  -String _wakeUpAtTime
+  -Future<void> _selectSleepTime()
+  -Future<void> _selectWakeUpTime()
+  -void _calculateSleepAtTime()
+  -void _calculateWakeUpTime()
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::screens::screens_main::sleep_page.dart::_SleepCycleCalculatorState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_main::sleep_page.dart::_SleepCycleCalculatorState"
+
+class "fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::feedback_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::feedback_page"
+
+class "fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::FeedbackPage" {
+  +State<FeedbackPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::FeedbackPage"
+
+class "fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::_FeedbackPageState" {
+  -TextEditingController _feedbackController
+  +void dispose()
+  -void _sendFeedback()
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::_FeedbackPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_profile::feedback_page.dart::_FeedbackPageState"
+
+class "fok_kometa::view::android_app::screens::screens_profile::options_page.dart::options_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::options_page.dart::options_page"
+
+class "fok_kometa::view::android_app::screens::screens_profile::options_page.dart::OptionsPage" {
+  +State<OptionsPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::options_page.dart::OptionsPage"
+
+class "fok_kometa::view::android_app::screens::screens_profile::options_page.dart::_OptionsPageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_profile::options_page.dart::_OptionsPageState"
+
+class "fok_kometa::view::android_app::screens::screens_profile::screens_options::about_app_page.dart::about_app_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::screens_options::about_app_page.dart::about_app_page"
+
+class "fok_kometa::view::android_app::screens::screens_profile::screens_options::about_app_page.dart::AboutAppPage" {
+  +State<AboutAppPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::screens_options::about_app_page.dart::AboutAppPage"
+
+class "fok_kometa::view::android_app::screens::screens_profile::screens_options::about_app_page.dart::_AboutAppPageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_profile::screens_options::about_app_page.dart::_AboutAppPageState"
+
+class "fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::weight_calendar_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::weight_calendar_page"
+
+class "fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::WeightCalendar" {
+  +String email
+  +_WeightCalendarState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::WeightCalendar"
+
+class "fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::_WeightCalendarState" {
+  -TextEditingController _weightController
+  -List<Weight> _weights
+  +void initState()
+  +void dispose()
+  -void _loadWeights()
+  -void _addWeight()
+  -void _deleteWeight()
+  +Widget build()
+}
+
+"fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::_WeightCalendarState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::android_app::screens::screens_profile::weight_calendar_page.dart::_WeightCalendarState"
+
+class "fok_kometa::view::windows_app::screens::win_clients_page.dart::win_clients_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_clients_page.dart::win_clients_page"
+
+class "fok_kometa::view::windows_app::screens::win_clients_page.dart::WinClientsPage" {
+  +_WinClientsPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_clients_page.dart::WinClientsPage"
+
+class "fok_kometa::view::windows_app::screens::win_clients_page.dart::_WinClientsPageState" {
+  +List<dynamic> clients
+  +void initState()
+  +Future<void> fetchClients()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_clients_page.dart::_WinClientsPageState"
+
+class "fok_kometa::view::windows_app::screens::win_coachs_page.dart::win_coachs_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_coachs_page.dart::win_coachs_page"
+
+class "fok_kometa::view::windows_app::screens::win_coachs_page.dart::WinCoachsPage" {
+  +_WinCoachsPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_coachs_page.dart::WinCoachsPage"
+
+class "fok_kometa::view::windows_app::screens::win_coachs_page.dart::_WinCoachsPageState" {
+  -String? _work_experience
+  -List<dynamic> _coaches
+  -String? _searchQuery
+  -String? _searchText
+  +bool isLoading
+  +List<Map<String, dynamic>> groupWorkoutCategories
+  +TextEditingController second_nameController
+  +TextEditingController first_nameController
+  +TextEditingController patronymicController
+  +TextEditingController specializationController
+  +TextEditingController work_experienceController
+  -Future<void> _fetchCoaches()
+  -List<String> _getWork_experience()
+  +Future<void> addCoach()
+  -Future<void> _updateCoach()
+  -Future<void> _deleteCoach()
+  +void initState()
+  -Future<void> _refreshCoaches()
+  +Widget build()
+  -void _showAddDialog()
+  -dynamic _showEditCoachDialog()
+}
+
+"fok_kometa::view::windows_app::screens::win_coachs_page.dart::_WinCoachsPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_coachs_page.dart::_WinCoachsPageState"
+
+class "fok_kometa::view::windows_app::screens::win_diets_page.dart::win_diets_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_diets_page.dart::win_diets_page"
+
+class "fok_kometa::view::windows_app::screens::win_diets_page.dart::WinDietsPage" {
+  +_WinDietsPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_diets_page.dart::WinDietsPage"
+
+class "fok_kometa::view::windows_app::screens::win_diets_page.dart::_WinDietsPageState" {
+  -List<DietCategory> _dietCategories
+  -List<PFC> _pfc
+  -List<DishCategory> _dishCategories
+  -GlobalKey<FormState> _dietFormKey
+  -GlobalKey<ScaffoldState> _scaffoldKey
+  -TextEditingController _dietNameController
+  -TextEditingController _dietDurationController
+  -TextEditingController _dietCategoryController
+  -GlobalKey<FormState> _dishFormKey
+  -GlobalKey<ScaffoldState> _dishScaffoldKey
+  -Dio _dio
+  -List<dynamic> _dishes
+  -String? _dishName
+  -int? _kcal
+  -int? _pfcId
+  -int? _dishdietId
+  -int? _dishdishCategoryId
+  -List<dynamic> _diets
+  +void initState()
+  -void _getDishes()
+  -Future<void> _addDish()
+  -Future<void> _updateDish()
+  -Future<void> _deleteDish()
+  +void dispose()
+  -Future<void> _getDiets()
+  -Future<void> _addDiet()
+  -Future<void> _updateDiet()
+  -Future<void> _deleteDiet()
+  -void _showAddDialog()
+  -void _showEditDialog()
+  -void _showDeleteDialog()
+  -Future<void> _loadPFC()
+  -Future<void> _addPFC()
+  -Future<void> _editPFC()
+  -Future<void> _deletePFC()
+  -Future<void> _loadDietCategories()
+  -Future<void> _addDietCategory()
+  -Future<void> _editDietCategory()
+  -Future<void> _deleteDietCategory()
+  +Future<List<PFC>> getPFC()
+  +Future<void> addPFC()
+  +Future<void> updatePFC()
+  +Future<void> deletePFC()
+  +Future<List<DishCategory>> getDishCategories()
+  +Future<void> addDishCategory()
+  +Future<void> updateDishCategory()
+  +Future<void> deleteDishCategory()
+  -Future<void> _loadDishCategories()
+  -Future<void> _addDishCategory()
+  -Future<void> _editDishCategory()
+  -Future<void> _deleteDishCategory()
+  +Widget build()
+}
+
+"fok_kometa::view::windows_app::screens::win_diets_page.dart::_WinDietsPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fok_kometa::view::windows_app::screens::win_diets_page.dart::_WinDietsPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<ScaffoldState>"
+"fok_kometa::view::windows_app::screens::win_diets_page.dart::_WinDietsPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fok_kometa::view::windows_app::screens::win_diets_page.dart::_WinDietsPageState" o-- "dio::src::dio.dart::Dio"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_diets_page.dart::_WinDietsPageState"
+
+class "fok_kometa::view::windows_app::screens::win_equipments_page.dart::win_equipments_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_equipments_page.dart::win_equipments_page"
+
+class "fok_kometa::view::windows_app::screens::win_equipments_page.dart::ExerciseEquipmentCategoryPage" {
+  +_ExerciseEquipmentCategoryPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_equipments_page.dart::ExerciseEquipmentCategoryPage"
+
+class "fok_kometa::view::windows_app::screens::win_equipments_page.dart::_ExerciseEquipmentCategoryPageState" {
+  -GlobalKey<FormState> _formKey
+  -GlobalKey<FormState> _formKey2
+  -GlobalKey<ScaffoldState> _scaffoldKey
+  -Dio _dio
+  -List<dynamic> _equipmentList
+  -List<dynamic> _categoryList
+  -int? _selectedCategoryId
+  -int? _selectedEquipmentId
+  -String _name
+  -String _description
+  -TextEditingController _nameController
+  -List<ExerciseEquipmentCategory> _categories
+  +void initState()
+  -Future<void> _getCategories()
+  -Future<void> _addCategory()
+  -Future<void> _updateCategory()
+  -Future<void> _deleteCategory()
+  -Future<void> _getEquipmentList()
+  -Future<void> _getCategoryList()
+  -Future<void> _createEquipment()
+  -Future<void> _updateEquipment()
+  -Future<void> _deleteEquipment()
+  +Widget build()
+}
+
+"fok_kometa::view::windows_app::screens::win_equipments_page.dart::_ExerciseEquipmentCategoryPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fok_kometa::view::windows_app::screens::win_equipments_page.dart::_ExerciseEquipmentCategoryPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<ScaffoldState>"
+"fok_kometa::view::windows_app::screens::win_equipments_page.dart::_ExerciseEquipmentCategoryPageState" o-- "dio::src::dio.dart::Dio"
+"fok_kometa::view::windows_app::screens::win_equipments_page.dart::_ExerciseEquipmentCategoryPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_equipments_page.dart::_ExerciseEquipmentCategoryPageState"
+
+class "fok_kometa::view::windows_app::screens::win_feedback_page.dart::win_feedback_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_feedback_page.dart::win_feedback_page"
+
+class "fok_kometa::view::windows_app::screens::win_feedback_page.dart::FeedbackPage" {
+  +_FeedbackPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_feedback_page.dart::FeedbackPage"
+
+class "fok_kometa::view::windows_app::screens::win_feedback_page.dart::_FeedbackPageState" {
+  -List<dynamic> _feedbackMessages
+  +void initState()
+  -Future<void> _fetchFeedbackMessages()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_feedback_page.dart::_FeedbackPageState"
+
+class "fok_kometa::view::windows_app::screens::win_feedback_page.dart::FeedbackDetailsPage" {
+  +dynamic feedback
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_feedback_page.dart::FeedbackDetailsPage"
+
+class "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::win_group_workout_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::win_group_workout_page"
+
+class "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::GroupWorkoutCategoryApi" {
+  -Dio _dio
+  +Future<List<GroupWorkoutCategory>> getGroupWorkoutCategories()
+  +Future<void> addGroupWorkoutCategory()
+  +Future<void> updateGroupWorkoutCategory()
+  +Future<void> deleteGroupWorkoutCategory()
+}
+
+"fok_kometa::view::windows_app::screens::win_group_workout_page.dart::GroupWorkoutCategoryApi" o-- "dio::src::dio.dart::Dio"
+
+class "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::GroupWorkoutCategoriesScreen" {
+  +_GroupWorkoutCategoriesScreenState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::GroupWorkoutCategoriesScreen"
+
+class "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState" {
+  -GroupWorkoutCategoryApi _api
+  -List<GroupWorkoutCategory> _categories
+  -bool _isLoading
+  +String apiUrl
+  -GlobalKey<FormState> _formKey
+  -GlobalKey<ScaffoldState> _scaffoldKey
+  -Dio _dio
+  -List<dynamic> _groupWorkouts
+  -bool _isEditing
+  -int? _selectedId
+  -List<dynamic> _coaches
+  -TextEditingController _eventDateController
+  -TextEditingController _startTimeController
+  -TextEditingController _endTimeController
+  -TextEditingController _nameController
+  -TextEditingController _descriptionController
+  -TextEditingController _loadScoreController
+  -TextEditingController _recommendedAgeController
+  -TextEditingController _groupWorkoutCategoryIdController
+  -TextEditingController _coachIdController
+  +TextEditingController eventDateController
+  +TextEditingController startTimeController
+  +TextEditingController endTimeController
+  +TextEditingController nameController
+  +TextEditingController descriptionController
+  +TextEditingController loadScoreController
+  +TextEditingController recommendedAgeController
+  +TextEditingController categoryController
+  +TextEditingController coachController
+  +Dio dio
+  +List<dynamic> groupWorkouts
+  +DateTime? selectedDate
+  +DateTime selectedStartTime
+  -int? _selectedCategoryId
+  +List<dynamic> categories
+  +void initState()
+  +Future<void> getGroupWorkouts()
+  -Future<void> _getCategories()
+  +Future<void> addGroupWorkout()
+  -Future<void> _deleteGroupWorkout()
+  +Future<void> updateGroupWorkout()
+  +Future<void> deleteGroupWorkout()
+  +void clearTextFields()
+  -Future<void> _loadGroupWorkoutCategories()
+  -Future<void> _addGroupWorkoutCategory()
+  +Future<void> updateGroupWorkoutCategory()
+  -Future<void> _addOrUpdateGroupWorkout()
+  -Future<void> _deleteGroupWorkoutCategory()
+  +Widget build()
+}
+
+"fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState" o-- "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::GroupWorkoutCategoryApi"
+"fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<ScaffoldState>"
+"fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState" o-- "dio::src::dio.dart::Dio"
+"fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_group_workout_page.dart::_GroupWorkoutCategoriesScreenState"
+
+class "fok_kometa::view::windows_app::screens::win_news_page.dart::win_news_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_news_page.dart::win_news_page"
+
+class "fok_kometa::view::windows_app::screens::win_news_page.dart::WinNewsPage" {
+  +_WinNewsPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_news_page.dart::WinNewsPage"
+
+class "fok_kometa::view::windows_app::screens::win_news_page.dart::_WinNewsPageState" {
+  -TextEditingController _titleController
+  -TextEditingController _contentController
+  -int? _selectedCategoryId
+  -List<Map<String, dynamic>> _categories
+  +List<News> newsList
+  +List<NewsCategory> categories
+  +List<NewsCategory> newsCategories
+  {static} +String route
+  -String? _selectedCategory
+  -List<dynamic> _news
+  -String? _searchQuery
+  -String? _searchText
+  +Future<void> getNewsCategories()
+  +Future<void> addNewsCategory()
+  +Future<void> updateNewsCategory()
+  +Future<void> deleteNewsCategory()
+  +void initState()
+  +Future<void> loadCategories()
+  +Future<void> addNews()
+  +Future<void> deleteNews()
+  -Future<List<dynamic>> _fetchNews()
+  -Future<void> _refreshNews()
+  +Widget build()
+}
+
+"fok_kometa::view::windows_app::screens::win_news_page.dart::_WinNewsPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_news_page.dart::_WinNewsPageState"
+
+class "fok_kometa::view::windows_app::screens::win_personal_workout.dart::personal_workout_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_personal_workout.dart::personal_workout_page"
+
+class "fok_kometa::view::windows_app::screens::win_personal_workout.dart::PersonalWorkoutPage" {
+  +_PersonalWorkoutPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_personal_workout.dart::PersonalWorkoutPage"
+
+class "fok_kometa::view::windows_app::screens::win_personal_workout.dart::_PersonalWorkoutPageState" {
+  -GlobalKey<FormState> _formKey
+  -GlobalKey<ScaffoldState> _scaffoldKey
+  -TextEditingController _nameController
+  -TextEditingController _idController
+  -List<dynamic> _categories
+  -GlobalKey<FormState> _exercisePlanFormKey
+  -GlobalKey<ScaffoldState> _exercisePlanScaffoldKey
+  -TextEditingController _exercisePlanNameController
+  -TextEditingController _exercisePlanDescriptionController
+  -TextEditingController _numRepetitionsController
+  -TextEditingController _numApproachesController
+  -TextEditingController _restTimeController
+  -Dio _dio
+  -List<dynamic> _plans
+  -List<Map<String, dynamic>> _personWorkouts
+  +List<dynamic> exerciseData
+  +List<dynamic> exercises
+  +TextEditingController exerciseNameController
+  +TextEditingController exerciseDescriptionController
+  +TextEditingController loadScoreController
+  +TextEditingController exerciseCategoryIdController
+  +TextEditingController exercisePlanIdController
+  +TextEditingController personWorkoutIdController
+  +Dio dio
+  +void initState()
+  +void dispose()
+  +Future<void> getExerciseData()
+  +void getExercises()
+  +void addExercise()
+  +void updateExercise()
+  +void deleteExercise()
+  -Future<void> _fetchPersonWorkouts()
+  -Future<void> _addPersonWorkout()
+  -Future<void> _updatePersonWorkout()
+  -Future<void> _deletePersonWorkout()
+  -void _getPlans()
+  -void _addPlan()
+  -void _updatePlan()
+  -void _deletePlan()
+  -void _showAddDialog()
+  -void _showEditDialog()
+  -void _showDeleteDialog()
+  -Future<void> _getCategories()
+  -Future<void> _addCategory()
+  -Future<void> _updateCategory()
+  -Future<void> _deleteCategory()
+  -void _showAddCategoryDialog()
+  -void _showEditCategoryDialog()
+  -void _showDeleteCategoryDialog()
+  +Widget build()
+  -Future<void> _showAddDialog2()
+  -Future<void> _showEditDialog2()
+}
+
+"fok_kometa::view::windows_app::screens::win_personal_workout.dart::_PersonalWorkoutPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fok_kometa::view::windows_app::screens::win_personal_workout.dart::_PersonalWorkoutPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<ScaffoldState>"
+"fok_kometa::view::windows_app::screens::win_personal_workout.dart::_PersonalWorkoutPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fok_kometa::view::windows_app::screens::win_personal_workout.dart::_PersonalWorkoutPageState" o-- "dio::src::dio.dart::Dio"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_personal_workout.dart::_PersonalWorkoutPageState"
+
+class "fok_kometa::view::windows_app::screens::win_services_page.dart::win_services_page" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::screens::win_services_page.dart::win_services_page"
+
+class "fok_kometa::view::windows_app::screens::win_services_page.dart::WinServicesPage" {
+  +_WinServicesPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::screens::win_services_page.dart::WinServicesPage"
+
+class "fok_kometa::view::windows_app::screens::win_services_page.dart::_WinServicesPageState" {
+  +List<dynamic> services
+  +TextEditingController nameController
+  +TextEditingController costController
+  +TextEditingController descriptionController
+  +TextEditingController userIdController
+  +TextEditingController categoryIdController
+  +List<Map<String, dynamic>> serviceCategories
+  -String? _selectedCategory
+  -List<dynamic> _services
+  -String? _searchQuery
+  -String? _searchText
+  -List<dynamic> _filteredServices
+  +void initState()
+  +Future<void> fetchServiceCategories()
+  +void addServiceCategory()
+  +void updateServiceCategory()
+  +void deleteServiceCategory()
+  -Future<void> _fetchServices()
+  -Future<void> _refreshServices()
+  +Future<void> addService()
+  +Future<void> deleteService()
+  +Widget build()
+}
+
+"fok_kometa::view::windows_app::screens::win_services_page.dart::_WinServicesPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::screens::win_services_page.dart::_WinServicesPageState"
+
+class "fok_kometa::view::windows_app::win_login_page.dart::win_login_page" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::win_login_page.dart::win_login_page"
+
+class "fok_kometa::view::windows_app::win_login_page.dart::WinLoginPage" {
+  +_WinLoginPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::win_login_page.dart::WinLoginPage"
+
+class "fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState" {
+  {static} +String route
+  +FocusNode emailNode
+  +FocusNode passwordNode
+  +FocusNode btnNode
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -bool _isPasswordObscured
+  -bool _isLoading
+  -GlobalKey<FormState> _formKey
+  +Dio dio
+  -AuthServiceWin _authService
+  -String _errorMessage
+  -String? _accessToken
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState" o-- "dio::src::dio.dart::Dio"
+"fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState" o-- "fok_kometa::services::auth.dart::AuthServiceWin"
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::win_login_page.dart::_WinLoginPageState"
+
+class "fok_kometa::view::windows_app::win_menu_page.dart::win_menu_page" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fok_kometa::view::windows_app::win_menu_page.dart::win_menu_page"
+
+class "fok_kometa::view::windows_app::win_menu_page.dart::WinLoginPage" {
+  +_WinLoginPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fok_kometa::view::windows_app::win_menu_page.dart::WinLoginPage"
+
+class "fok_kometa::view::windows_app::win_menu_page.dart::_WinLoginPageState" {
+  +int index
+  +bool isSmallScreen
+  +Widget build()
+  +Widget buildPages()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fok_kometa::view::windows_app::win_menu_page.dart::_WinLoginPageState"
+
+
+@enduml
