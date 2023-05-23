@@ -1,9 +1,6 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
-import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 
 class win_coachs_page extends StatelessWidget {
@@ -335,20 +332,29 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
             child: Column(
               children: [
                 TextField(
-                    decoration: const InputDecoration(labelText: 'Фамилия'),
+                    maxLength: 50,
+                    decoration: const InputDecoration(
+                        filled: true, labelText: 'Фамилия'),
                     controller: second_nameController),
                 TextField(
-                    decoration: const InputDecoration(labelText: 'Имя'),
+                    maxLength: 50,
+                    decoration:
+                        const InputDecoration(filled: true, labelText: 'Имя'),
                     controller: first_nameController),
                 TextField(
-                    decoration: const InputDecoration(labelText: 'Отчество'),
+                    maxLength: 50,
+                    decoration: const InputDecoration(
+                        filled: true, labelText: 'Отчество'),
                     controller: patronymicController),
                 TextField(
-                    decoration:
-                        const InputDecoration(labelText: 'Специализация'),
+                    maxLength: 50,
+                    decoration: const InputDecoration(
+                        filled: true, labelText: 'Специализация'),
                     controller: specializationController),
                 TextField(
-                    decoration: const InputDecoration(labelText: 'Стаж работы'),
+                    maxLength: 2,
+                    decoration: const InputDecoration(
+                        filled: true, labelText: 'Стаж работы'),
                     controller: work_experienceController),
               ],
             ),
@@ -395,24 +401,34 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                maxLength: 50,
                 controller: second_nameController,
-                decoration: const InputDecoration(labelText: 'Фамилия'),
+                decoration:
+                    const InputDecoration(filled: true, labelText: 'Фамилия'),
               ),
               TextField(
+                maxLength: 50,
                 controller: first_nameController,
-                decoration: const InputDecoration(labelText: 'Имя'),
+                decoration:
+                    const InputDecoration(filled: true, labelText: 'Имя'),
               ),
               TextField(
+                maxLength: 50,
                 controller: patronymicController,
-                decoration: const InputDecoration(labelText: 'Отчество'),
+                decoration:
+                    const InputDecoration(filled: true, labelText: 'Отчество'),
               ),
               TextField(
+                maxLength: 50,
                 controller: specializationController,
-                decoration: const InputDecoration(labelText: 'Специализация'),
+                decoration: const InputDecoration(
+                    filled: true, labelText: 'Специализация'),
               ),
               TextField(
+                maxLength: 3,
                 controller: work_experienceController,
-                decoration: const InputDecoration(labelText: 'Стаж работы'),
+                decoration: const InputDecoration(
+                    filled: true, labelText: 'Стаж работы'),
               ),
             ],
           ),

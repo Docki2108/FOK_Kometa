@@ -1,9 +1,6 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fok_kometa/models/user.dart';
 import 'package:provider/provider.dart';
-import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
 
 class win_services_page extends StatelessWidget {
@@ -493,6 +490,11 @@ class _WinServicesPageState extends State<WinServicesPage> {
               return AlertDialog(
                 title: const Text('Добавить категорию'),
                 content: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Название',
+                    filled: true,
+                  ),
+                  maxLength: 100,
                   controller: controller,
                 ),
                 actions: [

@@ -115,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Card(
               margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-              elevation: 6,
+              elevation: 3,
               child: Column(
                 children: [
                   Stack(
@@ -268,10 +268,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                             .centerLeft,
                                                         height: 60,
                                                         child: TextFormField(
+                                                          maxLength: 50,
                                                           controller:
                                                               _emailController,
                                                           decoration:
                                                               const InputDecoration(
+                                                            counterText: '',
                                                             border:
                                                                 OutlineInputBorder(
                                                               borderSide:
@@ -304,10 +306,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                             .centerLeft,
                                                         height: 60,
                                                         child: TextFormField(
+                                                          maxLength: 50,
                                                           controller:
                                                               _firstNameController,
                                                           decoration:
                                                               const InputDecoration(
+                                                            counterText: '',
                                                             border:
                                                                 OutlineInputBorder(
                                                               borderSide:
@@ -340,10 +344,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                             .centerLeft,
                                                         height: 60,
                                                         child: TextFormField(
+                                                          maxLength: 50,
                                                           controller:
                                                               _secondNameController,
                                                           decoration:
                                                               const InputDecoration(
+                                                            counterText: '',
                                                             border:
                                                                 OutlineInputBorder(
                                                               borderSide:
@@ -376,10 +382,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                             .centerLeft,
                                                         height: 60,
                                                         child: TextFormField(
+                                                          maxLength: 50,
                                                           controller:
                                                               _patronymicController,
                                                           decoration:
                                                               const InputDecoration(
+                                                            counterText: '',
                                                             border:
                                                                 OutlineInputBorder(
                                                               borderSide:

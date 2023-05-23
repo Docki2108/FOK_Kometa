@@ -41,7 +41,7 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   List<String> _getCategories() {
-    final categories = ['All'] +
+    final categories = ['Все'] +
         _group_workouts
             .map((group_workouts) =>
                 group_workouts['group_workout_category'].toString())
@@ -74,7 +74,7 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   Widget build(BuildContext context) {
     final filteredGroup_workouts = _selectedCategory == null ||
-            _selectedCategory == 'All'
+            _selectedCategory == 'Все'
         ? _group_workouts
         : _group_workouts
             .where((group_workouts) =>
@@ -101,7 +101,7 @@ class _SchedulePageState extends State<SchedulePage> {
               });
             },
             itemBuilder: (BuildContext context) {
-              final categories = ['All'] +
+              final categories = ['Все'] +
                   _group_workouts
                       .map((group_workouts) =>
                           group_workouts['group_workout_category'].toString())

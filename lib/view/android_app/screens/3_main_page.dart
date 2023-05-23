@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage> {
               Card(
                 elevation: 0,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
                       const Text('Основное'),

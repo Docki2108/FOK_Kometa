@@ -98,11 +98,13 @@ class _LoginPageState extends State<LoginPage> {
                               _checkEmail(value1),
                               value1 = _passwordController.text.trim()
                             },
+                            maxLength: 50,
                             key: _loginformKey,
                             controller: _emailController,
                             onEditingComplete: () => passwordNode.nextFocus(),
                             focusNode: loginNode,
                             decoration: const InputDecoration(
+                              counterText: '',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(
@@ -110,8 +112,6 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               filled: true,
-                              // fillColor: Colors.white,
-                              // focusColor: Colors.brown,
                               prefixIcon: Icon(
                                 Icons.account_circle_outlined,
                               ),
@@ -130,9 +130,11 @@ class _LoginPageState extends State<LoginPage> {
                             key: _passwordformKey,
                             controller: _passwordController,
                             obscureText: true,
+                            maxLength: 50,
                             focusNode: passwordNode,
                             onEditingComplete: () => btn_contNode.nextFocus(),
                             decoration: const InputDecoration(
+                              counterText: '',
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.all(

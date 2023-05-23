@@ -84,7 +84,7 @@ class _WeightCalendarState extends State<WeightCalendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('График веса'),
+        title: const Text('График массы тела'),
         centerTitle: true,
       ),
       body: Padding(
@@ -125,7 +125,7 @@ class _WeightCalendarState extends State<WeightCalendar> {
                           '0' +
                           '${weight.date.month}.' +
                           '${weight.date.year}'),
-                      subtitle: Text('Вес: ' + '${weight.weight} кг'),
+                      subtitle: Text('Масса: ' + '${weight.weight} кг'),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
@@ -186,28 +186,46 @@ class _WeightCalendarState extends State<WeightCalendar> {
               return AlertDialog(
                 title: const Text('Добавить вес'),
                 content: TextField(
+                  maxLength: 5,
+                  decoration: const InputDecoration(
+                    counterText: '',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                    ),
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.line_weight,
+                    ),
+                    hintText: 'Вес в кг',
+                  ),
                   controller: _weightController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Введите свой вес в кг',
-                  ),
                 ),
                 actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Отмена'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      final weight = double.tryParse(_weightController.text);
-                      if (weight != null) {
-                        _addWeight(weight);
-                      }
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Добавить'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Отмена'),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          final weight =
+                              double.tryParse(_weightController.text);
+                          if (weight != null) {
+                            _addWeight(weight);
+                          }
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Добавить'),
+                      ),
+                    ],
                   ),
                 ],
               );

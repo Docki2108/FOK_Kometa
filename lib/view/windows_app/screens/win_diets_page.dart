@@ -210,8 +210,12 @@ class _WinDietsPageState extends State<WinDietsPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
+                  maxLength: 100,
                   controller: _dietNameController,
-                  decoration: const InputDecoration(labelText: 'Название'),
+                  decoration: const InputDecoration(
+                    labelText: 'Название',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите название';
@@ -220,9 +224,12 @@ class _WinDietsPageState extends State<WinDietsPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 3,
                   controller: _dietDurationController,
-                  decoration:
-                      const InputDecoration(labelText: 'Продолжительность'),
+                  decoration: const InputDecoration(
+                    labelText: 'Продолжительность',
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -236,7 +243,10 @@ class _WinDietsPageState extends State<WinDietsPage> {
                 ),
                 TextFormField(
                   controller: _dietCategoryController,
-                  decoration: const InputDecoration(labelText: 'Код категории'),
+                  decoration: const InputDecoration(
+                    labelText: 'Код категории',
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -288,6 +298,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
+                  maxLength: 100,
                   controller: _dietNameController,
                   decoration: const InputDecoration(labelText: 'Название'),
                   validator: (value) {
@@ -298,6 +309,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 3,
                   controller: _dietDurationController,
                   decoration:
                       const InputDecoration(labelText: 'Продолжительность'),
@@ -402,34 +414,40 @@ class _WinDietsPageState extends State<WinDietsPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              maxLength: 4,
               controller: proteinsController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                filled: true,
                 labelText: 'Белки',
               ),
             ),
             TextField(
+              maxLength: 4,
               controller: fatsController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                filled: true,
                 labelText: 'Жиры',
               ),
             ),
             TextField(
+              maxLength: 4,
               controller: carbohydratesController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                filled: true,
                 labelText: 'Углеводы',
               ),
             ),
           ],
         ),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () async {
               final proteins = int.tryParse(proteinsController.text);
               final fats = int.tryParse(fatsController.text);
@@ -465,34 +483,40 @@ class _WinDietsPageState extends State<WinDietsPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              maxLength: 4,
               controller: proteinsController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                filled: true,
                 labelText: 'Белки',
               ),
             ),
             TextField(
+              maxLength: 4,
               controller: fatsController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                filled: true,
                 labelText: 'Жиры',
               ),
             ),
             TextField(
+              maxLength: 4,
               controller: carbohydratesController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                filled: true,
                 labelText: 'Углеводы',
               ),
             ),
           ],
         ),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () async {
               final proteins = int.tryParse(proteinsController.text);
               final fats = int.tryParse(fatsController.text);
@@ -521,11 +545,11 @@ class _WinDietsPageState extends State<WinDietsPage> {
         title: const Text('Удалить запись БЖУ?'),
         content: const Text('Вы уверены, что хотите удалить запись БЖУ?'),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Удалить'),
           ),
@@ -560,14 +584,17 @@ class _WinDietsPageState extends State<WinDietsPage> {
       builder: (context) => AlertDialog(
         title: const Text('Добавить категорию диеты'),
         content: TextField(
+          decoration:
+              const InputDecoration(filled: true, labelText: 'Название'),
+          maxLength: 100,
           controller: nameController,
         ),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () async {
               final name = nameController.text;
               if (name.isNotEmpty) {
@@ -594,14 +621,19 @@ class _WinDietsPageState extends State<WinDietsPage> {
       builder: (context) => AlertDialog(
         title: const Text('Редактировать категорию диеты'),
         content: TextField(
+          decoration: const InputDecoration(
+            hintText: 'Название',
+            filled: true,
+          ),
+          maxLength: 100,
           controller: nameController,
         ),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () async {
               final name = nameController.text;
               if (name.isNotEmpty) {
@@ -629,11 +661,11 @@ class _WinDietsPageState extends State<WinDietsPage> {
         content: Text(
             'Вы уверены, что хотите удалить категорию "${dietCategory.name}"?'),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Удалить'),
           ),
@@ -717,14 +749,17 @@ class _WinDietsPageState extends State<WinDietsPage> {
       builder: (context) => AlertDialog(
         title: const Text('Добавить категорию блюд'),
         content: TextField(
+          decoration:
+              const InputDecoration(filled: true, labelText: 'Название'),
+          maxLength: 100,
           controller: nameController,
         ),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () async {
               final name = nameController.text;
               if (name.isNotEmpty) {
@@ -751,14 +786,19 @@ class _WinDietsPageState extends State<WinDietsPage> {
       builder: (context) => AlertDialog(
         title: const Text('Редактировать категорию блюд'),
         content: TextField(
+          decoration: const InputDecoration(
+            labelText: 'Название',
+            filled: true,
+          ),
+          maxLength: 100,
           controller: nameController,
         ),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () async {
               final name = nameController.text;
               if (name.isNotEmpty) {
@@ -786,11 +826,11 @@ class _WinDietsPageState extends State<WinDietsPage> {
         content: Text(
             'Вы уверены, что хотите удалить категорию "${dishCategory.name}"?'),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Отмена'),
           ),
-          TextButton(
+          OutlinedButton(
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Удалить'),
           ),
@@ -903,6 +943,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 TextFormField(
+                                                  maxLength: 100,
                                                   initialValue: dish['name'],
                                                   decoration:
                                                       const InputDecoration(
@@ -919,6 +960,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                   },
                                                 ),
                                                 TextFormField(
+                                                  maxLength: 5,
                                                   initialValue:
                                                       dish['kcal'].toString(),
                                                   decoration:
@@ -935,67 +977,6 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                   },
                                                   onSaved: (value) {
                                                     _kcal = int.parse(value!);
-                                                  },
-                                                ),
-                                                TextFormField(
-                                                  initialValue:
-                                                      dish['pfc_id'].toString(),
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    labelText: 'ID PFC',
-                                                  ),
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Введите ID PFC';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  onSaved: (value) {
-                                                    _pfcId = int.parse(value!);
-                                                  },
-                                                ),
-                                                TextFormField(
-                                                  initialValue: dish['diet_id']
-                                                      .toString(),
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    labelText: 'ID диеты',
-                                                  ),
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Введите ID диеты';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  onSaved: (value) {
-                                                    _dishdietId =
-                                                        int.parse(value!);
-                                                  },
-                                                ),
-                                                TextFormField(
-                                                  initialValue:
-                                                      dish['dish_category_id']
-                                                          .toString(),
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    labelText:
-                                                        'ID категории блюда',
-                                                  ),
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Введите ID категории блюда';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  onSaved: (value) {
-                                                    _dishdishCategoryId =
-                                                        int.parse(value!);
                                                   },
                                                 ),
                                               ],
@@ -1061,7 +1042,9 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             TextFormField(
+                                              maxLength: 100,
                                               decoration: const InputDecoration(
+                                                filled: true,
                                                 labelText: 'Название',
                                               ),
                                               validator: (value) {
@@ -1075,7 +1058,9 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                               },
                                             ),
                                             TextFormField(
+                                              maxLength: 5,
                                               decoration: const InputDecoration(
+                                                filled: true,
                                                 labelText: 'Калории',
                                               ),
                                               keyboardType:
@@ -1092,6 +1077,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                             ),
                                             TextFormField(
                                               decoration: const InputDecoration(
+                                                filled: true,
                                                 labelText: 'Код БЖУ',
                                               ),
                                               keyboardType:
@@ -1108,6 +1094,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                             ),
                                             TextFormField(
                                               decoration: const InputDecoration(
+                                                filled: true,
                                                 labelText: 'Код диеты',
                                               ),
                                               keyboardType:
@@ -1124,6 +1111,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                             ),
                                             TextFormField(
                                               decoration: const InputDecoration(
+                                                filled: true,
                                                 labelText:
                                                     'Код категории блюда',
                                               ),

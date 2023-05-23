@@ -1,10 +1,7 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import '../../../models/news.dart';
 import '../../../models/news_category.dart';
 import '../../../theme/theme.dart';
@@ -298,7 +295,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                             maxLength: 50,
                                             decoration: const InputDecoration(
                                               filled: true,
-                                              hintText: 'Заголовок',
+                                              labelText: 'Заголовок',
                                             ),
                                           ),
                                         ),
@@ -335,7 +332,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                               ),
                                             ),
                                             const SizedBox(
-                                              height: 33,
+                                              height: 25,
                                             ),
                                           ],
                                         ),
@@ -353,7 +350,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                       maxLength: 500,
                                       decoration: const InputDecoration(
                                         filled: true,
-                                        hintText: 'Содержание',
+                                        labelText: 'Содержание',
                                       ),
                                     ),
                                   ),
@@ -406,6 +403,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                                 title: const Text(
                                                     'Изменение категории новости'),
                                                 content: TextField(
+                                                  maxLength: 100,
                                                   onChanged: (value) {
                                                     newName = value;
                                                   },
@@ -415,6 +413,7 @@ class _WinNewsPageState extends State<WinNewsPage> {
                                                               .name),
                                                   decoration:
                                                       const InputDecoration(
+                                                    filled: true,
                                                     labelText: 'Название',
                                                   ),
                                                 ),
@@ -469,10 +468,12 @@ class _WinNewsPageState extends State<WinNewsPage> {
               return AlertDialog(
                 title: const Text('Добавить категорию'),
                 content: TextField(
+                  maxLength: 100,
                   onChanged: (value) {
                     categoryName = value;
                   },
                   decoration: const InputDecoration(
+                    filled: true,
                     labelText: 'Название',
                   ),
                 ),

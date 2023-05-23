@@ -140,8 +140,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 alignment: Alignment.center,
                                 height: 60,
                                 child: TextFormField(
+                                  maxLength: 50,
                                   controller: _emailController,
                                   decoration: const InputDecoration(
+                                    counterText: '',
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.all(
@@ -208,10 +210,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 alignment: Alignment.centerLeft,
                                 height: 60,
                                 child: TextFormField(
+                                  maxLength: 50,
                                   onChanged: (value) => _checkPassword(value),
                                   obscureText: true,
                                   controller: _newPasswordController,
                                   decoration: const InputDecoration(
+                                    counterText: '',
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.all(

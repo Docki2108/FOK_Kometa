@@ -5,6 +5,7 @@ import 'package:fok_kometa/view/windows_app/win_login_page.dart';
 import 'package:provider/provider.dart';
 import '../../services/auth.dart';
 import '../../theme/theme.dart';
+import 'screens/win_feedback_page.dart';
 import 'screens/win_personal_workout.dart';
 import 'screens/win_clients_page.dart';
 import 'screens/win_diets_page.dart';
@@ -57,6 +58,23 @@ class _WinLoginPageState extends State<WinLoginPage> {
               backgroundColor: Colors.blueGrey[300],
               onDestinationSelected: (index) =>
                   setState(() => this.index = index),
+              trailing: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(0),
+                  ),
+                  onPressed: () {
+                    AuthServiceWin.winLogout();
+                    Future.delayed(Duration.zero).then(
+                      (value) => Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (ctx) => const win_login_page())),
+                    );
+                  },
+                  child: Text('Выйти'),
+                ),
+              ),
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.newspaper_outlined),
@@ -115,11 +133,18 @@ class _WinLoginPageState extends State<WinLoginPage> {
                   ),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.exit_to_app),
+                  icon: Icon(Icons.message_outlined),
+                  selectedIcon: Icon(Icons.message),
                   label: Text(
-                    'Выход',
+                    'Сообщения',
                   ),
                 ),
+                // NavigationRailDestination(
+                //   icon: Icon(Icons.exit_to_app),
+                //   label: Text(
+                //     'Выход',
+                //   ),
+                // ),
               ],
             ),
             Expanded(
@@ -150,12 +175,14 @@ class _WinLoginPageState extends State<WinLoginPage> {
       case 7:
         return const personal_workout_page();
       case 8:
-        AuthServiceWin.winLogout();
-        Future.delayed(Duration.zero).then(
-          (value) => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => const win_login_page())),
-        );
-        break;
+        return FeedbackPage();
+      // case 9:
+      //   AuthServiceWin.winLogout();
+      //   Future.delayed(Duration.zero).then(
+      //     (value) => Navigator.of(context).pushReplacement(
+      //         MaterialPageRoute(builder: (ctx) => const win_login_page())),
+      //   );
+      //   break;
     }
     return Container();
   }

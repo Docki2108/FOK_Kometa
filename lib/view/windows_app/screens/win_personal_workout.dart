@@ -278,7 +278,11 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
               children: [
                 TextFormField(
                   controller: _exercisePlanNameController,
-                  decoration: const InputDecoration(labelText: 'Название'),
+                  maxLength: 50,
+                  decoration: const InputDecoration(
+                    labelText: 'Название',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите название';
@@ -287,8 +291,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 100,
                   controller: _exercisePlanDescriptionController,
-                  decoration: const InputDecoration(labelText: 'Описание'),
+                  decoration: const InputDecoration(
+                    labelText: 'Описание',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите описание';
@@ -297,9 +305,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 3,
                   controller: _numRepetitionsController,
-                  decoration:
-                      const InputDecoration(labelText: 'Количество повторений'),
+                  decoration: const InputDecoration(
+                    labelText: 'Количество повторений',
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -309,9 +320,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 3,
                   controller: _numApproachesController,
-                  decoration:
-                      const InputDecoration(labelText: 'Количество подходов'),
+                  decoration: const InputDecoration(
+                    labelText: 'Количество подходов',
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -322,7 +336,10 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                 ),
                 TextFormField(
                   controller: _restTimeController,
-                  decoration: const InputDecoration(labelText: 'Время отдыха'),
+                  decoration: const InputDecoration(
+                    labelText: 'Время отдыха',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите время отдыха';
@@ -372,8 +389,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
+                  maxLength: 50,
                   controller: _exercisePlanNameController,
-                  decoration: const InputDecoration(labelText: 'Название'),
+                  decoration: const InputDecoration(
+                    labelText: 'Название',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите название';
@@ -382,8 +403,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 100,
                   controller: _exercisePlanDescriptionController,
-                  decoration: const InputDecoration(labelText: 'Описание'),
+                  decoration: const InputDecoration(
+                    labelText: 'Описание',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите описание';
@@ -392,9 +417,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 3,
                   controller: _numRepetitionsController,
-                  decoration:
-                      const InputDecoration(labelText: 'Количество повторений'),
+                  decoration: const InputDecoration(
+                    labelText: 'Количество повторений',
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -404,9 +432,12 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 3,
                   controller: _numApproachesController,
-                  decoration:
-                      const InputDecoration(labelText: 'Количество подходов'),
+                  decoration: const InputDecoration(
+                    labelText: 'Количество подходов',
+                    filled: true,
+                  ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -417,7 +448,10 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                 ),
                 TextFormField(
                   controller: _restTimeController,
-                  decoration: const InputDecoration(labelText: 'Время отдыха'),
+                  decoration: const InputDecoration(
+                    labelText: 'Время отдыха',
+                    filled: true,
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Введите время отдыха';
@@ -533,6 +567,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
         content: Form(
           key: _formKey,
           child: TextFormField(
+            maxLength: 100,
             controller: _nameController,
             validator: (value) {
               if (value!.isEmpty) {
@@ -542,6 +577,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
             },
             decoration: const InputDecoration(
               hintText: 'Название категории',
+              filled: true,
             ),
           ),
         ),
@@ -579,6 +615,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
+                maxLength: 100,
                 controller: _nameController,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -587,6 +624,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   return null;
                 },
                 decoration: const InputDecoration(
+                  filled: true,
                   hintText: 'Название категории',
                 ),
               ),
@@ -727,6 +765,9 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                                               'Сложность: ${exerciseData[index]['Load_score']}'),
                                         ],
                                       ),
+                                      leading: IconButton(
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () => deleteExercise),
                                       children: [
                                         ListTile(
                                           title: Center(
@@ -780,24 +821,32 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             TextField(
+                                              maxLength: 50,
                                               controller:
                                                   exerciseNameController,
                                               decoration: const InputDecoration(
-                                                  labelText: 'Название'),
+                                                labelText: 'Название',
+                                                filled: true,
+                                              ),
                                             ),
                                             TextField(
+                                              maxLength: 100,
                                               controller:
                                                   exerciseDescriptionController,
                                               decoration: const InputDecoration(
-                                                  labelText: 'Описание'),
+                                                labelText: 'Описание',
+                                                filled: true,
+                                              ),
                                             ),
                                             TextField(
+                                              maxLength: 2,
                                               controller: loadScoreController,
                                               keyboardType:
                                                   TextInputType.number,
                                               decoration: const InputDecoration(
-                                                  labelText:
-                                                      'Степень нагрузки'),
+                                                labelText: 'Степень нагрузки',
+                                                filled: true,
+                                              ),
                                             ),
                                             TextField(
                                               controller:
@@ -805,7 +854,9 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                                               keyboardType:
                                                   TextInputType.number,
                                               decoration: const InputDecoration(
-                                                  labelText: 'Код упражнения'),
+                                                labelText: 'Код упражнения',
+                                                filled: true,
+                                              ),
                                             ),
                                             TextField(
                                               controller:
@@ -813,8 +864,10 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                                               keyboardType:
                                                   TextInputType.number,
                                               decoration: const InputDecoration(
-                                                  labelText:
-                                                      'Код плана упражнения'),
+                                                labelText:
+                                                    'Код плана упражнения',
+                                                filled: true,
+                                              ),
                                             ),
                                             TextField(
                                               controller:
@@ -822,7 +875,9 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                                               keyboardType:
                                                   TextInputType.number,
                                               decoration: const InputDecoration(
-                                                  labelText: 'Код тренировки'),
+                                                labelText: 'Код тренировки',
+                                                filled: true,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -930,72 +985,76 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                     ),
                   ),
                   Expanded(
-                    child: Stack(
-                      children: [
-                        ListView.builder(
-                          itemCount: _categories.length,
-                          itemBuilder: (context, index) {
-                            final category = _categories[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                child: ListTile(
-                                  title: Text(category['Name']),
-                                  subtitle: Text('Код категории упражнения: ' +
-                                      category['ID_Exercise_category']
-                                          .toString()),
-                                  onTap: () {
-                                    _showEditCategoryDialog(
-                                        category['ID_Exercise_category'],
-                                        category['Name']);
-                                  },
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        icon: const Icon(Icons.delete),
-                                        onPressed: () {
-                                          _showDeleteCategoryDialog(
-                                              category['ID_Exercise_category']);
-                                        },
-                                      ),
-                                    ],
+                    child: Container(
+                      color: Colors.blueGrey[300],
+                      child: Stack(
+                        children: [
+                          ListView.builder(
+                            itemCount: _categories.length,
+                            itemBuilder: (context, index) {
+                              final category = _categories[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  child: ListTile(
+                                    title: Text(category['Name']),
+                                    subtitle: Text(
+                                        'Код категории упражнения: ' +
+                                            category['ID_Exercise_category']
+                                                .toString()),
+                                    onTap: () {
+                                      _showEditCategoryDialog(
+                                          category['ID_Exercise_category'],
+                                          category['Name']);
+                                    },
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () {
+                                            _showDeleteCategoryDialog(category[
+                                                'ID_Exercise_category']);
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                              );
+                            },
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
                                         ),
                                       ),
+                                      onPressed: () {
+                                        _showAddCategoryDialog();
+                                      },
+                                      child: const Text(
+                                          'Добавить категорию упражнения'),
                                     ),
-                                    onPressed: () {
-                                      _showAddCategoryDialog();
-                                    },
-                                    child: const Text(
-                                        'Добавить категорию упражнения'),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -1087,12 +1146,20 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                maxLength: 100,
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Название'),
+                decoration: const InputDecoration(
+                  labelText: 'Название',
+                  filled: true,
+                ),
               ),
               TextField(
+                maxLength: 300,
                 controller: descriptionController,
-                decoration: const InputDecoration(labelText: 'Описание'),
+                decoration: const InputDecoration(
+                  labelText: 'Описание',
+                  filled: true,
+                ),
               ),
             ],
           ),
@@ -1133,12 +1200,20 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                maxLength: 100,
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Название'),
+                decoration: const InputDecoration(
+                  labelText: 'Название',
+                  filled: true,
+                ),
               ),
               TextField(
+                maxLength: 300,
                 controller: descriptionController,
-                decoration: const InputDecoration(labelText: 'Описание'),
+                decoration: const InputDecoration(
+                  labelText: 'Описание',
+                  filled: true,
+                ),
               ),
             ],
           ),

@@ -88,8 +88,22 @@ class _FirstPageState extends State<FirstPage> {
             child: SizedBox(
               width: 200.0,
               child: TextField(
+                maxLength: 50,
+                textAlign: TextAlign.left,
                 decoration: const InputDecoration(
-                  hintText: 'Поиск по заголовку',
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                  filled: true,
+                  counterText: '',
+                  hintText: 'Поиск',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
+                    ),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                  ),
                 ),
                 onChanged: (text) {
                   setState(() {

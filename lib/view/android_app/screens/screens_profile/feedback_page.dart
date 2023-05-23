@@ -94,8 +94,19 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     ),
                     const SizedBox(height: 16),
                     TextField(
+                      maxLength: 500,
+                      maxLines: 5,
+                      minLines: 1,
                       controller: _feedbackController,
                       decoration: const InputDecoration(
+                        counterText: '',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        filled: true,
                         hintText: 'Сообщение',
                       ),
                     ),

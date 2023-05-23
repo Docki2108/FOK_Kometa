@@ -119,14 +119,16 @@ class _WinLoginPageState extends State<WinLoginPage> {
                           SizedBox(height: 16),
                           ConstrainedBox(
                             constraints: BoxConstraints(
-                              maxWidth: 300.0, // ограничение по ширине
-                              maxHeight: 50.0, // ограничение по высоте
+                              maxWidth: 300.0,
+                              maxHeight: 50.0,
                             ),
                             child: TextFormField(
+                              maxLength: 50,
                               focusNode: emailNode,
                               onEditingComplete: () => passwordNode.nextFocus(),
                               controller: _emailController,
                               decoration: const InputDecoration(
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.all(
@@ -148,11 +150,13 @@ class _WinLoginPageState extends State<WinLoginPage> {
                               maxHeight: 50.0,
                             ),
                             child: TextFormField(
+                              maxLength: 50,
                               controller: _passwordController,
                               focusNode: passwordNode,
                               onEditingComplete: () => btnNode.nextFocus(),
                               obscureText: true,
                               decoration: const InputDecoration(
+                                counterText: '',
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.all(

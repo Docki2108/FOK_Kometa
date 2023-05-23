@@ -74,12 +74,14 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                                     alignment: Alignment.centerLeft,
                                     height: 60,
                                     child: TextFormField(
+                                      maxLength: 5,
                                       controller: _weightController,
                                       keyboardType: TextInputType.number,
                                       onChanged: (value) {
                                         calculateBmi();
                                       },
                                       decoration: const InputDecoration(
+                                        counterText: '',
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide.none,
                                           borderRadius: BorderRadius.all(
@@ -87,7 +89,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                                           ),
                                         ),
                                         filled: true,
-                                        labelText: 'Масса (кг)',
+                                        labelText: 'Вес (кг)',
                                         labelStyle: TextStyle(height: 6),
                                       ),
                                     ),
@@ -101,12 +103,14 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                                     alignment: Alignment.centerLeft,
                                     height: 60,
                                     child: TextFormField(
+                                      maxLength: 4,
                                       controller: _heightController,
                                       keyboardType: TextInputType.number,
                                       onChanged: (value) {
                                         calculateBmi();
                                       },
                                       decoration: const InputDecoration(
+                                        counterText: '',
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide.none,
                                           borderRadius: BorderRadius.all(

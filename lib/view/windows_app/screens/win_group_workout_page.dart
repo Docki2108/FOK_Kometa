@@ -1,14 +1,10 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fok_kometa/models/user.dart';
 import 'package:fok_kometa/stuffs/constant.dart';
 import 'package:provider/provider.dart';
 import '../../../models/group_workout_category.dart';
-import '../../../models/service_category.dart';
 import '../../../theme/theme.dart';
-import 'package:intl/intl.dart';
 
 class win_group_workout_page extends StatelessWidget {
   const win_group_workout_page({super.key});
@@ -526,7 +522,7 @@ class _GroupWorkoutCategoriesScreenState
                               TextFormField(
                                 maxLines: 5,
                                 minLines: 1,
-                                maxLength: 50,
+                                maxLength: 100,
                                 controller: _nameController,
                                 decoration: const InputDecoration(
                                     filled: true, labelText: 'Название'),
@@ -539,8 +535,8 @@ class _GroupWorkoutCategoriesScreenState
                               ),
                               TextFormField(
                                 maxLines: 5,
-                                minLines: 1,
-                                maxLength: 50,
+                                minLines: 2,
+                                maxLength: 300,
                                 controller: _descriptionController,
                                 decoration: const InputDecoration(
                                     filled: true, labelText: 'Описание'),
@@ -629,7 +625,6 @@ class _GroupWorkoutCategoriesScreenState
                                           //   ),
                                           // ),
                                           TextFormField(
-                                        maxLength: 3,
                                         controller:
                                             _groupWorkoutCategoryIdController,
                                         decoration: const InputDecoration(
@@ -653,7 +648,6 @@ class _GroupWorkoutCategoriesScreenState
                                       padding:
                                           const EdgeInsets.fromLTRB(8, 8, 0, 8),
                                       child: TextFormField(
-                                        maxLength: 3,
                                         controller: _coachIdController,
                                         decoration: const InputDecoration(
                                             filled: true,
@@ -735,8 +729,10 @@ class _GroupWorkoutCategoriesScreenState
               return AlertDialog(
                 title: const Text('Добавить категорию'),
                 content: TextField(
+                  maxLength: 100,
                   controller: nameController,
                   decoration: const InputDecoration(
+                    filled: true,
                     labelText: 'Название',
                   ),
                 ),

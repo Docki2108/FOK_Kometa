@@ -129,12 +129,14 @@ class _RegistrationState extends State<Registration> {
                                 alignment: Alignment.centerLeft,
                                 height: 60,
                                 child: TextFormField(
+                                  maxLength: 50,
                                   key: _loginformKey,
                                   controller: _emailController,
                                   onEditingComplete: () =>
                                       passwordNode.nextFocus(),
                                   focusNode: loginNode,
                                   decoration: const InputDecoration(
+                                    counterText: '',
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.all(
@@ -154,6 +156,7 @@ class _RegistrationState extends State<Registration> {
                                 alignment: Alignment.centerLeft,
                                 height: 60,
                                 child: TextFormField(
+                                  maxLength: 50,
                                   onChanged: (value) => _checkPassword(value),
                                   key: _passwordformKey,
                                   controller: _passwordController,
@@ -162,6 +165,7 @@ class _RegistrationState extends State<Registration> {
                                   onEditingComplete: () =>
                                       btn_contNode.nextFocus(),
                                   decoration: const InputDecoration(
+                                    counterText: '',
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.all(
@@ -219,9 +223,7 @@ class _RegistrationState extends State<Registration> {
                                           height: 60,
                                           child: TextFormField(
                                             keyboardType: TextInputType.number,
-
                                             controller: _mobileNumberController,
-                                            //focusNode: passwordNode,
                                             inputFormatters: [maskTelephone],
                                             decoration: const InputDecoration(
                                               border: OutlineInputBorder(
@@ -301,13 +303,12 @@ class _RegistrationState extends State<Registration> {
                                                 alignment: Alignment.centerLeft,
                                                 height: 60,
                                                 child: TextFormField(
+                                                  maxLength: 50,
                                                   controller:
                                                       _firstNameController,
-                                                  //focusNode: passwordNode,
-                                                  // onEditingComplete: () =>
-                                                  //    btn_contNode.nextFocus(),
                                                   decoration:
                                                       const InputDecoration(
+                                                    counterText: '',
                                                     border: OutlineInputBorder(
                                                       borderSide:
                                                           BorderSide.none,
@@ -338,13 +339,12 @@ class _RegistrationState extends State<Registration> {
                                                 alignment: Alignment.centerLeft,
                                                 height: 60,
                                                 child: TextFormField(
+                                                  maxLength: 50,
                                                   controller:
                                                       _secondNameController,
-                                                  //focusNode: passwordNode,
-                                                  // onEditingComplete: () =>
-                                                  //    btn_contNode.nextFocus(),
                                                   decoration:
                                                       const InputDecoration(
+                                                    counterText: '',
                                                     border: OutlineInputBorder(
                                                       borderSide:
                                                           BorderSide.none,
@@ -375,13 +375,12 @@ class _RegistrationState extends State<Registration> {
                                                 alignment: Alignment.centerLeft,
                                                 height: 60,
                                                 child: TextFormField(
+                                                  maxLength: 50,
                                                   controller:
                                                       _patronymicController,
-                                                  //focusNode: passwordNode,
-                                                  // onEditingComplete: () =>
-                                                  //    btn_contNode.nextFocus(),
                                                   decoration:
                                                       const InputDecoration(
+                                                    counterText: '',
                                                     border: OutlineInputBorder(
                                                       borderSide:
                                                           BorderSide.none,
@@ -399,11 +398,6 @@ class _RegistrationState extends State<Registration> {
                                         ),
                                       ],
                                     ),
-                                    // ListBody(
-                                    //   children: [
-
-                                    //   ],
-                                    // )
                                   ],
                                 ),
                               ),

@@ -58,7 +58,6 @@ class _MenuState extends State<Menu> {
         ? [
             FirstPage(),
             SchedulePage(),
-            ExercisePage(),
           ]
         : [
             FirstPage(),
@@ -79,11 +78,6 @@ class _MenuState extends State<Menu> {
               icon: Icon(Icons.event_note_outlined),
               selectedIcon: Icon(Icons.event_note),
               label: 'Раписание',
-            ),
-            const NavigationDestination(
-              icon: Icon(Icons.sports_outlined),
-              selectedIcon: Icon(Icons.sports),
-              label: 'Тренировки',
             ),
           ]
         : [

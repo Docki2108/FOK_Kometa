@@ -45,7 +45,7 @@ class _OptionsPageState extends State<OptionsPage> {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Card(
             margin: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-            elevation: 6,
+            elevation: 3,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 40, 20, 30),
               child: Column(

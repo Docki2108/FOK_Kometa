@@ -78,9 +78,12 @@ class _AboutAppPageState extends State<AboutAppPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Card(
-              elevation: 11,
-              child: logosvg,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 3,
+                child: logosvg,
+              ),
             ),
             Text(
               'Версия: 11.11.22',

@@ -1,14 +1,7 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import '../../../models/exercise_equipment.dart';
 import '../../../models/exercise_equipment_category.dart';
-import '../../../models/news.dart';
-import '../../../models/news_category.dart';
 import '../../../theme/theme.dart';
 
 class win_equipments_page extends StatelessWidget {
@@ -475,9 +468,12 @@ class _ExerciseEquipmentCategoryPageState
               return AlertDialog(
                 title: const Text('Добавить категорию'),
                 content: TextField(
+                  maxLength: 100,
                   controller: _nameController,
-                  decoration:
-                      const InputDecoration(hintText: 'Название категории'),
+                  decoration: const InputDecoration(
+                    hintText: 'Название категории',
+                    filled: true,
+                  ),
                 ),
                 actions: <Widget>[
                   OutlinedButton(
