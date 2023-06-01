@@ -270,7 +270,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Добавить план тренировок'),
+          title: const Text('Добавить план упражнения'),
           content: Form(
             key: _exercisePlanFormKey,
             child: Column(
@@ -382,7 +382,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Изменить план тренировок'),
+          title: const Text('Изменить план упражнения'),
           content: Form(
             key: _exercisePlanFormKey,
             child: Column(
@@ -476,7 +476,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                   Navigator.pop(context);
                 }
               },
-              child: const Text('Сохранить'),
+              child: const Text('Изменить'),
             ),
           ],
         );
@@ -489,7 +489,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Удалить план тренировок'),
+          title: const Text('Удалить план упражнения'),
           content:
               Text('Вы уверены, что хотите удалить план "${plan['Name']}"?'),
           actions: [
@@ -646,7 +646,7 @@ class _PersonalWorkoutPageState extends State<PersonalWorkoutPage> {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Сохранить'),
+            child: const Text('Изменить'),
           ),
         ],
       ),

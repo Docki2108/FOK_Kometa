@@ -355,7 +355,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                   Navigator.pop(context);
                 }
               },
-              child: const Text('Сохранить'),
+              child: const Text('Изменить'),
             ),
           ],
         );
@@ -478,7 +478,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Редактировать запись БЖУ'),
+        title: const Text('Изменить запись БЖУ'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -531,7 +531,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               }
               Navigator.pop(context);
             },
-            child: const Text('Сохранить'),
+            child: const Text('Изменить'),
           ),
         ],
       ),
@@ -619,7 +619,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Редактировать категорию диеты'),
+        title: const Text('Изменить категорию диеты'),
         content: TextField(
           decoration: const InputDecoration(
             hintText: 'Название',
@@ -646,7 +646,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               }
               Navigator.pop(context);
             },
-            child: const Text('Сохранить'),
+            child: const Text('Изменить'),
           ),
         ],
       ),
@@ -747,7 +747,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Добавить категорию блюд'),
+        title: const Text('Добавить категорию блюда'),
         content: TextField(
           decoration:
               const InputDecoration(filled: true, labelText: 'Название'),
@@ -784,7 +784,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Редактировать категорию блюд'),
+        title: const Text('Изменить категорию блюда'),
         content: TextField(
           decoration: const InputDecoration(
             labelText: 'Название',
@@ -811,7 +811,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
               }
               Navigator.pop(context);
             },
-            child: const Text('Сохранить'),
+            child: const Text('Изменить'),
           ),
         ],
       ),
@@ -989,7 +989,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                                   Navigator.pop(context),
                                             ),
                                             OutlinedButton(
-                                              child: const Text('Сохранить'),
+                                              child: const Text('Изменить'),
                                               onPressed: () {
                                                 if (_dishFormKey.currentState!
                                                     .validate()) {
@@ -1179,7 +1179,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                           child: ListTile(
                             title: Text(diet['name']),
                             subtitle: Text(
-                                'Продолжительность: ${diet['duration']} дней'),
+                                'Продолжительность в днях: ${diet['duration']}'),
                             trailing: IconButton(
                               icon: const Icon(Icons.delete),
                               onPressed: () {
@@ -1274,7 +1274,7 @@ class _WinDietsPageState extends State<WinDietsPage> {
                                     ),
                                     onPressed: _addDishCategory,
                                     child:
-                                        const Text('Добавить категорию блюд'),
+                                        const Text('Добавить категорию блюда'),
                                   ),
                                 ),
                               ],

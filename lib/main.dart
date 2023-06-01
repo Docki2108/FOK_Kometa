@@ -17,8 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(WeightAdapter());
-  if (defaultTargetPlatform == TargetPlatform.android ||
-      defaultTargetPlatform == TargetPlatform.iOS) {
+  if (defaultTargetPlatform == TargetPlatform.android) {
     runApp(
       ChangeNotifierProvider(
         create: (_) => ThemeNotifier(),
@@ -48,9 +47,7 @@ void main() async {
         ),
       ),
     );
-  } else if (defaultTargetPlatform == TargetPlatform.windows ||
-      defaultTargetPlatform == TargetPlatform.linux ||
-      defaultTargetPlatform == TargetPlatform.macOS) {
+  } else if (defaultTargetPlatform == TargetPlatform.windows) {
     runApp(
       MaterialApp(
         theme: ThemeData(useMaterial3: true),

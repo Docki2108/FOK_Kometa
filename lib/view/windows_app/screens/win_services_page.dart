@@ -402,13 +402,14 @@ class _WinServicesPageState extends State<WinServicesPage> {
                                                   actions: [
                                                     TextButton(
                                                       child:
-                                                          const Text('Cancel'),
+                                                          const Text('Отмена'),
                                                       onPressed: () =>
                                                           Navigator.pop(
                                                               context),
                                                     ),
                                                     TextButton(
-                                                      child: const Text('Save'),
+                                                      child: const Text(
+                                                          'Изменить'),
                                                       onPressed: () {
                                                         updateServiceCategory(
                                                             category[

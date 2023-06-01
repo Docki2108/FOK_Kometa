@@ -85,7 +85,7 @@ class _SleepCycleCalculatorState extends State<SleepCycleCalculator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Расчет сна'),
+        title: const Text('Сон'),
         centerTitle: true,
         elevation: 3,
       ),

@@ -101,11 +101,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
           await Dio().delete('http://localhost:5000/coach/$coachId');
       if (response.statusCode == 200) {
         final message = response.data['message'];
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Удаление прошло успешно!'),
-          ),
-        );
+
         await _fetchCoaches();
       } else {
         throw Exception('Failed to delete coach');
@@ -452,7 +448,7 @@ class _WinCoachsPageState extends State<WinCoachsPage> {
                 _updateCoach(coachData);
                 Navigator.pop(context);
               },
-              child: const Text('Сохранить'),
+              child: const Text('Изменить'),
             ),
           ],
         );

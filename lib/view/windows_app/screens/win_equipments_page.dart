@@ -259,18 +259,6 @@ class _ExerciseEquipmentCategoryPageState
                             _deleteEquipment();
                           },
                         ),
-                        onTap: () {
-                          setState(
-                            () {
-                              _selectedEquipmentId =
-                                  equipment['ID_Exercise_equipment'];
-                              _name = equipment['Name'];
-                              _description = equipment['Description'];
-                              _selectedCategoryId =
-                                  equipment['Exercise_equipment_category_ID'];
-                            },
-                          );
-                        },
                       ),
                     ),
                   );
@@ -367,9 +355,6 @@ class _ExerciseEquipmentCategoryPageState
                       ),
                     ),
                   ),
-                  // child: Stack(
-                  //   children: [],
-                  // ),
                 ),
                 Expanded(
                   child: Stack(children: [
@@ -435,7 +420,7 @@ class _ExerciseEquipmentCategoryPageState
                                             },
                                           ),
                                           OutlinedButton(
-                                            child: const Text('Сохранить'),
+                                            child: const Text('Изменить'),
                                             onPressed: () {
                                               _updateCategory(category);
                                               Navigator.of(context).pop();

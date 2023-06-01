@@ -411,15 +411,20 @@ class _RegistrationState extends State<Registration> {
                 Container(
                   height: 16,
                 ),
-                CheckboxListTile(
-                  title:
-                      const Text('Согласие на обработку персональных данных'),
-                  value: _isAgreed,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isAgreed = value ?? false;
-                    });
-                  },
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CheckboxListTile(
+                      title: const Text(
+                          'Согласие на обработку персональных данных'),
+                      value: _isAgreed,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _isAgreed = value ?? false;
+                        });
+                      },
+                    ),
+                  ),
                 ),
                 Container(
                   height: 16,
