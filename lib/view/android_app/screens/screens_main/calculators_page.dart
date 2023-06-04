@@ -26,13 +26,20 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void calculateBmi() {
     double weight = double.tryParse(_weightController.text) ?? 0;
     double height = double.tryParse(_heightController.text) ?? 0;
 
     setState(() {
-      if (weight == null || height == null) bmi = 0;
-      bmi = weight / (height * height);
+      if (weight == double.nan || height == double.nan || height == 0)
+        bmi = 0;
+      else
+        bmi = weight / (height * height);
     });
   }
 
