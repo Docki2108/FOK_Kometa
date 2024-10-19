@@ -26,8 +26,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_datetime_picker: ^1.5.1
-  flutter_localizations: 
-    sdk: flutter
+  
   flutter_rounded_date_picker: ^3.0.2
   flutter_svg: ^2.0.5
   flutter_time_picker_spinner: ^2.0.0

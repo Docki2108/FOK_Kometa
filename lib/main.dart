@@ -9,7 +9,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'view/android_app/registration_page.dart';
 import 'view/windows_app/win_login_page.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'view/windows_app/win_menu_page.dart';
 
@@ -24,10 +23,6 @@ void main() async {
         child: Consumer<ThemeNotifier>(
           builder: (context, ThemeNotifier notifier, child) {
             return MaterialApp(
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
               supportedLocales: const [
                 Locale('ru', 'RU'),
               ],
