@@ -8,7 +8,7 @@
 Версия Dart 3.5.1
 
 Необходимость настойки дополнительных инструментов:
-Supabase(postgresql)
-Hasura (graphQL)
-pgAdmin 4
+Supabase(postgresql),
+Hasura (graphQL),
+pgAdmin 4,
 Python API - https://github.com/Docki2108/MyBackendOnPy (+ mobile reset password - SMSC API)
