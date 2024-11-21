@@ -12,3 +12,6 @@ Supabase(postgresql),
 Hasura (graphQL),
 pgAdmin 4,
 Python API - https://github.com/Docki2108/MyBackendOnPy (+ mobile reset password - SMSC API)
+
+Схема БД:
+![Рисунок1](https://github.com/user-attachments/assets/f3a1e790-6618-4e54-b379-af1d91b50c09)
